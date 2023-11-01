@@ -69,10 +69,27 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             double frontRightPower = (rotY - rotX - rx) / denominator;
             double backRightPower = (rotY + rotX - rx) / denominator;
 
-            motorFL.setPower(frontLeftPower);
-            motorBL.setPower(backLeftPower);
-            motorFR.setPower(frontRightPower);
-            motorBR.setPower(backRightPower);
+            if(gamepad1.right_trigger != 0) {
+                motorFL.setPower(frontLeftPower);
+                motorBL.setPower(backLeftPower);
+                motorFR.setPower(frontRightPower);
+                motorBR.setPower(backRightPower);
+            }
+
+            if(gamepad1.left_trigger != 0) {
+                motorFL.setPower(frontLeftPower *.3);
+                motorBL.setPower(backLeftPower *.3);
+                motorFR.setPower(frontRightPower *.3);
+                motorBR.setPower(backRightPower *.3);
+            }
+            else {
+                    motorFL.setPower(frontLeftPower * .7);
+                    motorBL.setPower(backLeftPower * .7);
+                    motorFR.setPower(frontRightPower *.7);
+                    motorBR.setPower(backRightPower * .7);
+
+            }
+
 
 
 
