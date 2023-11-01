@@ -26,7 +26,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name="EngiNERDs Control FC", group="Linear Opmode")
+@TeleOp(name="EngiNERDs Control Field Centric", group="Linear Opmode")
 //@Disabled
 public class EngiNERDs_Control_FC extends LinearOpMode {
     @Override

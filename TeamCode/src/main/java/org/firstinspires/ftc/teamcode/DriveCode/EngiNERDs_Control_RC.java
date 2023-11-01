@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name="EngiNERDs Control RC", group="Linear Opmode")
+@TeleOp(name="EngiNERDs Control Robot Centric", group="Linear Opmode")
 //@Disabled
 
 public class EngiNERDs_Control_RC extends LinearOpMode {
