@@ -131,7 +131,7 @@ public class MeepMeepTestingNormal {
 
                                 .splineTo(new Vector2d(-36.00, -32.00), Math.toRadians(90.00))
                                 .setReversed(true)
-                                .splineTo(new Vector2d(-31.18, -34.15), Math.toRadians(8.95))
+                                .splineTo(new Vector2d(-31.18, -36.15), Math.toRadians(8.95))
                                 .splineToLinearHeading(new Pose2d(55.00, -35.00, Math.toRadians(-180.00)), Math.toRadians(0.00))
                                 .setReversed(false)
                                 .lineToConstantHeading(new Vector2d(-61.50, -35.90))
