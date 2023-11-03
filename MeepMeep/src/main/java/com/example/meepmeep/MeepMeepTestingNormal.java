@@ -21,39 +21,23 @@ public class MeepMeepTestingNormal {
                 .followTrajectorySequence(drive ->
                                 drive.trajectorySequenceBuilder(new Pose2d(-36, 60, Math.toRadians(270.00)))
 
-                                        // Spline to drop of Purple Pixel
-                                        .splineTo(new Vector2d(-36.00, 32.00), Math.toRadians(270.00))
+                                        .splineTo(new Vector2d(-36, 32.00), Math.toRadians(270.00))
                                         .setReversed(true)
-
-                                        // Spline to drop off the Orange Pixel at the backboard (1)
-                                        .splineToLinearHeading(new Pose2d(52.00, 35.00, Math.toRadians(540.00)), Math.toRadians(360.00))
+                                        .splineTo(new Vector2d(-31.18, 34.15), Math.toRadians(8.95))
+                                        .splineToLinearHeading(new Pose2d(55.00, 35.00, Math.toRadians(-180.00)), Math.toRadians(0.00))
                                         .setReversed(false)
-
-                                        // Spline to the stack (1)
-                                        .splineToConstantHeading(new Vector2d(-15.95, 62.19), Math.toRadians(181.61))
-                                        .splineToConstantHeading(new Vector2d(-62.37, 35.5), Math.toRadians(180.63))
+                                        .lineToConstantHeading(new Vector2d(-61.50, 35.90))
                                         .setReversed(true)
-
-                                        // Spline to the backboard (2)
-                                        .splineToConstantHeading(new Vector2d(52.00, 35.00), Math.toRadians(-1.05))
+                                        .splineToConstantHeading(new Vector2d(55.00, 35.00), Math.toRadians(-0.80))
                                         .setReversed(false)
-
-                                        // Spline to the stack (2)
-                                        .splineToConstantHeading(new Vector2d(-62.37, 35.5), Math.toRadians(182.02))
+                                        .lineToConstantHeading(new Vector2d(-61.50, 35.90))
                                         .setReversed(true)
-
-                                        // Spline to the backboard (3)
-                                        .splineToConstantHeading(new Vector2d(52.00, 35.00), Math.toRadians(-1.05))
+                                        .splineToConstantHeading(new Vector2d(55.00, 35.00), Math.toRadians(-0.80))
                                         .setReversed(false)
-
-                                        // Spline to the stack (3)
-                                        .splineToConstantHeading(new Vector2d(-62.37, 35.5), Math.toRadians(182.02))
+                                        .lineToConstantHeading(new Vector2d(-61.50, 35.90))
                                         .setReversed(true)
-
-                                        // Spline to the backboard (4)
-                                        .splineToConstantHeading(new Vector2d(52.00, 35.00), Math.toRadians(-1.05))
+                                        .splineToConstantHeading(new Vector2d(55.00, 35.00), Math.toRadians(-0.80))
                                         .setReversed(false)
-
                                         .build()
                 );
 
@@ -74,35 +58,19 @@ public class MeepMeepTestingNormal {
                                 .splineToLinearHeading(new Pose2d(52.00, 35.00, Math.toRadians(540.00)), Math.toRadians(360.00))
                                 .setReversed(false)
 
-                                // Spline to the stack (1)
-                                .splineToConstantHeading(new Vector2d(-15.95, 62.19), Math.toRadians(181.61))
-                                .splineToConstantHeading(new Vector2d(-62.37, 35.5), Math.toRadians(180.63))
+                                .splineToConstantHeading(new Vector2d(-22.93, 59.36), Math.toRadians(194.04))
+                                .splineToConstantHeading(new Vector2d(-61.50, 35.90), Math.toRadians(180.00))
                                 .setReversed(true)
-
-                                // Spline to the backboard (2)
-                                .splineToConstantHeading(new Vector2d(52.00, 35.00), Math.toRadians(-1.05))
+                                .splineToConstantHeading(new Vector2d(55.00, 35.00), Math.toRadians(-0.80))
                                 .setReversed(false)
-
-                                // Spline to the stack (2)
-                                .splineToConstantHeading(new Vector2d(-62.37, 35.5), Math.toRadians(182.02))
+                                .lineToConstantHeading(new Vector2d(-61.50, 35.90))
                                 .setReversed(true)
-
-                                // Spline to the backboard (3)
-                                .splineToConstantHeading(new Vector2d(52.00, 35.00), Math.toRadians(-1.05))
+                                .splineToConstantHeading(new Vector2d(55.00, 35.00), Math.toRadians(-0.80))
                                 .setReversed(false)
-
-                                // Spline to the stack (3)
-                                .splineToConstantHeading(new Vector2d(-62.37, 35.5), Math.toRadians(182.02))
+                                .lineToConstantHeading(new Vector2d(-61.50, 35.90))
                                 .setReversed(true)
-
-                                // Spline to the backboard (4)
-                                .splineToConstantHeading(new Vector2d(52.00, 35.00), Math.toRadians(-1.05))
+                                .splineToConstantHeading(new Vector2d(55.00, 35.00), Math.toRadians(-0.80))
                                 .setReversed(false)
-
-
-
-
-
 
                                 .build()
                 );
@@ -161,27 +129,23 @@ public class MeepMeepTestingNormal {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-36, -60, Math.toRadians(90)))
 
-                                .splineTo(new Vector2d(-36.00, -26.89), Math.toRadians(90.00))
+                                .splineTo(new Vector2d(-36.00, -32.00), Math.toRadians(90.00))
                                 .setReversed(true)
-                                .splineTo(new Vector2d(-23.12, -36.90), Math.toRadians(7.03))
-                                .splineToLinearHeading(new Pose2d(61.43, -35.95, Math.toRadians(00)), Math.toRadians(0.00))
-
-                                // Spline to the stack (2)
-                                .splineToConstantHeading(new Vector2d(-62.37, -35.5), Math.toRadians(182.02))
-                                .setReversed(true)
-
-                                // Spline to the backboard (3)
-                                .splineToConstantHeading(new Vector2d(52.00, -35.00), Math.toRadians(-1.05))
+                                .splineTo(new Vector2d(-31.18, -34.15), Math.toRadians(8.95))
+                                .splineToLinearHeading(new Pose2d(55.00, -35.00, Math.toRadians(-180.00)), Math.toRadians(0.00))
                                 .setReversed(false)
-
-                                // Spline to the stack (3)
-                                .splineToConstantHeading(new Vector2d(-62.37, -35.5), Math.toRadians(182.02))
+                                .lineToConstantHeading(new Vector2d(-61.50, -35.90))
                                 .setReversed(true)
-
-                                // Spline to the backboard (4)
-                                .splineToConstantHeading(new Vector2d(52.00, -35.00), Math.toRadians(-1.05))
+                                .splineToConstantHeading(new Vector2d(55.00, -35.00), Math.toRadians(-0.80))
                                 .setReversed(false)
-
+                                .lineToConstantHeading(new Vector2d(-61.50, -35.90))
+                                .setReversed(true)
+                                .splineToConstantHeading(new Vector2d(55.00, -35.00), Math.toRadians(-0.80))
+                                .setReversed(false)
+                                .lineToConstantHeading(new Vector2d(-61.50, -35.90))
+                                .setReversed(true)
+                                .splineToConstantHeading(new Vector2d(55.00, -35.00), Math.toRadians(-0.80))
+                                .setReversed(false)
                                 .build()
                 );
 
@@ -190,10 +154,10 @@ public class MeepMeepTestingNormal {
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-               .addEntity(RedLeft)
-                //.addEntity(RedRight)
-                //.addEntity(BlueLeft)
-                //.addEntity(BlueRight)
+                .addEntity(RedLeft)
+                .addEntity(RedRight)
+                .addEntity(BlueLeft)
+                .addEntity(BlueRight)
                 .start();
     }
 }
