@@ -19,11 +19,12 @@ public class GearServo_Test extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            if (gamepad2.left_stick_y <= -0.5) {
-                GearServo.setPosition((GearServo.getPosition() + 0.0005));
+            if(Math.abs(gamepad2.left_stick_y) <= -0.5) {
+                GearServo.setPosition((GearServo.getPosition() + 0.0005 * Math.signum(gamepad2.left_stick_y)));
             }
-            if (gamepad2.left_stick_y >= 0.5) {
-                GearServo.setPosition((GearServo.getPosition() - 0.0005));
+
+            if(Math.abs(gamepad2.left_stick_y) >= 0.5) {
+                GearServo.setPosition((GearServo.getPosition() - 0.0005 * Math.signum(gamepad2.left_stick_y)));
             }
 
             telemetry.addData("GearServo Position", GearServo.getPosition());
