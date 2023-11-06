@@ -1,19 +1,5 @@
 package org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables;
 
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kV;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kStatic;
-
-
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.encoderTicksToInches;
-
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -31,6 +17,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
+import com.qualcomm.hardware.bosch.BHI260IMU;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -50,15 +37,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kV;
+
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0); //4, 0, 0
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(25, 0, 0); // 5, 0, 0
 
-    public static double LATERAL_MULTIPLIER = 1;
+    public static double LATERAL_MULTIPLIER = 1.35705375383392;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
@@ -75,6 +74,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private List<DcMotorEx> motors;
 
     private BNO055IMU imu;
+    private BHI260IMU IMU;
     private VoltageSensor batteryVoltageSensor;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
@@ -91,16 +91,13 @@ public class SampleMecanumDrive extends MecanumDrive {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
-
-
-        // TODO: if your hub is mounted vertically, remap the IMU axes so that the z-axis points
-        // upward (normal to the floor) using a command like the following:
-        // BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
-
         leftFront = hardwareMap.get(DcMotorEx.class, "motorFL");
         leftRear = hardwareMap.get(DcMotorEx.class, "motorBL");
         rightRear = hardwareMap.get(DcMotorEx.class, "motorBR");
         rightFront = hardwareMap.get(DcMotorEx.class, "motorFR");
+
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
@@ -119,12 +116,9 @@ public class SampleMecanumDrive extends MecanumDrive {
         if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
             setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
         }
+        setLocalizer(new org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.StandardTrackingWheelLocalizer(hardwareMap));
 
-        // TODO: reverse any motors using DcMotor.setDirection()
-
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);
     }
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
@@ -273,7 +267,30 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public double getRawExternalHeading() {
-        return imu.getAngularOrientation().firstAngle;
+        return 0;
+    }
+
+    @Override
+    public Double getExternalHeadingVelocity() {
+        // TODO: This must be changed to match your configuration
+        //                           | Z axis
+        //                           |
+        //     (Motor Port Side)     |   / X axis
+        //                       ____|__/____
+        //          Y axis     / *   | /    /|   (IO Side)
+        //          _________ /______|/    //      I2C
+        //                   /___________ //     Digital
+        //                  |____________|/      Analog
+        //
+        //                 (Servo Port Side)
+        //
+        // The positive x axis points toward the USB port(s)
+        //
+        // Adjust the axis rotation rate as necessary
+        // Rotate about the z axis is the default assuming your REV Hub/Control Hub is laying
+        // flat on a surface
+
+        return (double) imu.getAngularVelocity().zRotationRate;
     }
 
     public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {
