@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables;
+package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
@@ -55,9 +55,9 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 0.01693;
-    public static double kA = 0.0025;
-    public static double kStatic = 0.06912;
+    public static double kV = 0.0183;
+    public static double kA = 0.0028;
+    public static double kStatic = 0.01;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,

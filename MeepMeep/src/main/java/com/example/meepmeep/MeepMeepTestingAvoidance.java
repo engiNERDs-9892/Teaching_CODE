@@ -158,9 +158,9 @@ public class MeepMeepTestingAvoidance {
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-                .addEntity(RedLeft)
+                //.addEntity(RedLeft)
                 .addEntity(RedRight)
-                .addEntity(BlueLeft)
+                //.addEntity(BlueLeft)
                 .addEntity(BlueRight)
                 .start();
     }

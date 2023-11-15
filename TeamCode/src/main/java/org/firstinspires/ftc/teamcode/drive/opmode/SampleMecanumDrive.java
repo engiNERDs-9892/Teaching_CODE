@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables;
+package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import androidx.annotation.NonNull;
 
@@ -37,25 +37,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.DriveConstants.kV;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.kV;
 
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0); //4, 0, 0
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(25, 0, 0); // 5, 0, 0
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(4.0, 0, 0); //4, 0, 0
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(5.0, 0, 0); // 5, 0, 0
 
     public static double LATERAL_MULTIPLIER = 1.35705375383392;
 
@@ -116,7 +116,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
             setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
         }
-        setLocalizer(new org.firstinspires.ftc.teamcode.drive.Tuning.RRVariables.StandardTrackingWheelLocalizer(hardwareMap));
+        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);
     }
