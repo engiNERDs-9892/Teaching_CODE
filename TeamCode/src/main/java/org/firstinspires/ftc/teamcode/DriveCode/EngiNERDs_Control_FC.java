@@ -247,6 +247,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
+
             // Toggle / Close & Open for the Right claw
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
                 // This will set intakeToggle to true if it was previously false
@@ -265,6 +266,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
+
             // Toggle / Close & Open for the Left claw
             if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
                 // This will set intakeToggle to true if it was previously false
@@ -281,6 +283,8 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             else {
                 LeftClaw.setPosition(Close);
             }
+
+
 
             // Statement = If you are pushing up on the right joystick, then rotate the arms behind the robot
             if(Math.abs(gamepad2.right_stick_y) <= -0.5) {
