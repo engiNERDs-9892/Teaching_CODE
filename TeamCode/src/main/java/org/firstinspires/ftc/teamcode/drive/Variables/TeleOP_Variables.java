@@ -14,9 +14,9 @@ public class TeleOP_Variables {
     public static DcMotor motorRiseyRise;
     public static Servo FlippyFlip;
     public static Servo FlooppyFloop;
-    public static Servo GearServo;
     public static Servo LeftClaw;
     public static Servo RightClaw;
+    public static Servo GearServo;
 
 
     // Position for the Claws to close

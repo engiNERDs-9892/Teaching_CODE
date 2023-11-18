@@ -51,13 +51,14 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         motorLiftyLift = hardwareMap.dcMotor.get("motorLiftyLift");
         motorRiseyRise = hardwareMap.dcMotor.get("motorRiseyRise");
 
+
         // Declare our Servos
         // Make sure your ID's match your configuration
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
-        GearServo = hardwareMap.servo.get("GearServo");
         FlippyFlip = hardwareMap.servo.get("FlippyFlip");
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        GearServo = hardwareMap.servo.get("GearServo");
 
         // Declare our IMU (Inertial Motion Unit)
         // Make sure your ID's match your configuration
@@ -79,8 +80,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         LeftClaw.setDirection(Servo.Direction.REVERSE);
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
-
-        // Still testing the wrist joint
         GearServo.setDirection(Servo.Direction.REVERSE);
 
         // Adjust the orientation parameters to match your robot (Adjust which way the Control Hub is facing)
@@ -117,6 +116,8 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
         boolean Left_Claw_Toggle = false;
 
+        boolean Arm_Toggle = false;
+
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
@@ -126,6 +127,9 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+
+            double RaiseandLower = -gamepad2.left_stick_y;
+
 
             // A way to store values that gamepad enters
             previousGamepad1.copy(currentGamepad1);
@@ -187,66 +191,78 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
             }
 
-            // Statement = If encoder value is between 100 and 7700 be able to go both up and down
+
             if (LiftyLiftPos >= slideySlideMin && RiseyRisePos >= slideySlideMin
                     && LiftyLiftPos <= slideySlideMax && RiseyRisePos <= slideySlideMax) {
 
                 // If you are trying to raise the linear Slide
                 // Then raise the linear slides!
-                if (gamepad2.right_trigger != 0) {
-                    motorRiseyRise.setPower(1);
-                    motorLiftyLift.setPower(1);
+                if (RaiseandLower < -0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
                 }
 
 
                 // if you are trying to lower the linear Slide
                 // Then lower the linear slides!
-                if (gamepad2.left_trigger != 0) {
-                    motorRiseyRise.setPower(-1);
-                    motorLiftyLift.setPower(-1);
+                if (RaiseandLower > 0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
                 }
 
                 // If you are not pushing on the joystick the power = 0
-                else {
+                // This is mainly to prevent stick drift
+                if ((RaiseandLower >= -0.05) && (RaiseandLower <= 0.05)) {
                     motorRiseyRise.setPower(0);
                     motorLiftyLift.setPower(0);
                 }
             }
 
-            // Statement = If encoder value is less than 100, on be able to Raise Linear Slides
             if (LiftyLiftPos < slideySlideMin || RiseyRisePos < slideySlideMin) {
 
-                // If you are trying to raise the linear Slide
-                // Then raise the linear slides!
-                if (gamepad2.right_trigger != 0) {
-                    motorRiseyRise.setPower(1);
-                    motorLiftyLift.setPower(1);
-                }
-                // If you are not pushing on the joystick the power = 0
-                else {
+                if (RaiseandLower > 0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
+                } else {
                     motorRiseyRise.setPower(0);
                     motorLiftyLift.setPower(0);
                 }
 
             }
 
-            // Statement = If encoder value is more than 7700, on be able to Lower Linear Slides
             if (LiftyLiftPos > slideySlideMax || RiseyRisePos > slideySlideMax) {
-
-                // if you are trying to lower the linear Slide
-                // Then lower the linear slides!
-                if (gamepad2.left_trigger !=0) {
-                    motorRiseyRise.setPower(-1);
-                    motorLiftyLift.setPower(-1);
-                }
-                // If you are not pushing on the joystick the power = 0
-                else {
+                if (RaiseandLower < -0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
+                } else {
                     motorRiseyRise.setPower(0);
                     motorLiftyLift.setPower(0);
                 }
             }
 
 
+
+            // Toggle / Raise and Lower for the Arms
+            if (currentGamepad2.a && !previousGamepad2.a) {
+                // This will set intakeToggle to true if it was previously false
+                // and intakeToggle to false if it was previously true,
+                // providing a toggling behavior.
+                Arm_Toggle = !Arm_Toggle;
+            }
+            // Opens the claws after the 1st press of the bumper and alternates once pressed again
+            if (Arm_Toggle) {
+                FlooppyFloop.setPosition(.5);
+                FlippyFlip.setPosition(.5);
+            }
+            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
+            else {
+                FlooppyFloop.setPosition(.02);
+                FlippyFlip.setPosition(.98);
+            }
+
+
+
+            // Claws
 
             // Toggle / Close & Open for the Right claw
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
@@ -285,28 +301,26 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
-
-            // Statement = If you are pushing up on the right joystick, then rotate the arms behind the robot
-            if(Math.abs(gamepad2.right_stick_y) <= -0.5) {
-
-                // This rotates the arms Clockwise so that the arms rotate behind the robot (Facing the backboard idealy)
-                // FlippyFlip adds to its current position due to the value starting at zero
-                FlippyFlip.setPosition((FlippyFlip.getPosition() + 0.0005 * Math.signum(gamepad2.right_stick_y)));
-
-                // FloopyFloop subtracts from its current position due to the value starting at One
-                FlooppyFloop.setPosition((FlooppyFloop.getPosition() - 0.0005 * Math.signum(gamepad2.right_stick_y)));
-            }
-
             // Statement = If you are pushing down on the right joystick, then rotate the arms to in front of the robot
             if(Math.abs(gamepad2.right_stick_y) >= 0.5) {
 
                 // This rotates the arms Counter Clockwise so that the arms rotate in front of the robot
                 // FlippyFlip subtracts from its current position due to the value starting at zero
-                FlippyFlip.setPosition((FlippyFlip.getPosition() - 0.0005 * Math.signum(gamepad2.right_stick_y)));
+                GearServo.setPosition((GearServo.getPosition() - 0.0005 * Math.signum(gamepad2.right_stick_y)));
 
                 // FloopyFloop adds to its current position due to the value starting at One
-                FlooppyFloop.setPosition((FlooppyFloop.getPosition() + 0.0005 * Math.signum(gamepad2.right_stick_y)));
+                GearServo.setPosition((GearServo.getPosition() + 0.0005 * Math.signum(gamepad2.right_stick_y)));
             }
+
+
+            // Telemetry for the drivers so they can see if the system is running smoothly
+            telemetry.addData("LiftyLift Position", LiftyLiftPos);
+            telemetry.addData("RiseyRise Position", RiseyRisePos);
+            telemetry.addData("Left Claw Position", LeftClaw.getPosition());
+            telemetry.addData("Right Claw Position", RightClaw.getPosition());
+            telemetry.addData("Arm Position", FlippyFlip.getPosition());
+            telemetry.addData("Arm Position", FlooppyFloop.getPosition());
+            updateTelemetry(telemetry);
 
 
 
@@ -316,14 +330,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             if (gamepad1.back) {
                 imu.resetYaw();
             }
-
-            // Telemetry for the drivers so they can see if the system is running smoothly
-            telemetry.addData("Arm Position Flippy", FlippyFlip.getPosition());
-            telemetry.addData("Arm Position Floopy", FlooppyFloop.getPosition());
-            telemetry.addData("Left Claw Position", LeftClaw.getPosition());
-            telemetry.addData("Right Claw Position", RightClaw.getPosition());
-            telemetry.addData("LiftyLift Position", LiftyLiftPos);
-            telemetry.addData("RiseyRise Position", RiseyRisePos);
         }
     }
 }

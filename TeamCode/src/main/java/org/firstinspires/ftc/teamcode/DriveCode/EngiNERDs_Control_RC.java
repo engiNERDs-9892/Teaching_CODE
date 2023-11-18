@@ -16,6 +16,7 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.mo
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMax;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMin;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -23,8 +24,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Testing.Driver_Control.GearServo_Test;
 
-@TeleOp(name="EngiNERDs Control Robot Centric", group="Linear Opmode")
+
+@TeleOp(name="EngiNERDs Control RC", group="Linear Opmode")
 //@Disabled
 
 public class EngiNERDs_Control_RC extends LinearOpMode {
@@ -42,8 +45,7 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         // HardwareMap Section (Used to talk to the driver hub for the configuration)
 
-        // Declare our Motors
-        // Make sure your ID's match your configuration
+        // Motors
 
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
@@ -52,21 +54,16 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
         motorLiftyLift = hardwareMap.dcMotor.get("motorLiftyLift");
         motorRiseyRise = hardwareMap.dcMotor.get("motorRiseyRise");
 
-        // Declare our Servos
-        // Make sure your ID's match your configuration
-
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
-        GearServo = hardwareMap.servo.get("GearServo");
         FlippyFlip = hardwareMap.servo.get("FlippyFlip");
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        GearServo = hardwareMap.servo.get("GearServo");
 
-        // Resets the Encoder Position to 0 so that we can use Encoders for our Driver Control instead
-        // of Magnetic Limit Switches
+
         motorRiseyRise.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLiftyLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // Tells the motors to Run using those specific Encoders
         motorRiseyRise.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLiftyLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -78,18 +75,15 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
         motorRiseyRise.setPower(0);
         motorLiftyLift.setPower(0);
 
-        // Setting the position for the Servos for Driver Control
-        LeftClaw.setPosition(0);
+        LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
-        FlooppyFloop.setPosition(1);
-        FlippyFlip.setPosition(0);
+        FlippyFlip.setPosition(.98);
+        FlooppyFloop.setPosition(.02);
+        GearServo.setPosition(0);
 
 
-        // Reverse the right side motors. This may be wrong for your setup.
-        // If your robot moves backwards when commanded to go forwards,
-        // reverse the left side instead.
-        // See the note about this earlier on this page.
-        // Setting the motor / servo Direction, so the motors or servos rotate correctly (Default Direction = Forward)
+
+        // Setting the motor Direction, so the motors rotate correctly (Default Direction = Forward)
         motorFL.setDirection(DcMotor.Direction.FORWARD);
         motorFR.setDirection(DcMotor.Direction.REVERSE);
         motorBR.setDirection(DcMotor.Direction.REVERSE);
@@ -102,11 +96,12 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-        // Toggels so that the Claws can be opened and closed using the same button
+
         boolean Right_Claw_Toggle = false;
 
         boolean Left_Claw_Toggle = false;
 
+        boolean Arm_Toggle = false;
 
         waitForStart();
 
@@ -130,6 +125,9 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             // Variable used for Regular speed (To find the direction that the stick needs to be in)
             double max;
 
+            // Joystick Values for the Linear slides
+            double RaiseandLower = -gamepad2.right_stick_y;
+
             // The code below talks about the Y-axis (Up and Down / Forward and Backwards)
 
             double axial = gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
@@ -141,6 +139,7 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             // The code below talks about Z-Axis (Spinning around)
 
             double yaw = -gamepad1.right_stick_x;
+
 
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power
@@ -170,97 +169,106 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
 
 
+            // Setting the power for Slow Speed
+            if (gamepad1.left_trigger != 0) {
+                motorFL.setPower(leftFrontPower * .2);
+                motorBL.setPower(leftBackPower * .2);
+                motorBR.setPower(rightBackPower * .2);
+                motorFR.setPower(rightFrontPower * .2);
 
+            }
 
-            // If the Right Trigger is pressed set the Values of the motor to 100% power
-            if (gamepad1.right_trigger != 0) {
+            // Setting the power for Fast Speed
+            else if (gamepad1.right_trigger != 0) {
 
                 motorFL.setPower(leftFrontPower);
                 motorBL.setPower(leftBackPower);
                 motorBR.setPower(rightBackPower);
                 motorFR.setPower(rightFrontPower);
-
             }
 
-            // If the Left Trigger is pressed set the Values of the motor to 30% power
-            else if (gamepad1.left_trigger != 0) {
-                motorFL.setPower(leftFrontPower * .3);
-                motorBL.setPower(leftBackPower * .3);
-                motorBR.setPower(rightBackPower * .3);
-                motorFR.setPower(rightFrontPower * .3);
-
-            }
-
-            // If No Trigger is pressed set the Values of the motor to 70% (Base value for motors)
+            // Setting the power for Regular Speed
             else {
-                motorFL.setPower(leftFrontPower * .7);
-                motorBL.setPower(leftBackPower * .7);
-                motorFR.setPower(rightFrontPower * .7);
-                motorBR.setPower(rightBackPower * .7);
+                motorFL.setPower(leftFrontPower * .6);
+                motorBL.setPower(leftBackPower * .6);
+                motorFR.setPower(rightFrontPower * .6);
+                motorBR.setPower(rightBackPower * .6);
             }
 
 
-
-            // Statement = If encoder value is between 100 and 7700 be able to go both up and down
             if (LiftyLiftPos >= slideySlideMin && RiseyRisePos >= slideySlideMin
                     && LiftyLiftPos <= slideySlideMax && RiseyRisePos <= slideySlideMax) {
 
                 // If you are trying to raise the linear Slide
                 // Then raise the linear slides!
-                if (gamepad2.right_trigger != 0) {
-                    motorRiseyRise.setPower(1);
-                    motorLiftyLift.setPower(1);
+                if (RaiseandLower < -0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
                 }
 
 
                 // if you are trying to lower the linear Slide
                 // Then lower the linear slides!
-                if (gamepad2.left_trigger != 0) {
-                    motorRiseyRise.setPower(-1);
-                    motorLiftyLift.setPower(-1);
+                if (RaiseandLower > 0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
                 }
 
                 // If you are not pushing on the joystick the power = 0
-                else {
+                // This is mainly to prevent stick drift
+                if ((RaiseandLower >= -0.05) && (RaiseandLower <= 0.05)) {
                     motorRiseyRise.setPower(0);
                     motorLiftyLift.setPower(0);
                 }
             }
 
-            // Statement = If encoder value is less than 100, on be able to Raise Linear Slides
             if (LiftyLiftPos < slideySlideMin || RiseyRisePos < slideySlideMin) {
 
-                // If you are trying to raise the linear Slide
-                // Then raise the linear slides!
-                if (gamepad2.right_trigger != 0) {
-                    motorRiseyRise.setPower(1);
-                    motorLiftyLift.setPower(1);
-                }
-                // If you are not pushing on the joystick the power = 0
-                else {
+                if (RaiseandLower > 0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
+                } else {
                     motorRiseyRise.setPower(0);
                     motorLiftyLift.setPower(0);
                 }
 
             }
 
-            // Statement = If encoder value is more than 7700, on be able to Lower Linear Slides
             if (LiftyLiftPos > slideySlideMax || RiseyRisePos > slideySlideMax) {
-
-                // if you are trying to lower the linear Slide
-                // Then lower the linear slides!
-                if (gamepad2.left_trigger !=0) {
-                    motorRiseyRise.setPower(-1);
-                    motorLiftyLift.setPower(-1);
-                }
-                // If you are not pushing on the joystick the power = 0
-                else {
+                if (RaiseandLower < -0.05) {
+                    motorRiseyRise.setPower(RaiseandLower);
+                    motorLiftyLift.setPower(RaiseandLower);
+                } else {
                     motorRiseyRise.setPower(0);
                     motorLiftyLift.setPower(0);
                 }
             }
 
 
+
+
+
+        // Toggle / Raise and Lower for the Arms
+            if (currentGamepad2.a && !previousGamepad2.a) {
+                // This will set intakeToggle to true if it was previously false
+                // and intakeToggle to false if it was previously true,
+                // providing a toggling behavior.
+                Arm_Toggle = !Arm_Toggle;
+            }
+            // Opens the claws after the 1st press of the bumper and alternates once pressed again
+            if (Arm_Toggle) {
+                FlooppyFloop.setPosition(.5);
+                FlippyFlip.setPosition(.5);
+            }
+            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
+            else {
+                FlooppyFloop.setPosition(.02);
+                FlippyFlip.setPosition(.98);
+            }
+
+
+
+            // Claws
 
             // Toggle / Close & Open for the Right claw
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
@@ -298,43 +306,15 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
                 LeftClaw.setPosition(Close);
             }
 
+            if (Math.abs(gamepad2.left_stick_y) >=0.5)
+                GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
 
-
-            // Statement = If you are pushing up on the right joystick, then rotate the arms behind the robot
-            if(Math.abs(gamepad2.right_stick_y) <= -0.5) {
-
-                // This rotates the arms Clockwise so that the arms rotate behind the robot (Facing the backboard idealy)
-                // FlippyFlip adds to its current position due to the value starting at zero
-                FlippyFlip.setPosition((FlippyFlip.getPosition() + 0.0005 * Math.signum(gamepad2.right_stick_y)));
-
-                // FloopyFloop subtracts from its current position due to the value starting at One
-                FlooppyFloop.setPosition((FlooppyFloop.getPosition() - 0.0005 * Math.signum(gamepad2.right_stick_y)));
-            }
-
-            // Statement = If you are pushing down on the right joystick, then rotate the arms to in front of the robot
-            if(Math.abs(gamepad2.right_stick_y) >= 0.5) {
-
-                // This rotates the arms Counter Clockwise so that the arms rotate in front of the robot
-                // FlippyFlip subtracts from its current position due to the value starting at zero
-                FlippyFlip.setPosition((FlippyFlip.getPosition() - 0.0005 * Math.signum(gamepad2.right_stick_y)));
-
-                // FloopyFloop adds to its current position due to the value starting at One
-                FlooppyFloop.setPosition((FlooppyFloop.getPosition() + 0.0005 * Math.signum(gamepad2.right_stick_y)));
-            }
-
-
-            // Telemetry for the drivers so they can see if the system is running smoothly
             telemetry.addData("LiftyLift Position", LiftyLiftPos);
             telemetry.addData("RiseyRise Position", RiseyRisePos);
             telemetry.addData("Left Claw Position", LeftClaw.getPosition());
-            telemetry.addData("Right Claw Position", RightClaw.getPosition());
-            telemetry.addData("Arm Position", FlippyFlip.getPosition());
-            telemetry.addData("Arm Position", FlooppyFloop.getPosition());
+            telemetry.addData("Left Claw Position", RightClaw.getPosition());
+            telemetry.addData("Gear", GearServo.getPosition());
             updateTelemetry(telemetry);
         }
     }
 }
-
-
-
-
