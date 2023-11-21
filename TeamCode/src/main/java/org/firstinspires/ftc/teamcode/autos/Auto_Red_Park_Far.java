@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Auto_Blue_Park_Far extends LinearOpMode {
+public class Auto_Red_Park_Far extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -29,9 +29,9 @@ public class Auto_Blue_Park_Far extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
-        FlooppyFloop.setPosition(.7);
-        FlippyFlip.setPosition(.3);
-        GearServo.setPosition(.2);
+        FlooppyFloop.setPosition(.5);
+        FlippyFlip.setPosition(.5);
+        GearServo.setPosition(.1);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -70,9 +70,9 @@ public class Auto_Blue_Park_Far extends LinearOpMode {
 
         TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPose)
                 .forward(3)
-                .strafeLeft(70)
+                .strafeRight(70)
                 .forward(37)
-                .strafeLeft(15)
+                .strafeRight(15)
                 .build();
 
             waitForStart();
