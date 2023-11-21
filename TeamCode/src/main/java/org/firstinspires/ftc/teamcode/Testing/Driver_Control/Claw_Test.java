@@ -58,19 +58,26 @@ public class Claw_Test extends LinearOpMode {
 
             // Toggle / Close & Open for the Right claw
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
+
                 // This will set intakeToggle to true if it was previously false
                 // and intakeToggle to false if it was previously true,
                 // providing a toggling behavior.
+
                 Right_Claw_Toggle = !Right_Claw_Toggle;
             }
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Right_Claw_Toggle) {
+
                 RightClaw.setPosition(Open);
+
             }
+
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
+
                 RightClaw.setPosition(Close);
+
             }
 
 
