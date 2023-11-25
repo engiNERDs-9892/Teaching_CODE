@@ -89,27 +89,9 @@ public class MeepMeepTestingNormal {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
 
-                                .splineTo(new Vector2d(12.00, -32.00), Math.toRadians(90.00))
-                                .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(52.00, -35.00, Math.toRadians(-180.00)), Math.toRadians(0.00))
-                                .setReversed(false)
-                                .splineToConstantHeading(new Vector2d(-22.93, -59.36), Math.toRadians(165.96))
-                                .splineToConstantHeading(new Vector2d(-61.81, -23.50), Math.toRadians(180.00))
-                                .setReversed(true)
-                                .lineToConstantHeading(new Vector2d(-61.70, -35.70))
-                                .lineToConstantHeading(new Vector2d(55.00, -34.00))
-                                .setReversed(false)
-                                .lineToConstantHeading(new Vector2d(-18.02, -35.95))
-                                .splineToConstantHeading(new Vector2d(-61.81, -23.50), Math.toRadians(180.00))
-                                .setReversed(true)
-                                .lineToConstantHeading(new Vector2d(-61.70, -35.70))
-                                .lineToConstantHeading(new Vector2d(55.00, -34.00))
-                                .setReversed(false).lineToConstantHeading(new Vector2d(-18.02, -35.95))
-                                .splineToConstantHeading(new Vector2d(-61.81, -23.50), Math.toRadians(180.00))
-                                .setReversed(true)
-                                .lineToConstantHeading(new Vector2d(-61.70, -35.70))
-                                .lineToConstantHeading(new Vector2d(55.00, -34.00))
-                                .setReversed(false)
+                                .splineToLinearHeading(new Pose2d(23, -42, Math.toRadians(60)), Math.toRadians(60))
+
+
 
                                 .build()
                 );
@@ -153,10 +135,10 @@ public class MeepMeepTestingNormal {
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-                .addEntity(RedLeft)
+                //.addEntity(RedLeft)
                 .addEntity(RedRight)
-                .addEntity(BlueLeft)
-                .addEntity(BlueRight)
+                //.addEntity(BlueLeft)
+                //.addEntity(BlueRight)
                 .start();
     }
 }

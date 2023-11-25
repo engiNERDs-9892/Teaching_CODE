@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.Testing.Auto;
 
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,7 +20,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Auto_Red extends LinearOpMode {
+public class Movement_Autos extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -41,46 +43,30 @@ public class Auto_Red extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-            Pose2d startPose = new Pose2d(0, 0, 0);
 
-            drive.setPoseEstimate(startPose);
+            Pose2d startPoseBlueLeft = new Pose2d(12, 60, Math.toRadians(-90.00));
+            Pose2d startPoseBlueRight = new Pose2d(-36, 60, Math.toRadians(-90.00));
+            Pose2d startPoseRedLeft = new Pose2d(-36, -60, Math.toRadians(90.00));
+            Pose2d startPoseRedRight = new Pose2d(12, -60, Math.toRadians(90.00));
 
-            TrajectorySequence redleftL = drive.trajectorySequenceBuilder(startPose)
-                    .forward(23)
-                    .turn(Math.toRadians(92))
-                    .forward(7)
-                    .addTemporalMarker(() -> {
-                        FlooppyFloop.setPosition(.03);
-                        FlippyFlip.setPosition(.97);
-                        sleep(1000);
-                        GearServo.setPosition(.85);
-                    })
-                    .waitSeconds(3)
-                    .back(40)
-                    .turn(Math.toRadians(184))
-                    .waitSeconds(10000)
-                    // Drop Orange
-                    .build();
-
-        TrajectorySequence redleftM = drive.trajectorySequenceBuilder(startPose)
-                .forward(23)
-                .turn(Math.toRadians(-92))
-                .build();
+            drive.setPoseEstimate(startPoseBlueLeft);
+            drive.setPoseEstimate(startPoseBlueRight);
+            drive.setPoseEstimate(startPoseRedLeft);
+            drive.setPoseEstimate(startPoseRedRight);
 
 
-        TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPose)
-                .strafeRight(12)
-                .forward(40)
-                .back(25)
-                .turn(Math.toRadians(10))
-                .back(4)
-                .strafeRight(18)
+        TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
+                .lineToConstantHeading(new Vector2d(25, -40))
+
+                .setReversed(true)
+                .splineToLinearHeading(new Pose2d(50, -40, Math.toRadians(0)), Math.toRadians(0.00))
+
                 .build();
 
             waitForStart();
 
             if (!isStopRequested())
-                drive.followTrajectorySequence(redleftR);
+                drive.followTrajectorySequence(redrightR);
 
 
 
