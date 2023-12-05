@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Ri
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,9 +30,9 @@ public class Auto_Red_Park extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
-        FlooppyFloop.setPosition(.7);
-        FlippyFlip.setPosition(.3);
-        GearServo.setPosition(.2);
+        FlooppyFloop.setPosition(.85);
+        FlippyFlip.setPosition(.15);
+        GearServo.setPosition(.5);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -41,41 +42,18 @@ public class Auto_Red_Park extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-            Pose2d startPose = new Pose2d(0, 0, 0);
+            Pose2d startPoseRedRight = new Pose2d(12, -60, Math.toRadians(90.00));
 
-            drive.setPoseEstimate(startPose);
+            drive.setPoseEstimate(startPoseRedRight);
 
-            TrajectorySequence redleftL = drive.trajectorySequenceBuilder(startPose)
-                    .forward(23)
-                    .turn(Math.toRadians(92))
-                    .forward(7)
-                    .addTemporalMarker(() -> {
-                        FlooppyFloop.setPosition(.03);
-                        FlippyFlip.setPosition(.97);
-                        sleep(1000);
-                        GearServo.setPosition(.85);
-                    })
-                    .waitSeconds(3)
-                    .back(40)
-                    .turn(Math.toRadians(184))
-                    .waitSeconds(10000)
-                    // Drop Orange
-                    .build();
-
-        TrajectorySequence redleftM = drive.trajectorySequenceBuilder(startPose)
-                .forward(23)
-                .turn(Math.toRadians(-92))
-                .build();
-
-
-        TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPose)
-                .strafeRight(45)
+        TrajectorySequence redleftpark = drive.trajectorySequenceBuilder(startPoseRedRight)
+                .lineToConstantHeading(new Vector2d(60,-60))
                 .build();
 
             waitForStart();
 
             if (!isStopRequested())
-                drive.followTrajectorySequence(redleftR);
+                drive.followTrajectorySequence(redleftpark);
 
 
 

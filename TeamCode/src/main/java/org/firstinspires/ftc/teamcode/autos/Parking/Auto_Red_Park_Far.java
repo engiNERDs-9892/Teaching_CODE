@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Ri
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,9 +30,9 @@ public class Auto_Red_Park_Far extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
-        FlooppyFloop.setPosition(.5);
-        FlippyFlip.setPosition(.5);
-        GearServo.setPosition(.1);
+        FlooppyFloop.setPosition(.85);
+        FlippyFlip.setPosition(.15);
+        GearServo.setPosition(.5);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -41,44 +42,29 @@ public class Auto_Red_Park_Far extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-            Pose2d startPose = new Pose2d(0, 0, 0);
+            Pose2d startPoseRedLeft = new Pose2d(-36, -60, Math.toRadians(90.00));
 
-            drive.setPoseEstimate(startPose);
-
-            TrajectorySequence redleftL = drive.trajectorySequenceBuilder(startPose)
-                    .forward(23)
-                    .turn(Math.toRadians(92))
-                    .forward(7)
-                    .addTemporalMarker(() -> {
-                        FlooppyFloop.setPosition(.03);
-                        FlippyFlip.setPosition(.97);
-                        sleep(1000);
-                        GearServo.setPosition(.85);
-                    })
-                    .waitSeconds(3)
-                    .back(40)
-                    .turn(Math.toRadians(184))
-                    .waitSeconds(10000)
-                    // Drop Orange
-                    .build();
-
-        TrajectorySequence redleftM = drive.trajectorySequenceBuilder(startPose)
-                .forward(23)
-                .turn(Math.toRadians(-92))
-                .build();
+            drive.setPoseEstimate(startPoseRedLeft);
 
 
-        TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPose)
-                .forward(3)
-                .strafeRight(70)
-                .forward(37)
-                .strafeRight(15)
+        TrajectorySequence redleftpark = drive.trajectorySequenceBuilder(startPoseRedLeft)
+                .waitSeconds(1)
+
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    FlooppyFloop.setPosition(0.10);
+                    FlippyFlip.setPosition(0.90);
+                })
+
+                .lineToConstantHeading(new Vector2d(-36,-57))
+                .lineToConstantHeading(new Vector2d(45,-60))
+                .lineToConstantHeading(new Vector2d(45,-10))
+                .lineToConstantHeading(new Vector2d(60,-10))
                 .build();
 
             waitForStart();
 
             if (!isStopRequested())
-                drive.followTrajectorySequence(redleftR);
+                drive.followTrajectorySequence(redleftpark);
 
 
 

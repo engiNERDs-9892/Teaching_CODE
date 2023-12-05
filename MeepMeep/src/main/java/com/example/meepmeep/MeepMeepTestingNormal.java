@@ -87,12 +87,11 @@ public class MeepMeepTestingNormal {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(60), Math.toRadians(60), 16.5)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90.00)))
-                                .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
-                                .lineToConstantHeading(new Vector2d(8, -32.5))
-                                .lineToConstantHeading(new Vector2d(0, -32.5))
-                                .lineToConstantHeading(new Vector2d(8, -30))
-                                .lineToLinearHeading(new Pose2d(53,-18,Math.toRadians(0)))
+                        drive.trajectorySequenceBuilder(new Pose2d(-36, -60, Math.toRadians(-90.00)))
+                                .lineToConstantHeading(new Vector2d(-36,-57))
+                                .lineToConstantHeading(new Vector2d(45,-60))
+                                .lineToConstantHeading(new Vector2d(45,-10))
+                                .lineToConstantHeading(new Vector2d(60,-10))
 
 
                                 // Left

@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.autos.Parking;
+package org.firstinspires.ftc.teamcode.Testing.Auto;
 
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -19,21 +19,20 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Auto_Blue_Park_Far extends LinearOpMode {
+public class Arm_Traj2 extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
         GearServo = hardwareMap.servo.get("GearServo");
         FlippyFlip = hardwareMap.servo.get("FlippyFlip");
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
-        FlooppyFloop.setPosition(.85);
-        FlippyFlip.setPosition(.15);
-        GearServo.setPosition(.5);
-        LeftClaw.setPosition(1);
+        FlooppyFloop.setPosition(0.97);
+        FlippyFlip.setPosition(0.03);
+        GearServo.setPosition(0.02);
+        LeftClaw.setPosition(.77);
         RightClaw.setPosition(0);
 
 
@@ -41,34 +40,29 @@ public class Auto_Blue_Park_Far extends LinearOpMode {
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
+        Pose2d startPose = new Pose2d(0, 0, 0);
+        drive.setPoseEstimate(startPose);
 
-            Pose2d startPoseBlueRight = new Pose2d(-36, 60, Math.toRadians(-90.00));
+        TrajectorySequence OrangePixelBackBoard = drive.trajectorySequenceBuilder(startPose)
+                .forward(1)
+                .waitSeconds(3)
 
-            drive.setPoseEstimate(startPoseBlueRight);
-
-
-        TrajectorySequence bluerightpark = drive.trajectorySequenceBuilder(startPoseBlueRight)
-                .waitSeconds(1)
-
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    FlooppyFloop.setPosition(0.10);
-                    FlippyFlip.setPosition(0.90);
+                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
                 })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    GearServo.setPosition(.6);
+                    sleep(1000);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    RightClaw.setPosition(Open);
+                })
+                .waitSeconds(5)
+                        .build();
 
-
-                .lineToConstantHeading(new Vector2d(-36,57))
-                .lineToConstantHeading(new Vector2d(45,60))
-                .lineToConstantHeading(new Vector2d(45,10))
-                .lineToConstantHeading(new Vector2d(60,10))
-
-                .build();
-
-            waitForStart();
-
-            if (!isStopRequested())
-                drive.followTrajectorySequence(bluerightpark);
-
-
-
+        waitForStart();
+        if (!isStopRequested())
+            drive.followTrajectorySequence(OrangePixelBackBoard);
     }
-    }
+}

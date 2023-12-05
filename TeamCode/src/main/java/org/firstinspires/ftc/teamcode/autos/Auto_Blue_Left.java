@@ -64,9 +64,9 @@ public class Auto_Blue_Left extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         // this call sets the servos during initialization
-        FlooppyFloop.setPosition(.7);
-        FlippyFlip.setPosition(.3);
-        GearServo.setPosition(.2);
+        FlooppyFloop.setPosition(.85);
+        FlippyFlip.setPosition(.15);
+        GearServo.setPosition(.5);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
