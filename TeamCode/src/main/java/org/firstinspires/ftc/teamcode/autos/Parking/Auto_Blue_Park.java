@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.autos.Parking;
 
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Auto_Blue extends LinearOpMode {
+public class Auto_Blue_Park extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -32,6 +32,8 @@ public class Auto_Blue extends LinearOpMode {
         FlooppyFloop.setPosition(.7);
         FlippyFlip.setPosition(.3);
         GearServo.setPosition(.2);
+        LeftClaw.setPosition(1);
+        RightClaw.setPosition(0);
 
 
         LeftClaw.setDirection(Servo.Direction.REVERSE);
@@ -46,10 +48,17 @@ public class Auto_Blue extends LinearOpMode {
             TrajectorySequence redleftL = drive.trajectorySequenceBuilder(startPose)
                     .forward(23)
                     .turn(Math.toRadians(92))
-                    .forward(2)
-
-                    // Drop Purple
-
+                    .forward(7)
+                    .addTemporalMarker(() -> {
+                        FlooppyFloop.setPosition(.03);
+                        FlippyFlip.setPosition(.97);
+                        sleep(1000);
+                        GearServo.setPosition(.85);
+                    })
+                    .waitSeconds(3)
+                    .back(40)
+                    .turn(Math.toRadians(184))
+                    .waitSeconds(10000)
                     // Drop Orange
                     .build();
 
@@ -60,20 +69,13 @@ public class Auto_Blue extends LinearOpMode {
 
 
         TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPose)
-                .strafeLeft(13)
-                .forward(40)
-                .back(25)
-                .turn(Math.toRadians(3))
-                .waitSeconds(.4)
-                // Drop Purple Pixel
-
-                .turn(Math.toRadians(94))
+                .strafeLeft(45)
                 .build();
 
             waitForStart();
 
             if (!isStopRequested())
-                drive.followTrajectorySequence(redleftL);
+                drive.followTrajectorySequence(redleftR);
 
 
 

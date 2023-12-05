@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.autos.Parking;
 
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Auto_Blue_Park extends LinearOpMode {
+public class Auto_Red_Park extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -69,7 +69,7 @@ public class Auto_Blue_Park extends LinearOpMode {
 
 
         TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPose)
-                .strafeLeft(45)
+                .strafeRight(45)
                 .build();
 
             waitForStart();

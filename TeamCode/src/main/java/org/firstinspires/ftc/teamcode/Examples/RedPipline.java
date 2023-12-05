@@ -165,7 +165,7 @@ public class RedPipline extends LinearOpMode
         int avg1, avg2, avg3;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        private volatile Detection_Positions position = Detection_Positions.LEFT;
+        private volatile Detection_Positions position = Detection_Positions.RIGHT;
 
 
         // This function takes the RGB frame, converts to YCrCb,

@@ -23,7 +23,7 @@ public class Blue_Camera_Test extends LinearOpMode {
 
     OpenCvWebcam webcam;
     BluePipline.bluePipline pipeline;
-    BluePipline.bluePipline.Detection_Positions snapshotAnalysis = BluePipline.bluePipline.Detection_Positions.LEFT; // default
+    BluePipline.bluePipline.Detection_Positions snapshotAnalysis = BluePipline.bluePipline.Detection_Positions.RIGHT; // default
 
     @Override
     public void runOpMode() {

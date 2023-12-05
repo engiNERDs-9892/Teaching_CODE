@@ -37,6 +37,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
 import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ANG_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ANG_VEL;
@@ -91,6 +96,15 @@ public class SampleMecanumDrive extends MecanumDrive {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
+        // Hardware Map (Used for Servos / Drivercontrol)
+        GearServo = hardwareMap.servo.get("GearServo");
+        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
+        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        LeftClaw = hardwareMap.servo.get("LeftClaw");
+        RightClaw = hardwareMap.servo.get("RightClaw");
+
+
+        // Hardware Map (Used for Motors)
         leftFront = hardwareMap.get(DcMotorEx.class, "motorFL");
         leftRear = hardwareMap.get(DcMotorEx.class, "motorBL");
         rightRear = hardwareMap.get(DcMotorEx.class, "motorBR");

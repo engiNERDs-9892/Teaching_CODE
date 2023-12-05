@@ -31,9 +31,9 @@ public class Movement_Autos extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
-        FlooppyFloop.setPosition(.7);
-        FlippyFlip.setPosition(.3);
-        GearServo.setPosition(.2);
+        FlooppyFloop.setPosition(.85);
+        FlippyFlip.setPosition(.15);
+        GearServo.setPosition(.5);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -55,18 +55,125 @@ public class Movement_Autos extends LinearOpMode {
             drive.setPoseEstimate(startPoseRedRight);
 
 
-        TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
-                .lineToConstantHeading(new Vector2d(25, -40))
-
-                .setReversed(true)
-                .splineToLinearHeading(new Pose2d(50, -40, Math.toRadians(0)), Math.toRadians(0.00))
+        // Red Left
+        TrajectorySequence redrightL = drive.trajectorySequenceBuilder(startPoseRedRight)
+                .lineToLinearHeading(new Pose2d(26, 60, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(26, 10, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(26, 40, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(53, 40, Math.toRadians(0)))
 
                 .build();
+
+        TrajectorySequence redrightM = drive.trajectorySequenceBuilder(startPoseRedRight)
+                .lineToLinearHeading(new Pose2d(12, -24, Math.toRadians(90)))
+
+                .lineToLinearHeading(new Pose2d(12, -37, Math.toRadians(90)))
+
+                .lineToLinearHeading(new Pose2d(52, -36, Math.toRadians(0)))
+
+                .build();
+
+        TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
+                .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
+                .lineToConstantHeading(new Vector2d(8, -32.5))
+                .lineToConstantHeading(new Vector2d(0, -32.5))
+                .lineToConstantHeading(new Vector2d(8, -30))
+                .lineToLinearHeading(new Pose2d(53,-18,Math.toRadians(0)))
+                        .build();
+
+
+
+
+        // Blue Left
+        TrajectorySequence blueleftL = drive.trajectorySequenceBuilder(startPoseBlueLeft)
+                .lineToLinearHeading(new Pose2d(26, 40, Math.toRadians(-92)))
+                .lineToLinearHeading(new Pose2d(53, 40, Math.toRadians(-2)))
+                .build();
+
+        TrajectorySequence blueleftM = drive.trajectorySequenceBuilder(startPoseBlueLeft)
+                .lineToLinearHeading(new Pose2d(12, 30, Math.toRadians(-92)))
+                .lineToLinearHeading(new Pose2d(12, 36, Math.toRadians(-92)))
+                .lineToLinearHeading(new Pose2d(53.3, 36, Math.toRadians(-2)))
+
+                .build();
+
+        TrajectorySequence blueleftR = drive.trajectorySequenceBuilder(startPoseBlueLeft)
+                .splineToLinearHeading(new Pose2d(9, 40, Math.toRadians(180.00)), Math.toRadians(-100))
+                .lineToConstantHeading(new Vector2d(8, 32.5))
+                .lineToConstantHeading(new Vector2d(0, 32.5))
+                .lineToConstantHeading(new Vector2d(8, 30))
+                .lineToLinearHeading(new Pose2d(53,40,Math.toRadians(0)))
+                .build();
+
+
+        // Red Left
+        TrajectorySequence redleftR = drive.trajectorySequenceBuilder(startPoseRedLeft)
+                // Drop purple pixel
+                .splineToLinearHeading(new Pose2d(-33, -40, Math.toRadians(0)), Math.toRadians(100))
+                .lineToConstantHeading(new Vector2d(-32, -32.5))
+                .lineToConstantHeading(new Vector2d(-24, -32.5))
+                .lineToConstantHeading(new Vector2d(-32, -30))
+
+
+                // Play orange pixel
+                .lineToLinearHeading(new Pose2d(-37, -8,Math.toRadians(4)))
+                .lineToConstantHeading(new Vector2d(20, -10))
+                .splineToConstantHeading(new Vector2d(52,-40), Math.toRadians(0))
+
+                .build();
+
+        TrajectorySequence redleftM = drive.trajectorySequenceBuilder(startPoseRedLeft)
+                .lineToLinearHeading(new Pose2d(-36, -10, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-36, -36, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-37, -10, Math.toRadians(0)))
+                .lineToConstantHeading(new Vector2d(20, -10))
+                .setReversed(true)
+                .lineToConstantHeading(new Vector2d(53.3,-36))
+
+                .build();
+
+        TrajectorySequence redleftL = drive.trajectorySequenceBuilder(startPoseRedLeft)
+                .lineToLinearHeading(new Pose2d(-47, -60, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-47, -10, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-47, -40, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-30, -10, Math.toRadians(2)))
+                .lineToConstantHeading(new Vector2d(20, -12))
+                .setReversed(true)
+                .splineToLinearHeading(new Pose2d(53,-35,Math.toRadians(0)), Math.toRadians(0))
+                .build();
+
+
+
+
+        // Blue Right
+        TrajectorySequence bluerightR = drive.trajectorySequenceBuilder(startPoseBlueRight)
+                .lineToLinearHeading(new Pose2d(26, -40, Math.toRadians(92)))
+                .lineToLinearHeading(new Pose2d(53, -40, Math.toRadians(2)))
+                .strafeRight(10)
+
+                .build();
+
+        TrajectorySequence bluerightM = drive.trajectorySequenceBuilder(startPoseBlueRight)
+                .lineToLinearHeading(new Pose2d(12, -32, Math.toRadians(92)))
+                .lineToLinearHeading(new Pose2d(53, -35, Math.toRadians(2)))
+                .strafeRight(30)
+
+                .build();
+
+        TrajectorySequence bluerightL = drive.trajectorySequenceBuilder(startPoseBlueRight)
+                .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
+                .lineToConstantHeading(new Vector2d(8, -32.5))
+                .lineToConstantHeading(new Vector2d(0, -32.5))
+                .lineToConstantHeading(new Vector2d(8, -30))
+                .lineToLinearHeading(new Pose2d(53,-22,Math.toRadians(0)))
+                .build();
+
+
 
             waitForStart();
 
             if (!isStopRequested())
-                drive.followTrajectorySequence(redrightR);
+                drive.followTrajectorySequence(redrightM);
 
 
 

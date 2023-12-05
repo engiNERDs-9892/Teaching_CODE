@@ -23,7 +23,7 @@ public class Red_Camera_Test extends LinearOpMode {
 
     OpenCvWebcam webcam;
     RedPipline.redPipline pipeline;
-    RedPipline.redPipline.Detection_Positions snapshotAnalysis = RedPipline.redPipline.Detection_Positions.LEFT; // default
+    RedPipline.redPipline.Detection_Positions snapshotAnalysis = RedPipline.redPipline.Detection_Positions.RIGHT; // default
 
     @Override
     public void runOpMode() {

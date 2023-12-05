@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 //@Disabled
 
 public class GearServo_Test extends LinearOpMode {
+   Servo SpeedServo;
     @Override
     public void runOpMode() {
 
@@ -18,17 +20,10 @@ public class GearServo_Test extends LinearOpMode {
 
 
         GearServo.setPosition(0);
-        GearServo.setDirection(Servo.Direction.REVERSE);
-
-
         waitForStart();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-
-            if (Math.abs(gamepad2.left_stick_y) >=0.5)
-                GearServo.setPosition((GearServo.getPosition() + 0.0005 * Math.signum(gamepad2.left_stick_y)));
 
 
             updateTelemetry(telemetry);

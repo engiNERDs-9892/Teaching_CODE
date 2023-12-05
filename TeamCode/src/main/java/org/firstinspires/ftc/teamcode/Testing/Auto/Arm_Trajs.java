@@ -24,15 +24,9 @@ public class Arm_Trajs extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        GearServo = hardwareMap.servo.get("GearServo");
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        LeftClaw = hardwareMap.servo.get("LeftClaw");
-        RightClaw = hardwareMap.servo.get("RightClaw");
-
-        FlooppyFloop.setPosition(.7);
-        FlippyFlip.setPosition(.3);
-        GearServo.setPosition(.2);
+        FlooppyFloop.setPosition(.85);
+        FlippyFlip.setPosition(.15);
+        GearServo.setPosition(.5);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -42,38 +36,60 @@ public class Arm_Trajs extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-            Pose2d startPose = new Pose2d(0, 0, 0);
+        Pose2d startPose = new Pose2d(0, 0, 0);
 
-            drive.setPoseEstimate(startPose);
+        drive.setPoseEstimate(startPose);
 
-        TrajectorySequence DroponBack = drive.trajectorySequenceBuilder(startPose)
 
-                .addDisplacementMarker(() -> {
-                    FlooppyFloop.setPosition(.15);
-                    FlippyFlip.setPosition(.85);
-                    GearServo.setPosition(.6);
-                    sleep(1000);
-                    RightClaw.setPosition(Open);
-                })
+        TrajectorySequence PickupWhitePixel = drive.trajectorySequenceBuilder(startPose)
+
                 .build();
 
-        TrajectorySequence PixelDrop =  drive.trajectorySequenceBuilder(startPose)
+        TrajectorySequence OrangePixelBackBoard = drive.trajectorySequenceBuilder(startPose)
 
-                .addTemporalMarker(() -> {
-                    FlooppyFloop.setPosition(.03);
-                    FlippyFlip.setPosition(.97);
-                    sleep(500);
+                .waitSeconds(3)
+
+                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    GearServo.setPosition(.6);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    RightClaw.setPosition(Open);
+                })
+                .waitSeconds(5)
+
+                .build();
+
+
+        TrajectorySequence PurplePixelDrop = drive.trajectorySequenceBuilder(startPose)
+
+
+                .waitSeconds(3)
+
+                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     GearServo.setPosition(.85);
-                    sleep(1000);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     LeftClaw.setPosition(Open);
                 })
-                        .build();
+                .waitSeconds(20)
 
-            waitForStart();
+                .build();
 
-            if (!isStopRequested())
-                drive.followTrajectorySequence(PixelDrop);
 
+        waitForStart();
+
+
+        if (!isStopRequested())
+            drive.followTrajectorySequence(PurplePixelDrop);
+            drive.followTrajectorySequence(OrangePixelBackBoard);
 
 
     }

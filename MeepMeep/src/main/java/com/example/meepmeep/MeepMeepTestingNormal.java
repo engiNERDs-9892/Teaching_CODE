@@ -52,7 +52,7 @@ public class MeepMeepTestingNormal {
 
                 .setColorScheme(new ColorSchemeBlueDark())
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 16.5)
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13.50)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(-90.00)))
 
@@ -87,14 +87,21 @@ public class MeepMeepTestingNormal {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(60), Math.toRadians(60), 16.5)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
+                        drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90.00)))
+                                .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
+                                .lineToConstantHeading(new Vector2d(8, -32.5))
+                                .lineToConstantHeading(new Vector2d(0, -32.5))
+                                .lineToConstantHeading(new Vector2d(8, -30))
+                                .lineToLinearHeading(new Pose2d(53,-18,Math.toRadians(0)))
 
-                                .splineToLinearHeading(new Pose2d(23, -42, Math.toRadians(60)), Math.toRadians(60))
+
+                                // Left
 
 
 
-                                .build()
-                );
+
+
+                                .build());
 
         RoadRunnerBotEntity RedLeft = new DefaultBotBuilder(meepMeep)
 
