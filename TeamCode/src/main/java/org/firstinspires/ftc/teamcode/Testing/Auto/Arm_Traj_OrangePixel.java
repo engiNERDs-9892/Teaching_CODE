@@ -12,12 +12,14 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.teamcode.drive.opmode.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Arm_Trajs extends LinearOpMode {
+public class Arm_Traj_OrangePixel extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -27,10 +29,10 @@ public class Arm_Trajs extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
-        FlooppyFloop.setPosition(.85);
-        FlippyFlip.setPosition(.15);
-        GearServo.setPosition(.5);
-        LeftClaw.setPosition(1);
+        FlooppyFloop.setPosition(0.97);
+        FlippyFlip.setPosition(0.03);
+        GearServo.setPosition(0.02);
+        LeftClaw.setPosition(.77);
         RightClaw.setPosition(0);
 
 
@@ -41,26 +43,25 @@ public class Arm_Trajs extends LinearOpMode {
         Pose2d startPose = new Pose2d(0, 0, 0);
         drive.setPoseEstimate(startPose);
 
-        TrajectorySequence PixelDrop = drive.trajectorySequenceBuilder(startPose)
-
+        TrajectorySequence OrangePixelBackBoard = drive.trajectorySequenceBuilder(startPose)
                 .forward(1)
-                .waitSeconds(1)
+                .waitSeconds(3)
 
+                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    GearServo.setPosition(.75);
+                })
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
+                    RightClaw.setPosition(Open);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    GearServo.setPosition(.98);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    LeftClaw.setPosition(Open);
-                })
-                .waitSeconds(10)
-                .build();
+                .waitSeconds(5)
+                        .build();
 
         waitForStart();
         if (!isStopRequested())
-            drive.followTrajectorySequence(PixelDrop);
+            drive.followTrajectorySequence(OrangePixelBackBoard);
     }
 }

@@ -105,12 +105,12 @@ public class RedPipline extends LinearOpMode
 
         // This creates a area where the camera can detect where your object is (Rectangle)
         static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0,360);
-        static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(375,360);
+        static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(600,360);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(1075,360);
-        static final int REGION_WIDTH = 550;
+        static final int REGION_WIDTH = 200;
 
         static final int REGION_WIDTH2 = 200;
-        static final int REGION_HEIGHT = 360;
+        static final int REGION_HEIGHT = 200;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values

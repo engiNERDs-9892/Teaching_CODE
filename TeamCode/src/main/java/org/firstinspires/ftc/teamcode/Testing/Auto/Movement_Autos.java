@@ -31,9 +31,10 @@ public class Movement_Autos extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
 
+        // this call sets the servos during initialization
         FlooppyFloop.setPosition(.85);
         FlippyFlip.setPosition(.15);
-        GearServo.setPosition(.5);
+        GearServo.setPosition(.55);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -65,13 +66,46 @@ public class Movement_Autos extends LinearOpMode {
                 .build();
 
         TrajectorySequence redrightM = drive.trajectorySequenceBuilder(startPoseRedRight)
+                // Knock the Team Prop out of the way
                 .lineToLinearHeading(new Pose2d(12, -24, Math.toRadians(90)))
 
+                // Place the purple Pixel
                 .lineToLinearHeading(new Pose2d(12, -37, Math.toRadians(90)))
+                .waitSeconds(1)
 
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+
+
+                // Flip the arm to the backboard
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
+                    GearServo.setPosition(.75);
+                })
+
+
+
+                // Place the Orange Pixel
                 .lineToLinearHeading(new Pose2d(52, -36, Math.toRadians(0)))
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    RightClaw.setPosition(Open);
+                })
 
                 .build();
+
+
 
         TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
                 .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
@@ -171,6 +205,9 @@ public class Movement_Autos extends LinearOpMode {
 
 
             waitForStart();
+
+
+
 
             if (!isStopRequested())
                 drive.followTrajectorySequence(redrightM);
