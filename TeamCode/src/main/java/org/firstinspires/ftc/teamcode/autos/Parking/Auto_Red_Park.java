@@ -42,7 +42,7 @@ public class Auto_Red_Park extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-            Pose2d startPoseRedRight = new Pose2d(12, -60, Math.toRadians(90.00));
+            Pose2d startPoseRedRight = new Pose2d(12, -60, Math.toRadians(180.00));
 
             drive.setPoseEstimate(startPoseRedRight);
 

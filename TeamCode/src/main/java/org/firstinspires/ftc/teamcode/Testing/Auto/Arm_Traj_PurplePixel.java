@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 //@Disabled
 @Autonomous(group = "drive")
-public class Arm_Trajs_PurplePixle extends LinearOpMode {
+public class Arm_Traj_PurplePixel extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);

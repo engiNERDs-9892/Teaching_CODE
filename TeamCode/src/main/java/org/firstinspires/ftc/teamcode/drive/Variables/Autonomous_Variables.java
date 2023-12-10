@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.drive.Variables;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@Disabled
 public class Autonomous_Variables {
     public static DcMotor motorLiftyLift;
     public static DcMotor motorRiseyRise;

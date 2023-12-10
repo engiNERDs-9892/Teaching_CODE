@@ -34,7 +34,7 @@ public class Movement_Autos extends LinearOpMode {
         // this call sets the servos during initialization
         FlooppyFloop.setPosition(.85);
         FlippyFlip.setPosition(.15);
-        GearServo.setPosition(.55);
+        GearServo.setPosition(.50);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
 
@@ -45,15 +45,15 @@ public class Movement_Autos extends LinearOpMode {
         GearServo.setDirection(Servo.Direction.REVERSE);
 
 
-            Pose2d startPoseBlueLeft = new Pose2d(12, 60, Math.toRadians(-90.00));
-            Pose2d startPoseBlueRight = new Pose2d(-36, 60, Math.toRadians(-90.00));
-            Pose2d startPoseRedLeft = new Pose2d(-36, -60, Math.toRadians(90.00));
-            Pose2d startPoseRedRight = new Pose2d(12, -60, Math.toRadians(90.00));
+        Pose2d startPoseBlueLeft = new Pose2d(12, 60, Math.toRadians(-90.00));
+        Pose2d startPoseBlueRight = new Pose2d(-36, 60, Math.toRadians(-90.00));
+        Pose2d startPoseRedLeft = new Pose2d(-36, -60, Math.toRadians(90.00));
+        Pose2d startPoseRedRight = new Pose2d(12, -60, Math.toRadians(90.00));
 
-            drive.setPoseEstimate(startPoseBlueLeft);
-            drive.setPoseEstimate(startPoseBlueRight);
-            drive.setPoseEstimate(startPoseRedLeft);
-            drive.setPoseEstimate(startPoseRedRight);
+        drive.setPoseEstimate(startPoseBlueLeft);
+        drive.setPoseEstimate(startPoseBlueRight);
+        drive.setPoseEstimate(startPoseRedLeft);
+        drive.setPoseEstimate(startPoseRedRight);
 
 
         // Red Left
@@ -95,7 +95,6 @@ public class Movement_Autos extends LinearOpMode {
                 })
 
 
-
                 // Place the Orange Pixel
                 .lineToLinearHeading(new Pose2d(52, -36, Math.toRadians(0)))
                 .waitSeconds(.5)
@@ -106,16 +105,13 @@ public class Movement_Autos extends LinearOpMode {
                 .build();
 
 
-
         TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
                 .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
                 .lineToConstantHeading(new Vector2d(8, -32.5))
                 .lineToConstantHeading(new Vector2d(0, -32.5))
                 .lineToConstantHeading(new Vector2d(8, -30))
-                .lineToLinearHeading(new Pose2d(53,-18,Math.toRadians(0)))
-                        .build();
-
-
+                .lineToLinearHeading(new Pose2d(53, -18, Math.toRadians(0)))
+                .build();
 
 
         // Blue Left
@@ -136,7 +132,7 @@ public class Movement_Autos extends LinearOpMode {
                 .lineToConstantHeading(new Vector2d(8, 32.5))
                 .lineToConstantHeading(new Vector2d(0, 32.5))
                 .lineToConstantHeading(new Vector2d(8, 30))
-                .lineToLinearHeading(new Pose2d(53,40,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, 40, Math.toRadians(0)))
                 .build();
 
 
@@ -150,9 +146,9 @@ public class Movement_Autos extends LinearOpMode {
 
 
                 // Play orange pixel
-                .lineToLinearHeading(new Pose2d(-37, -8,Math.toRadians(4)))
+                .lineToLinearHeading(new Pose2d(-37, -8, Math.toRadians(4)))
                 .lineToConstantHeading(new Vector2d(20, -10))
-                .splineToConstantHeading(new Vector2d(52,-40), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(52, -40), Math.toRadians(0))
 
                 .build();
 
@@ -162,8 +158,7 @@ public class Movement_Autos extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-37, -10, Math.toRadians(0)))
                 .lineToConstantHeading(new Vector2d(20, -10))
                 .setReversed(true)
-                .lineToConstantHeading(new Vector2d(53.3,-36))
-
+                .lineToConstantHeading(new Vector2d(53.3, -36))
                 .build();
 
         TrajectorySequence redleftL = drive.trajectorySequenceBuilder(startPoseRedLeft)
@@ -173,10 +168,8 @@ public class Movement_Autos extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-30, -10, Math.toRadians(2)))
                 .lineToConstantHeading(new Vector2d(20, -12))
                 .setReversed(true)
-                .splineToLinearHeading(new Pose2d(53,-35,Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(53, -35, Math.toRadians(0)), Math.toRadians(0))
                 .build();
-
-
 
 
         // Blue Right
@@ -199,20 +192,19 @@ public class Movement_Autos extends LinearOpMode {
                 .lineToConstantHeading(new Vector2d(8, -32.5))
                 .lineToConstantHeading(new Vector2d(0, -32.5))
                 .lineToConstantHeading(new Vector2d(8, -30))
-                .lineToLinearHeading(new Pose2d(53,-22,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, -22, Math.toRadians(0)))
                 .build();
 
 
-
-            waitForStart();
-
+        waitForStart();
 
 
+        while (opModeIsActive()) {
 
             if (!isStopRequested())
                 drive.followTrajectorySequence(redrightM);
 
 
-
+        }
     }
-    }
+}

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Close;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
@@ -28,7 +29,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name="EngiNERDs Control Field Centric", group="Linear Opmode")
+@TeleOp(name="EngiNERDs Control FC", group="Linear Opmode")
 //@Disabled
 public class EngiNERDs_Control_FC extends LinearOpMode {
     @Override
@@ -59,6 +60,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         FlippyFlip = hardwareMap.servo.get("FlippyFlip");
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
         GearServo = hardwareMap.servo.get("GearServo");
+        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
 
         // Declare our IMU (Inertial Motion Unit)
         // Make sure your ID's match your configuration
@@ -104,11 +106,8 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         motorRiseyRise.setPower(0);
         motorLiftyLift.setPower(0);
 
-        // Setting the position for the Servos for Driver Control
-        LeftClaw.setPosition(0);
+        LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
-        FlooppyFloop.setPosition(1);
-        FlippyFlip.setPosition(0);
 
 
         // Toggels so that the Claws can be opened and closed using the same button
@@ -117,6 +116,8 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         boolean Left_Claw_Toggle = false;
 
         boolean Arm_Toggle = false;
+
+        boolean Airplane_Toggle = false;
 
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -242,6 +243,8 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
 
 
+
+
             // Toggle / Raise and Lower for the Arms
             if (currentGamepad2.a && !previousGamepad2.a) {
                 // This will set intakeToggle to true if it was previously false
@@ -300,28 +303,29 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
                 LeftClaw.setPosition(Close);
             }
 
-
-            // Statement = If you are pushing down on the right joystick, then rotate the arms to in front of the robot
-            if(Math.abs(gamepad2.right_stick_y) >= 0.5) {
-
-                // This rotates the arms Counter Clockwise so that the arms rotate in front of the robot
-                // FlippyFlip subtracts from its current position due to the value starting at zero
-                GearServo.setPosition((GearServo.getPosition() - 0.0005 * Math.signum(gamepad2.right_stick_y)));
-
-                // FloopyFloop adds to its current position due to the value starting at One
-                GearServo.setPosition((GearServo.getPosition() + 0.0005 * Math.signum(gamepad2.right_stick_y)));
+            // Toggle for airplane launcher
+            if (currentGamepad1.a && !previousGamepad1.a) {
+                Airplane_Toggle = !Airplane_Toggle;
             }
 
+            // Release airplane
+            if (Airplane_Toggle) {
+                AirplaneServo.setPosition(.3);
+            }
+            // Return launcher to unreleased state
+            else {
+                AirplaneServo.setPosition(0);
+            }
 
-            // Telemetry for the drivers so they can see if the system is running smoothly
+            if (Math.abs(gamepad2.left_stick_y) >=0.5)
+                GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
+
             telemetry.addData("LiftyLift Position", LiftyLiftPos);
             telemetry.addData("RiseyRise Position", RiseyRisePos);
             telemetry.addData("Left Claw Position", LeftClaw.getPosition());
-            telemetry.addData("Right Claw Position", RightClaw.getPosition());
-            telemetry.addData("Arm Position", FlippyFlip.getPosition());
-            telemetry.addData("Arm Position", FlooppyFloop.getPosition());
+            telemetry.addData("Left Claw Position", RightClaw.getPosition());
+            telemetry.addData("Gear", GearServo.getPosition());
             updateTelemetry(telemetry);
-
 
 
             // This button choice was made so that it is hard to hit on accident,

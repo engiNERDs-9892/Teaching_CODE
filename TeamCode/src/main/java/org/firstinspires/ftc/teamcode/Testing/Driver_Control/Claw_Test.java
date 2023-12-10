@@ -7,14 +7,14 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Le
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Claw Test", group="Linear Opmode")
-//@Disabled
-
+@Disabled
 public class Claw_Test extends LinearOpMode {
     @Override
     public void runOpMode() {

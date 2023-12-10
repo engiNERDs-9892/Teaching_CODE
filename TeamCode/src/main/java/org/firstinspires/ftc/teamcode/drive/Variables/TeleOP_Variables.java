@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.drive.Variables;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
+@Disabled
 public class TeleOP_Variables {
 
     public static DcMotor motorFL = null;
@@ -17,7 +18,8 @@ public class TeleOP_Variables {
     public static Servo LeftClaw;
     public static Servo RightClaw;
     public static Servo GearServo;
-
+    public static Servo AirplaneServo;
+    public static Servo IntakeServo;
 
     // Position for the Claws to close
 

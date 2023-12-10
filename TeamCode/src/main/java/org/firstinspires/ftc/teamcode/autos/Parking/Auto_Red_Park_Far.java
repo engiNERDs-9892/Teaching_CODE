@@ -42,7 +42,7 @@ public class Auto_Red_Park_Far extends LinearOpMode {
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
 
-            Pose2d startPoseRedLeft = new Pose2d(-36, -60, Math.toRadians(90.00));
+            Pose2d startPoseRedLeft = new Pose2d(-36, -60, Math.toRadians(180.00));
 
             drive.setPoseEstimate(startPoseRedLeft);
 
@@ -56,8 +56,8 @@ public class Auto_Red_Park_Far extends LinearOpMode {
                 })
 
                 .lineToConstantHeading(new Vector2d(-36,-57))
-                .lineToConstantHeading(new Vector2d(45,-60))
-                .lineToConstantHeading(new Vector2d(45,-10))
+                .lineToConstantHeading(new Vector2d(30,-57))
+                .lineToConstantHeading(new Vector2d(30,-10))
                 .lineToConstantHeading(new Vector2d(60,-10))
                 .build();
 

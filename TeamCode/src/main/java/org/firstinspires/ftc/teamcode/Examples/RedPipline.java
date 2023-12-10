@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Examples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -20,7 +21,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // This is code so that a separate code can refer to it | This is how the camera can get its data//
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
+@Disabled
 @TeleOp
 public class RedPipline extends LinearOpMode
 {

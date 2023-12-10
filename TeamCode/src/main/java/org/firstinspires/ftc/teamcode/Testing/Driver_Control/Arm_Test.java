@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Arm Test", group="Linear Opmode")
-//@Disabled
-
+@Disabled
 public class Arm_Test extends LinearOpMode {
     @Override
     public void runOpMode() {
