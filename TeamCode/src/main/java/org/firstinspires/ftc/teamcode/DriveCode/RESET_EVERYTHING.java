@@ -5,6 +5,8 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Cl
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
@@ -98,11 +100,12 @@ public class RESET_EVERYTHING extends LinearOpMode {
         motorLiftyLift.setPower(0);
 
         // this call sets the servos during initialization
-        FlooppyFloop.setPosition(1);
-        FlippyFlip.setPosition(0);
-        GearServo.setPosition(0);
-        LeftClaw.setPosition(1);
-        RightClaw.setPosition(0);
+        // this call sets the servos during initialization
+        LeftClaw.setPosition(0);
+        RightClaw.setPosition(1);
+        HookR.setPosition(1);
+        HookL.setPosition(1);
+        AirplaneServo.setPosition(1);
 
 
         imu.initialize(parameters);

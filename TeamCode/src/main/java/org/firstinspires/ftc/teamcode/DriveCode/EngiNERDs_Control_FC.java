@@ -5,6 +5,8 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Cl
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
@@ -19,18 +21,21 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.sl
 
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
 
 @TeleOp(name="EngiNERDs Control FC", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class EngiNERDs_Control_FC extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -43,71 +48,16 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
 
-        // Declare our Motors
-        // Make sure your ID's match your configuration
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
-        motorLiftyLift = hardwareMap.dcMotor.get("motorLiftyLift");
-        motorRiseyRise = hardwareMap.dcMotor.get("motorRiseyRise");
-
-
-        // Declare our Servos
-        // Make sure your ID's match your configuration
-        LeftClaw = hardwareMap.servo.get("LeftClaw");
-        RightClaw = hardwareMap.servo.get("RightClaw");
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        GearServo = hardwareMap.servo.get("GearServo");
-        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
+        new TeleOP_Variables(hardwareMap);
 
         // Declare our IMU (Inertial Motion Unit)
         // Make sure your ID's match your configuration
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
-        // Reverse the right side motors. This may be wrong for your setup.
-        // If your robot moves backwards when commanded to go forwards,
-        // reverse the left side instead.
-        // See the note about this earlier on this page.
-        // Setting the motor Direction, so the motors or servos rotate correctly (Default Direction = Forward)
-
-        motorFL.setDirection(DcMotor.Direction.FORWARD);
-        motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.REVERSE);
-        motorBL.setDirection(DcMotor.Direction.FORWARD);
-        motorRiseyRise.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorLiftyLift.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        LeftClaw.setDirection(Servo.Direction.REVERSE);
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
-        FlooppyFloop.setDirection(Servo.Direction.REVERSE);
-        GearServo.setDirection(Servo.Direction.REVERSE);
-
         // Adjust the orientation parameters to match your robot (Adjust which way the Control Hub is facing)
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-        RevHubOrientationOnRobot.LogoFacingDirection.UP,
-        RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
-
-        // Resets the Encoder Position to 0 so that we can use Encoders for our Driver Control instead
-        // of Magnetic Limit Switches
-        motorRiseyRise.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLiftyLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Tells the motors to Run using those specific encoders
-        motorRiseyRise.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLiftyLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        // Setting the motor Power for Driver Control
-        motorFL.setPower(0);
-        motorBL.setPower(0);
-        motorFR.setPower(0);
-        motorBR.setPower(0);
-        motorRiseyRise.setPower(0);
-        motorLiftyLift.setPower(0);
-
-        LeftClaw.setPosition(1);
-        RightClaw.setPosition(0);
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
 
         // Toggels so that the Claws can be opened and closed using the same button
@@ -117,7 +67,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
         boolean Arm_Toggle = false;
 
-        boolean Airplane_Toggle = false;
+        boolean Hook_Toggle = false;
 
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -129,7 +79,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double RaiseandLower = -gamepad2.left_stick_y;
+            double RaiseandLower = -gamepad2.right_stick_y;
 
 
             // A way to store values that gamepad enters
@@ -168,7 +118,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             double backRightPower = (rotY + rotX - rx) / denominator;
 
             // If the Right Trigger is pressed set the Values of the motor to 100% power
-            if(gamepad1.right_trigger != 0) {
+            if (gamepad1.right_trigger != 0) {
                 motorFL.setPower(frontLeftPower);
                 motorBL.setPower(backLeftPower);
                 motorFR.setPower(frontRightPower);
@@ -176,19 +126,19 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
             // If the Left Trigger is pressed set the Values of the motor to 30% power
-            if(gamepad1.left_trigger != 0) {
-                motorFL.setPower(frontLeftPower *.3);
-                motorBL.setPower(backLeftPower *.3);
-                motorFR.setPower(frontRightPower *.3);
-                motorBR.setPower(backRightPower *.3);
+            if (gamepad1.left_trigger != 0) {
+                motorFL.setPower(frontLeftPower * .3);
+                motorBL.setPower(backLeftPower * .3);
+                motorFR.setPower(frontRightPower * .3);
+                motorBR.setPower(backRightPower * .3);
             }
 
             // If No Trigger is pressed set the Values of the motor to 70% (Base value for motors)
             else {
-                    motorFL.setPower(frontLeftPower * .7);
-                    motorBL.setPower(backLeftPower * .7);
-                    motorFR.setPower(frontRightPower *.7);
-                    motorBR.setPower(backRightPower * .7);
+                motorFL.setPower(frontLeftPower * .7);
+                motorBL.setPower(backLeftPower * .7);
+                motorFR.setPower(frontRightPower * .7);
+                motorBR.setPower(backRightPower * .7);
 
             }
 
@@ -242,9 +192,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
-
-
-
             // Toggle / Raise and Lower for the Arms
             if (currentGamepad2.a && !previousGamepad2.a) {
                 // This will set intakeToggle to true if it was previously false
@@ -264,7 +211,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
-
             // Claws
 
             // Toggle / Close & Open for the Right claw
@@ -277,13 +223,12 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Right_Claw_Toggle) {
-                RightClaw.setPosition(Open);
+                RightClaw.setPosition(.77);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                RightClaw.setPosition(Close);
+                RightClaw.setPosition(1);
             }
-
 
 
             // Toggle / Close & Open for the Left claw
@@ -303,28 +248,44 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
                 LeftClaw.setPosition(Close);
             }
 
-            // Toggle for airplane launcher
-            if (currentGamepad1.a && !previousGamepad1.a) {
-                Airplane_Toggle = !Airplane_Toggle;
+
+            // Toggle / Close & Open for the Right claw
+            if (currentGamepad2.b && !previousGamepad2.b) {
+                // This will set intakeToggle to true if it was previously false
+                // and intakeToggle to false if it was previously true,
+                // providing a toggling behavior.
+                Hook_Toggle = !Hook_Toggle;
             }
 
-            // Release airplane
-            if (Airplane_Toggle) {
-                AirplaneServo.setPosition(.3);
+            // Opens the claws after the 1st press of the bumper and alternates once pressed again
+            if (Hook_Toggle) {
+                HookR.setPosition(.23);
+                HookL.setPosition(.23);
             }
-            // Return launcher to unreleased state
+            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                AirplaneServo.setPosition(0);
+                HookR.setPosition(1);
+                HookL.setPosition(1);
             }
 
-            if (Math.abs(gamepad2.left_stick_y) >=0.5)
+
+            if (Math.abs(gamepad2.left_stick_y) >= 0.5) {
                 GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
+            }
+
+
+            if (gamepad1.a) {
+                AirplaneServo.setPosition(0.35);
+            }
+
 
             telemetry.addData("LiftyLift Position", LiftyLiftPos);
             telemetry.addData("RiseyRise Position", RiseyRisePos);
             telemetry.addData("Left Claw Position", LeftClaw.getPosition());
             telemetry.addData("Left Claw Position", RightClaw.getPosition());
-            telemetry.addData("Gear", GearServo.getPosition());
+            telemetry.addData("Gear Servo Position", GearServo.getPosition());
+            telemetry.addData("HookL Servo Position", HookL.getPosition());
+            telemetry.addData("HookR Servo Position", HookR.getPosition());
             updateTelemetry(telemetry);
 
 

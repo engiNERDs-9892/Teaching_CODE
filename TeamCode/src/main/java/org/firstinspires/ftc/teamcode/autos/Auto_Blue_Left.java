@@ -4,10 +4,12 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Fl
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -122,15 +124,91 @@ public class Auto_Blue_Left extends LinearOpMode {
 
         TrajectorySequence blueleftL = drive.trajectorySequenceBuilder(startPoseBlueLeft)
 
+                // Knock the team prop out of the way
+                .lineToConstantHeading(new Vector2d(26, 60))
+                .lineToConstantHeading(new Vector2d(26, 10))
+                // Drop the purple pixel
+                .lineToConstantHeading(new Vector2d(26,40))
+                .waitSeconds(1)
+
+                // Play the Orange pixel
+                .lineToLinearHeading(new Pose2d(53, 40, Math.toRadians(0)))
+                .waitSeconds(.5)
 
                 .build();
 
         TrajectorySequence blueleftM = drive.trajectorySequenceBuilder(startPoseBlueLeft)
 
+                // Purple Pixel Drop
+                .lineToConstantHeading(new Vector2d(12,24))
+                .lineToConstantHeading(new Vector2d(12, 37))
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+                // Orange Pixel Drop
+                .lineToConstantHeading(new Vector2d(12, 39))
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
+                    GearServo.setPosition(.75);
+                })
+
+                .lineToLinearHeading(new Pose2d(52, 36, Math.toRadians(0)))
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    RightClaw.setPosition(Open);
+                })
+
                 .build();
 
 
         TrajectorySequence blueleftR = drive.trajectorySequenceBuilder(startPoseBlueLeft)
+                // Knock the Team Prop out of the way
+                .splineToLinearHeading(new Pose2d(9, 40, Math.toRadians(180.00)), Math.toRadians(100))
+                .lineToConstantHeading(new Vector2d(8, 32.5))
+                .lineToConstantHeading(new Vector2d(0, 32.5))
+
+                // Place the Purple Pixel
+                .lineToConstantHeading(new Vector2d(8, 30))
+                .waitSeconds(1.5)
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+
+
+                // Raise for the backboard
+                .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    GearServo.setPosition(.75);
+                })
+
+                // Place the Orange Pixel
+                .lineToLinearHeading(new Pose2d(53, 30, Math.toRadians(0)))
+
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    RightClaw.setPosition(Open);
+                })
 
                 .build();
 

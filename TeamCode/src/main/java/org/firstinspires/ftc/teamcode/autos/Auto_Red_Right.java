@@ -130,9 +130,36 @@ public class Auto_Red_Right extends LinearOpMode {
 
                 // Place the Purple Pixel
                 .lineToConstantHeading(new Vector2d(8, -30))
+                .waitSeconds(1.5)
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+
+
+                // Raise for the backboard
+                .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    GearServo.setPosition(.75);
+                })
+
 
                 // Place the Orange Pixel
                 .lineToLinearHeading(new Pose2d(53,-18,Math.toRadians(0)))
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> {
+                    RightClaw.setPosition(Open);
+                })
+
 
                 .build();
 
@@ -167,8 +194,6 @@ public class Auto_Red_Right extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
                     GearServo.setPosition(.75);
                 })
-
-
 
                 // Place the Orange Pixel
                 .lineToLinearHeading(new Pose2d(52, -36, Math.toRadians(0)))
@@ -226,8 +251,14 @@ public class Auto_Red_Right extends LinearOpMode {
 
 
 
+
+
+
+
         // This is starting after the driver presses play
         waitForStart();
+
+
 
 
         if (!isStopRequested())
@@ -242,6 +273,12 @@ public class Auto_Red_Right extends LinearOpMode {
 
             }
 
+            case CENTER: // Middle
+            {
+                drive.followTrajectorySequence(redleftM);
+
+                break;
+            }
 
             case RIGHT: // Right Side
             {
@@ -250,12 +287,7 @@ public class Auto_Red_Right extends LinearOpMode {
                 break;
             }
 
-            case CENTER: // Middle
-            {
-                drive.followTrajectorySequence(redleftM);
 
-                break;
-            }
 
 
         }
