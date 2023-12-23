@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
@@ -11,6 +14,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -48,9 +52,9 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 // @ CONFIG is used for FTC Dashboard
 @Config
-//@Disabled
+@Disabled
 @Autonomous(group = "drive")
-public class Auto_Blue_Left extends LinearOpMode {
+public class Blue_Auto extends LinearOpMode {
 
     // Calls the Variable webcam
     OpenCvWebcam webcam;
@@ -64,20 +68,31 @@ public class Auto_Blue_Left extends LinearOpMode {
 
         // This calls the hardware map for servos and motors
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        GearServo = hardwareMap.servo.get("GearServo");
+        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
+        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        LeftClaw = hardwareMap.servo.get("LeftClaw");
+        RightClaw = hardwareMap.servo.get("RightClaw");
+        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
+        HookR = hardwareMap.servo.get("HookR");
+        HookL = hardwareMap.servo.get("HookL");
+
 
         // this call sets the servos during initialization
         FlooppyFloop.setPosition(.85);
         FlippyFlip.setPosition(.15);
-        GearServo.setPosition(.5);
+        GearServo.setPosition(.7);
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
-
+        AirplaneServo.setPosition(1);
 
         // this sets the servos in the proper direction
         LeftClaw.setDirection(Servo.Direction.REVERSE);
+        RightClaw.setDirection(Servo.Direction.REVERSE);
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
+
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
@@ -115,71 +130,21 @@ public class Auto_Blue_Left extends LinearOpMode {
         telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
         telemetry.update();
 
-
-
-
-        Pose2d startPoseBlueLeft = new Pose2d(12, 60, Math.toRadians(-90.00));
+        // Give the robot a starting position on the coordinate plane
+        Pose2d startPoseBlueLeft = new Pose2d(12, 60, Math.toRadians(-90));
         drive.setPoseEstimate(startPoseBlueLeft);
 
 
-        TrajectorySequence blueleftL = drive.trajectorySequenceBuilder(startPoseBlueLeft)
-
-                // Knock the team prop out of the way
-                .lineToConstantHeading(new Vector2d(26, 60))
-                .lineToConstantHeading(new Vector2d(26, 10))
-                // Drop the purple pixel
-                .lineToConstantHeading(new Vector2d(26,40))
-                .waitSeconds(1)
-
-                // Play the Orange pixel
-                .lineToLinearHeading(new Pose2d(53, 40, Math.toRadians(0)))
-                .waitSeconds(.5)
-
-                .build();
-
-        TrajectorySequence blueleftM = drive.trajectorySequenceBuilder(startPoseBlueLeft)
-
-                // Purple Pixel Drop
-                .lineToConstantHeading(new Vector2d(12,24))
-                .lineToConstantHeading(new Vector2d(12, 37))
-                .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    GearServo.setPosition(.98);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    LeftClaw.setPosition(Open);
-                })
-                // Orange Pixel Drop
-                .lineToConstantHeading(new Vector2d(12, 39))
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(.15);
-                    FlippyFlip.setPosition(.85);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
-                    GearServo.setPosition(.75);
-                })
-
-                .lineToLinearHeading(new Pose2d(52, 36, Math.toRadians(0)))
-                .waitSeconds(.5)
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    RightClaw.setPosition(Open);
-                })
-
-                .build();
-
-
+        // This is if the camera detects the left side (code of what it does is below)
         TrajectorySequence blueleftR = drive.trajectorySequenceBuilder(startPoseBlueLeft)
+
                 // Knock the Team Prop out of the way
                 .splineToLinearHeading(new Pose2d(9, 40, Math.toRadians(180.00)), Math.toRadians(100))
                 .lineToConstantHeading(new Vector2d(8, 32.5))
                 .lineToConstantHeading(new Vector2d(0, 32.5))
 
                 // Place the Purple Pixel
-                .lineToConstantHeading(new Vector2d(8, 30))
+                .lineToConstantHeading(new Vector2d(9, 30))
                 .waitSeconds(1.5)
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     FlooppyFloop.setPosition(0.03);
@@ -189,7 +154,7 @@ public class Auto_Blue_Left extends LinearOpMode {
                     GearServo.setPosition(.98);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    LeftClaw.setPosition(Open);
+                    RightClaw.setPosition(Open);
                 })
 
 
@@ -202,54 +167,168 @@ public class Auto_Blue_Left extends LinearOpMode {
                     GearServo.setPosition(.75);
                 })
 
-                // Place the Orange Pixel
-                .lineToLinearHeading(new Pose2d(53, 30, Math.toRadians(0)))
 
-                .waitSeconds(.5)
-                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    RightClaw.setPosition(Open);
+                // Place the Orange Pixel
+                .lineToLinearHeading(new Pose2d(53, 15.75, Math.toRadians(0)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+
+                .lineToLinearHeading(new Pose2d(53, 52, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(48, 10, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(62, 10, Math.toRadians(180)))
+                .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(.98);
                 })
 
                 .build();
 
+        // This is if the camera detects the middle (code of what it does is below)
+        TrajectorySequence blueleftM = drive.trajectorySequenceBuilder(startPoseBlueLeft)
 
+                // Knock the Team Prop out of the way
+                .lineToLinearHeading(new Pose2d(12, 24, Math.toRadians(-90)))
+
+                // Place the purple Pixel
+                .lineToLinearHeading(new Pose2d(12, 38, Math.toRadians(-90)))
+                .waitSeconds(1)
+
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    RightClaw.setPosition(Open);
+                })
+
+
+                .lineToLinearHeading(new Pose2d(12, 39, Math.toRadians(-90)))
+                // Flip the arm to the backboard
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
+                    GearServo.setPosition(.75);
+                })
+
+                // Place the Orange Pixel
+                .lineToLinearHeading(new Pose2d(52, 42, Math.toRadians(0)))
+                .waitSeconds(1.5)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(48, 10, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(62, 10, Math.toRadians(180)))
+                .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .build();
+
+
+        // This is if the camera detects the right side (code of what it does is below)
+        TrajectorySequence blueleftL = drive.trajectorySequenceBuilder(startPoseBlueLeft)
+
+                // Knock the team prop out of the way
+                .lineToLinearHeading(new Pose2d(20, 60, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(20, 10, Math.toRadians(90)))
+
+                // Drop the purple pixel
+                .lineToLinearHeading(new Pose2d(20, 40, Math.toRadians(90)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    GearServo.setPosition(.98);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
+                    RightClaw.setPosition(Open);
+                })
+
+
+                // Flip the arm to the backboard
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(.15);
+                    FlippyFlip.setPosition(.85);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
+                    GearServo.setPosition(.75);
+                })
+
+
+                // Play the Orange pixel
+                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(0)))
+                .waitSeconds(1.5)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    LeftClaw.setPosition(Open);
+                })
+
+                .lineToLinearHeading(new Pose2d(48, 45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(48, 10, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(62, 10, Math.toRadians(180)))
+                .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    FlooppyFloop.setPosition(0.03);
+                    FlippyFlip.setPosition(0.97);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(.98);
+                })
+
+                .build();
 
 
         // This is starting after the driver presses play
         waitForStart();
 
 
-        if (!isStopRequested())
-
-            switch (snapshotAnalysis) {
-            case LEFT: // Left Side
+        switch (snapshotAnalysis) {
+            case LEFT: // Level 3
             {
-
                 drive.followTrajectorySequence(blueleftL);
+
 
                 break;
 
             }
 
 
-            case CENTER: // Middle
+            case RIGHT: // Level 1
             {
+
+                drive.followTrajectorySequence(blueleftR);
+
+
+                break;
+            }
+
+            case CENTER: // Level 2
+            {
+
                 drive.followTrajectorySequence(blueleftM);
 
                 break;
             }
 
 
-            case RIGHT: // Right Side
-            {
-                drive.followTrajectorySequence(blueleftR);
-
-                break;
-            }
-
-
-
-
         }
     }
 }
+

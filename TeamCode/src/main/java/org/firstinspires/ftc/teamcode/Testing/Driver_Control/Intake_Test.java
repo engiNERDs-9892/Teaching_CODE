@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Intake Test", group="Linear Opmode")
-@Disabled
+//@Disabled
 public class Intake_Test extends LinearOpMode {
 
     @Override

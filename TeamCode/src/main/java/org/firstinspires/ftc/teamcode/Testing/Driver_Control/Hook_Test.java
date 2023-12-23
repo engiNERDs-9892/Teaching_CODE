@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Hook Test", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class Hook_Test extends LinearOpMode {
     @Override
     public void runOpMode() {

@@ -23,15 +23,22 @@ public class ShortAuto {
                         drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(-90)))
 
                                 // Knock the team prop out of the way
-                                .lineToConstantHeading(new Vector2d(26, 60))
-                                .lineToConstantHeading(new Vector2d(26, 10))
+                                .lineToLinearHeading(new Pose2d(20, 60, Math.toRadians(-90)))
+                                .lineToLinearHeading(new Pose2d(20, 10, Math.toRadians(-90)))
+
                                 // Drop the purple pixel
-                                .lineToConstantHeading(new Vector2d(26,40))
-                                .waitSeconds(1)
+                                .lineToLinearHeading(new Pose2d(20, 40, Math.toRadians(-90)))
+                                .waitSeconds(2)
+
 
                                 // Play the Orange pixel
-                                .lineToLinearHeading(new Pose2d(53, 40, Math.toRadians(0)))
-                                .waitSeconds(.5)
+                                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(0)))
+                                .waitSeconds(1.5)
+
+                                .lineToLinearHeading(new Pose2d(48, 45, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(48, 10, Math.toRadians(180)))
+                                .lineToLinearHeading(new Pose2d(62, 10, Math.toRadians(180)))
+
 
                                 .build()
                 );
@@ -108,20 +115,13 @@ public class ShortAuto {
                 .setConstraints(60, 60, Math.toRadians(60), Math.toRadians(60), 16.5)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
-                                // Knock the Team Prop out of the way
-                                .lineToLinearHeading(new Pose2d(12, -24, Math.toRadians(90)))
 
-                                // Place the purple Pixel
-                                .lineToLinearHeading(new Pose2d(12, -37, Math.toRadians(90)))
-                                .waitSeconds(1)
-
-                                .lineToLinearHeading(new Pose2d(12, -39, Math.toRadians(90)))
-
-                                // Place the Orange Pixel
-                                .lineToLinearHeading(new Pose2d(52, -36, Math.toRadians(0)))
-                                .waitSeconds(.5)
-
-
+                                .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
+                                .setReversed(true)
+                                .splineToLinearHeading(new Pose2d(52.94, -41.24, Math.toRadians(-180.00)), Math.toRadians(0.00))
+                                .setReversed(false)
+                                .splineToLinearHeading(new Pose2d(40, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+                                .lineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)))
 
                                 .build());
 
@@ -152,12 +152,12 @@ public class ShortAuto {
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
 
-                .addEntity(RedRightL)
+                //.addEntity(RedRightL)
                 .addEntity(RedRightM)
-                .addEntity(RedRightR)
-                .addEntity(BlueLeftL)
-                .addEntity(BlueLeftM)
-                .addEntity(BlueLeftR)
+                //.addEntity(RedRightR)
+                //.addEntity(BlueLeftL)
+                //.addEntity(BlueLeftM)
+                //.addEntity(BlueLeftR)
                 .start();
     }
 }

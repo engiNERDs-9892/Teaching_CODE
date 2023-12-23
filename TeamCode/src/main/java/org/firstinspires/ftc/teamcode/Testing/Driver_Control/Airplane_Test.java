@@ -17,8 +17,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name="Airplane_Tst", group="Linear Opmode")
-//@Disabled
+@TeleOp(name="Airplane_Test", group="Linear Opmode")
+@Disabled
 public class Airplane_Test extends LinearOpMode {
     @Override
     public void runOpMode() {

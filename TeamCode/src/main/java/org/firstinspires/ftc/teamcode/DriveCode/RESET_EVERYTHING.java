@@ -29,6 +29,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
 
 @TeleOp(name="RESET_HARDWARE", group="Linear Opmode")
 //@Disabled
@@ -36,24 +37,8 @@ public class RESET_EVERYTHING extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        // Declare our Motors
-        // Make sure your ID's match your configuration
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
-        motorLiftyLift = hardwareMap.dcMotor.get("motorLiftyLift");
-        motorRiseyRise = hardwareMap.dcMotor.get("motorRiseyRise");
+        new TeleOP_Variables(hardwareMap);
 
-
-        // Declare our Servos
-        // Make sure your ID's match your configuration
-        LeftClaw = hardwareMap.servo.get("LeftClaw");
-        RightClaw = hardwareMap.servo.get("RightClaw");
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        GearServo = hardwareMap.servo.get("GearServo");
-        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
 
         // Declare our IMU (Inertial Motion Unit)
         // Make sure your ID's match your configuration
@@ -103,6 +88,7 @@ public class RESET_EVERYTHING extends LinearOpMode {
         // this call sets the servos during initialization
         LeftClaw.setPosition(0);
         RightClaw.setPosition(1);
+        GearServo.setPosition(1);
         HookR.setPosition(1);
         HookL.setPosition(1);
         AirplaneServo.setPosition(1);

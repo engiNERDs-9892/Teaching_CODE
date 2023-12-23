@@ -20,6 +20,7 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.sl
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMin;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -31,7 +32,7 @@ import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
 
 
 @TeleOp(name="EngiNERDs Control RC", group="Linear Opmode")
-//@Disabled
+@Disabled
 
 public class EngiNERDs_Control_RC extends LinearOpMode {
     @Override
@@ -95,7 +96,6 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             double yaw = -gamepad1.right_stick_x;
 
 
-
             // Combine the joystick requests for each axis-motion to determine each wheel's power
             // And direction for Regular speed
             double leftFrontPower = (axial + lateral + yaw);
@@ -150,61 +150,30 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
 
 
-
-
-            if (LiftyLiftPos >= slideySlideMin && RiseyRisePos >= slideySlideMin
-                    && LiftyLiftPos <= slideySlideMax && RiseyRisePos <= slideySlideMax) {
-
-                // If you are trying to raise the linear Slide
-                // Then raise the linear slides!
-                if (RaiseandLower < -0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                }
-
-
-                // if you are trying to lower the linear Slide
-                // Then lower the linear slides!
-                if (RaiseandLower > 0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                }
-
-                // If you are not pushing on the joystick the power = 0
-                // This is mainly to prevent stick drift
-                if ((RaiseandLower >= -0.05) && (RaiseandLower <= 0.05)) {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
-            }
-
-            if (LiftyLiftPos < slideySlideMin || RiseyRisePos < slideySlideMin) {
-
-                if (RaiseandLower > 0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                } else {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
-
-            }
-
-            if (LiftyLiftPos > slideySlideMax || RiseyRisePos > slideySlideMax) {
-                if (RaiseandLower < -0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                } else {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
+            // If you are trying to raise the linear Slide
+            // Then raise the linear slides!
+            if (RaiseandLower < -0.05) {
+                motorRiseyRise.setPower(RaiseandLower);
+                motorLiftyLift.setPower(RaiseandLower);
             }
 
 
+            // if you are trying to lower the linear Slide
+            // Then lower the linear slides!
+            if (RaiseandLower > 0.05) {
+                motorRiseyRise.setPower(RaiseandLower);
+                motorLiftyLift.setPower(RaiseandLower);
+            }
+
+            // If you are not pushing on the joystick the power = 0
+            // This is mainly to prevent stick drift
+            if ((RaiseandLower >= -0.05) && (RaiseandLower <= 0.05)) {
+                motorRiseyRise.setPower(0);
+                motorLiftyLift.setPower(0);
+            }
 
 
-
-        // Toggle / Raise and Lower for the Arms
+            // Toggle / Raise and Lower for the Arms
             if (currentGamepad2.a && !previousGamepad2.a) {
                 // This will set intakeToggle to true if it was previously false
                 // and intakeToggle to false if it was previously true,
@@ -221,7 +190,6 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
                 FlooppyFloop.setPosition(.02);
                 FlippyFlip.setPosition(.98);
             }
-
 
 
             // Claws
@@ -242,7 +210,6 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             else {
                 RightClaw.setPosition(1);
             }
-
 
 
             // Toggle / Close & Open for the Left claw
@@ -283,24 +250,16 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
 
 
-
-
-
-            if (Math.abs(gamepad2.left_stick_y) >=0.5) {
+            if (Math.abs(gamepad2.left_stick_y) >= 0.5) {
                 GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
             }
 
 
-
-            if (gamepad1.a) {
+            if (gamepad1.y) {
                 AirplaneServo.setPosition(0.7);
             }
 
 
-
-
-            telemetry.addData("LiftyLift Position", LiftyLiftPos);
-            telemetry.addData("RiseyRise Position", RiseyRisePos);
             telemetry.addData("Left Claw Position", LeftClaw.getPosition());
             telemetry.addData("Left Claw Position", RightClaw.getPosition());
             telemetry.addData("Gear Servo Position", GearServo.getPosition());
@@ -308,5 +267,6 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             telemetry.addData("HookR Servo Position", HookR.getPosition());
             updateTelemetry(telemetry);
         }
+
     }
 }
