@@ -128,7 +128,7 @@ public class ShortAuto {
 
                                 // 1.56 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
                                 .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(54, -60, Math.toRadians(-180.00)), Math.toRadians(-90))
+                                .splineToLinearHeading(new Pose2d(45, -55, Math.toRadians(-180.00)), Math.toRadians(-90))
                                 .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
 
 
