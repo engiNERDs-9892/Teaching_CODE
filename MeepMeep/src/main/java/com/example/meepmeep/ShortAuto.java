@@ -116,7 +116,7 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
 
-                                // 2.35 Seconds to drive to the Spike Mark (PURPLE PIXEL | RIGHT CLAW)
+                                // 2.35 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
                                 .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
                                 .setReversed(true)
                                 .waitSeconds(0.5)
@@ -144,18 +144,21 @@ public class ShortAuto {
                 .setConstraints(60, 60, Math.toRadians(60), Math.toRadians(60), 16.5)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
-                                // Knock the team prop out of the way
-
 
                                 // Drop the purple pixel
-                                .splineToLinearHeading(new Pose2d(20, -40, Math.toRadians(180)),Math.toRadians(180))
+                                .lineToLinearHeading(new Pose2d(20, -40, Math.toRadians(90)))
+                                .waitSeconds(2)
+
 
                                 // Play the Orange pixel
                                 .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(180)))
+                                .waitSeconds(1.5)
 
+
+                                // 1.79 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
                                 .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(40, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
-                                .lineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)))
+                                .splineToLinearHeading(new Pose2d(45, -55, Math.toRadians(180.00)), Math.toRadians(-90))
+                                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)), Math.toRadians(-90))
 
 
                                 .build());
@@ -166,12 +169,12 @@ public class ShortAuto {
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
 
-                //.addEntity(RedRightL)
-                .addEntity(RedRightM)
-                //.addEntity(RedRightR)
-                //.addEntity(BlueLeftL)
-                //.addEntity(BlueLeftM)
-                //.addEntity(BlueLeftR)
+                //.addEntity(RedRightL)  (HASN'T STARTED)
+                //.addEntity(RedRightM)  (DONE)
+                //.addEntity(RedRightR)  (WIP)
+                //.addEntity(BlueLeftL)  (HASN'T STARTED)
+                //.addEntity(BlueLeftM)  (HASN'T STARTED)
+                //.addEntity(BlueLeftR)  (HASN'T STARTED)
                 .start();
     }
 }

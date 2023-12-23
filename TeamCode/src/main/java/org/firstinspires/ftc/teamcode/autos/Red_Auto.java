@@ -157,14 +157,14 @@ public class Red_Auto extends LinearOpMode {
                 .lineToConstantHeading(new Vector2d(9, -30))
                 .waitSeconds(2)
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
+                    FlooppyFloop.setPosition(GroundArmLRotate);
+                    FlippyFlip.setPosition(GroundArmRRotate);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
-                    GearServo.setPosition(.98);
+                    GearServo.setPosition(WristRotateGround);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    RightClaw.setPosition(0.77);
+                    RightClaw.setPosition(ClawR_Open);
                 })
 
 
@@ -216,11 +216,11 @@ public class Red_Auto extends LinearOpMode {
 
                 // Right Claws (PURPLE PIXEL)
                 .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
-                    LeftClaw.setPosition(ClawL_Open);
+                    RightClaw.setPosition(ClawR_Open);
                 })
 
                 .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
-                    LeftClaw.setPosition(ClawL_Close);
+                    RightClaw.setPosition(ClawR_Close);
                 })
 
                 // Rotate to Backboard Position
@@ -232,12 +232,12 @@ public class Red_Auto extends LinearOpMode {
                     FlooppyFloop.setPosition(BackboardArmLRotate);
                     FlippyFlip.setPosition(BackboardArmRRotate);
                 })
-                // Orange Pixel
-                .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
-                .waitSeconds(1)
 
-                .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
-                    RightClaw.setPosition(ClawR_Open);
+                .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
+                .waitSeconds(0.5)
+
+                .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
+                    LeftClaw.setPosition(ClawL_Open);
                 })
 
                 // Parking Middle
@@ -247,7 +247,7 @@ public class Red_Auto extends LinearOpMode {
                 // Reset Claws
                 .waitSeconds(5)
                 .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    RightClaw.setPosition(ClawR_Close);
+                    LeftClaw.setPosition(ClawL_Close);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     GearServo.setPosition(WristRotateGround);
