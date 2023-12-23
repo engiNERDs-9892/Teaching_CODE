@@ -2,6 +2,11 @@ Welcome! This is the EngiNERDs team 9892 Code for this years game CenterStage (2
 
 Things to NOTE
 
+  * The Code in this Repository, will be updated throughout the season
+
+  * Feel free to look at FTC templates in FtcRobotController -> Java -> org.fistinspires.ftc.robotcontroller
+    -> external.samples to find some useful code to look at.
+
   * Assuming that you are using this code as a reference, there are some good videos on the
     EngiNERDs youtube channel if you are confused about any concepts, or just 
     understanding what the code is trying to do.
