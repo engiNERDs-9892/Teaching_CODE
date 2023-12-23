@@ -202,7 +202,10 @@ public class Red_Auto extends LinearOpMode {
         // This is if the camera detects the middle (code of what it does is below)
         TrajectorySequence redrightM = drive.trajectorySequenceBuilder(startPoseRedRight)
 
-                //Play Purple Pixel
+                /////////////////////////////////////////////////////////////////////////
+                // 2.35 Seconds to drive to the Spike Mark (PURPLE PIXEL | RIGHT CLAW) //
+                /////////////////////////////////////////////////////////////////////////
+
                 .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
                 .setReversed(true)
                 .waitSeconds(0.5)
@@ -214,7 +217,7 @@ public class Red_Auto extends LinearOpMode {
                     GearServo.setPosition(WristRotateGround);
                 })
 
-                // Right Claws (PURPLE PIXEL)
+                // Left Claw (PURPLE PIXEL)
                 .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
                     RightClaw.setPosition(ClawR_Open);
                 })
@@ -223,7 +226,11 @@ public class Red_Auto extends LinearOpMode {
                     RightClaw.setPosition(ClawR_Close);
                 })
 
-                // Rotate to Backboard Position
+
+                /////////////////////////////////////////////////////////////////////////
+                // 2.00 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)  //
+                /////////////////////////////////////////////////////////////////////////
+
                 .UNSTABLE_addTemporalMarkerOffset(.65, () -> {
                     GearServo.setPosition(WristRotateBackboard);
                 })
@@ -240,15 +247,17 @@ public class Red_Auto extends LinearOpMode {
                     LeftClaw.setPosition(ClawL_Open);
                 })
 
-                // Parking Middle
-                .setReversed(false)
-                .splineToLinearHeading(new Pose2d(57, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
-
-                // Reset Claws
-                .waitSeconds(5)
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                     LeftClaw.setPosition(ClawL_Close);
                 })
+
+
+                ////////////////////////////////////////////////////////////////////////////////////
+                // 1.79 Seconds to drive to Park (RESET CLAWS / WRIST - *POSSIBLY EXTEND INTAKE)  //
+                ////////////////////////////////////////////////////////////////////////////////////
+                .setReversed(false)
+                .splineToLinearHeading(new Pose2d(57, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+                .waitSeconds(3)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     GearServo.setPosition(WristRotateGround);
                 })
@@ -264,55 +273,66 @@ public class Red_Auto extends LinearOpMode {
         // This is if the camera detects the right side (code of what it does is below)
         TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
 
-
-
-
-                // Knock the team prop out of the way
-                .lineToLinearHeading(new Pose2d(20, -60, Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(20, -10, Math.toRadians(90)))
-
-                // Drop the purple pixel
-                .lineToLinearHeading(new Pose2d(20, -40, Math.toRadians(90)))
-                .waitSeconds(2)
-                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
-                    GearServo.setPosition(.98);
+                /////////////////////////////////////////////////////////////////////////
+                // 1.70 Seconds to drive to the Spike Mark (PURPLE PIXEL | RIGHT CLAW) //
+                /////////////////////////////////////////////////////////////////////////
+                .lineToLinearHeading(new Pose2d(25, -43, Math.toRadians(90)))
+                .waitSeconds(0.5)
+                .UNSTABLE_addTemporalMarkerOffset(-1.1, () -> {
+                    FlooppyFloop.setPosition(GroundArmLRotate);
+                    FlippyFlip.setPosition(GroundArmRRotate);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
-                    RightClaw.setPosition(0.77);
+                    GearServo.setPosition(WristRotateGround);
+                })
+
+                // Right Claws (PURPLE PIXEL)
+                .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
+                    RightClaw.setPosition(ClawR_Open);
+                })
+
+                /////////////////////////////////////////////////////////////////////////
+                // 2.40 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)  //
+                /////////////////////////////////////////////////////////////////////////
+
+                // START MOVING TO THE BACKBOARD STARTS NOW
+                .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
+                    RightClaw.setPosition(ClawR_Close);
+                })
+
+                // Rotate to Backboard Position
+                .UNSTABLE_addTemporalMarkerOffset(.65, () -> {
+                    GearServo.setPosition(WristRotateBackboard);
+                })
+
+                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
+                    FlooppyFloop.setPosition(BackboardArmLRotate);
+                    FlippyFlip.setPosition(BackboardArmRRotate);
+                })
+                .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(180)))
+                .waitSeconds(0.5)
+                .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
+                    LeftClaw.setPosition(ClawL_Open);
                 })
 
 
-                // Flip the arm to the backboard
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(.15);
-                    FlippyFlip.setPosition(.85);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
-                    GearServo.setPosition(.75);
-                })
 
-
-                // Play the Orange pixel
-                .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(0)))
-                .waitSeconds(1.5)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    LeftClaw.setPosition(Open);
-                })
-
-                .lineToLinearHeading(new Pose2d(53, -52, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(48, -68, Math.toRadians(180)))
-                .lineToLinearHeading(new Pose2d(62, -68, Math.toRadians(180)))
+                ////////////////////////////////////////////////////////////////////////////////////
+                // 1.66 Seconds to drive to Park (RESET CLAWS / WRIST - *POSSIBLY EXTEND INTAKE)  //
+                ////////////////////////////////////////////////////////////////////////////////////
+                .setReversed(false)
+                .splineToLinearHeading(new Pose2d(45, -55, Math.toRadians(180.00)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)), Math.toRadians(-90))
                 .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                    LeftClaw.setPosition(ClawL_Close);
+                })
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
+                    FlooppyFloop.setPosition(GroundArmLRotate);
+                    FlippyFlip.setPosition(GroundArmRRotate);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    GearServo.setPosition(.98);
+                    GearServo.setPosition(WristRotateGround);
                 })
 
 
