@@ -146,7 +146,7 @@ public class ShortAuto {
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
 
                                 // 1.70 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
-                                .lineToLinearHeading(new Pose2d(25, -50, Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d(25, -43, Math.toRadians(90)))
                                 .waitSeconds(0.5)
 
 
