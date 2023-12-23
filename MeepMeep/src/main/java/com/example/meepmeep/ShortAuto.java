@@ -147,12 +147,12 @@ public class ShortAuto {
 
                                 // Drop the purple pixel
                                 .lineToLinearHeading(new Pose2d(20, -40, Math.toRadians(90)))
-                                .waitSeconds(2)
+                                .waitSeconds(0.5)
 
 
                                 // Play the Orange pixel
                                 .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(180)))
-                                .waitSeconds(1.5)
+                                .waitSeconds(0.5)
 
 
                                 // 1.79 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
