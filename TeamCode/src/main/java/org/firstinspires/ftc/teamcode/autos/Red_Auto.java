@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawL_Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawR_Close;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawR_Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
@@ -27,25 +30,26 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+//////////////////////////////////////////////
+// AUTO PLAN - This is as of Dec 23, 2023    //
+//                                          //
+// a = Right, b = Middle, c = Left          //
+//////////////////////////////////////////////
 
-// AUTO PLAN - This is as of Dec 4, 2023
-//
-// a = Right, b = Middle, c = Left
-//
 // 1. Drive to the location of the Team Prop and move the team prop out of the way
 // 1a. Drive Diagonal Left and Forwards to move the team prop into the middle of the trusses
-// 1b. Drive Forwards far enough to move the team prop into the Blue Alliance area
-// 1c.  Drive right and forwards to move the team prop into the Blue Alliance area
+// 1b. Spline at a 180 Degree (Robot facing the Truss) Forward enough to place the purple pixel without driving into the Team prop
+// 1c.
 
 // 2. Place the purple pixel depending on wherever the Team Prop is located
-// 2a. Drive backwards to place the purple pixel on the spikemark
-// 2b. Drive backwards to place the purple pixel on the spikemark
-// 2c. Drive backwards at a slighty diagnoal to place the purple pixel on the spike mark
+// 2a.
+// 2b. Drop the Purple Pixel
+// 2c.
 
 // 3. Place the Orange Pixel wherever the Team prop is located
-// 3a. Rotate 90 degrees while moving to the far right side of the board to place the orange pixel during auto
-// 3b. Rotate 90 degrees while moving to the middle of the backboard to place the orange pixel during auto
-// 3c. Rotate 180 degrees while moving to the left side of the backboard to place the orange pixel during auto
+// 3a.
+// 3b. Drive spline backwards at the same heading and play the pixel behind us
+// 3c.
 
 // 4. Drive to pick up 2 white pixels (Ideally)
 
@@ -193,6 +197,8 @@ public class Red_Auto extends LinearOpMode {
 
                 //Play Purple Pixel
                 .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
+                .setReversed(true)
+                .waitSeconds(0.5)
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     FlooppyFloop.setPosition(0.03);
                     FlippyFlip.setPosition(0.97);
@@ -200,25 +206,28 @@ public class Red_Auto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     GearServo.setPosition(.98);
                 })
-                .waitSeconds(0.5)
                 .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
-                    RightClaw.setPosition(0.77);
+                    RightClaw.setPosition(ClawR_Open);
                 })
 
-                .setReversed(true)
+                .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
+                    RightClaw.setPosition(ClawR_Close);
+                })
 
-                // Orange Pixel
-                .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
+                .UNSTABLE_addTemporalMarkerOffset(.65, () -> {
+                    GearServo.setPosition(.75);
+                })
 
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
                     FlooppyFloop.setPosition(.15);
                     FlippyFlip.setPosition(.85);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
-                    GearServo.setPosition(.75);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    LeftClaw.setPosition(Open);
+                // Orange Pixel
+                .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
+                .waitSeconds(1)
+
+                .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
+                    LeftClaw.setPosition(ClawL_Open);
                 })
 
                 // Parking Middle
@@ -228,6 +237,9 @@ public class Red_Auto extends LinearOpMode {
 
                 // Reset Claws
                 .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
+                    LeftClaw.setPosition(ClawL_Open);
+                })
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     FlooppyFloop.setPosition(0.03);
                     FlippyFlip.setPosition(0.97);

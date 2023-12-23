@@ -19,4 +19,9 @@ public class Autonomous_Variables {
     public static Servo AirplaneServo;
     public static Servo HookL;
     public static Servo HookR;
+
+    public static double ClawR_Open = 0.77;
+    public static double ClawR_Close = 1;
+    public static double ClawL_Open = 0.33;
+    public static double ClawL_Close = 0;
     }
