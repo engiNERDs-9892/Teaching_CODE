@@ -128,7 +128,7 @@ public class ShortAuto {
 
                                 // Parking Middle
                                 .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+                                .splineToLinearHeading(new Pose2d(68, -60, Math.toRadians(-180.00)), Math.toRadians(-90))
 
 
 
