@@ -171,7 +171,7 @@ public class ShortAuto {
 
                 //.addEntity(RedRightL)  (HASN'T STARTED)
                 //.addEntity(RedRightM)  (DONE)
-                //.addEntity(RedRightR)  (WIP)
+                .addEntity(RedRightR)    //  (WIP)
                 //.addEntity(BlueLeftL)  (HASN'T STARTED)
                 //.addEntity(BlueLeftM)  (HASN'T STARTED)
                 //.addEntity(BlueLeftR)  (HASN'T STARTED)
