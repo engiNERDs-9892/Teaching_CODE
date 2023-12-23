@@ -123,13 +123,13 @@ public class ShortAuto {
 
                                 // Orange Pixel
                                 .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
 
 
                                 // Parking Middle
                                 .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(40, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
-                                .lineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)))
+                                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+
 
 
 
