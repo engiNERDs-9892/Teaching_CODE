@@ -116,19 +116,20 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
 
-                                //Play Purple Pixel
+                                // 2.35 Seconds to drive to the Spike Mark (PURPLE PIXEL | RIGHT CLAW)
                                 .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
                                 .setReversed(true)
                                 .waitSeconds(0.5)
 
-                                // Orange Pixel
+                                // 2 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
                                 .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
                                 .waitSeconds(0.5)
 
 
-                                // Parking Middle
+                                // 1.56 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
                                 .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(57, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+                                .splineToLinearHeading(new Pose2d(54, -60, Math.toRadians(-180.00)), Math.toRadians(-90))
+                                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
 
 
 

@@ -1,8 +1,15 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.BackboardArmLRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.BackboardArmRRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawL_Close;
 import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawL_Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawR_Close;
 import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawR_Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.GroundArmLRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.GroundArmRRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.WristRotateBackboard;
+import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.WristRotateGround;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
@@ -200,53 +207,56 @@ public class Red_Auto extends LinearOpMode {
                 .setReversed(true)
                 .waitSeconds(0.5)
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
+                    FlooppyFloop.setPosition(GroundArmLRotate);
+                    FlippyFlip.setPosition(GroundArmRRotate);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    GearServo.setPosition(.98);
+                    GearServo.setPosition(WristRotateGround);
                 })
+
+                // Right Claws (PURPLE PIXEL)
                 .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
-                    RightClaw.setPosition(ClawR_Open);
+                    LeftClaw.setPosition(ClawL_Open);
                 })
 
                 .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
-                    RightClaw.setPosition(ClawR_Close);
+                    LeftClaw.setPosition(ClawL_Close);
                 })
 
+                // Rotate to Backboard Position
                 .UNSTABLE_addTemporalMarkerOffset(.65, () -> {
-                    GearServo.setPosition(.75);
+                    GearServo.setPosition(WristRotateBackboard);
                 })
 
                 .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    FlooppyFloop.setPosition(.15);
-                    FlippyFlip.setPosition(.85);
+                    FlooppyFloop.setPosition(BackboardArmLRotate);
+                    FlippyFlip.setPosition(BackboardArmRRotate);
                 })
                 // Orange Pixel
                 .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
                 .waitSeconds(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
-                    LeftClaw.setPosition(ClawL_Open);
+                    RightClaw.setPosition(ClawR_Open);
                 })
 
                 // Parking Middle
                 .setReversed(false)
-                .splineToLinearHeading(new Pose2d(40, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
-                .lineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)))
+                .splineToLinearHeading(new Pose2d(57, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
 
                 // Reset Claws
                 .waitSeconds(5)
                 .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    LeftClaw.setPosition(ClawL_Open);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(0.03);
-                    FlippyFlip.setPosition(0.97);
+                    RightClaw.setPosition(ClawR_Close);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    GearServo.setPosition(.98);
+                    GearServo.setPosition(WristRotateGround);
                 })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    FlooppyFloop.setPosition(GroundArmLRotate);
+                    FlippyFlip.setPosition(GroundArmRRotate);
+                })
+
 
                 .build();
 
