@@ -191,27 +191,25 @@ public class Red_Auto extends LinearOpMode {
         // This is if the camera detects the middle (code of what it does is below)
         TrajectorySequence redrightM = drive.trajectorySequenceBuilder(startPoseRedRight)
 
-                // Knock the Team Prop out of the way
-                .lineToLinearHeading(new Pose2d(12, -24, Math.toRadians(90)))
-
-                // Place the purple Pixel
-                .lineToLinearHeading(new Pose2d(12, -37, Math.toRadians(90)))
-                .waitSeconds(2)
-
-                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                //Play Purple Pixel
+                .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     FlooppyFloop.setPosition(0.03);
                     FlippyFlip.setPosition(0.97);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     GearServo.setPosition(.98);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
+                .waitSeconds(0.5)
+                .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
                     RightClaw.setPosition(0.77);
                 })
 
+                .setReversed(true)
 
-                .lineToLinearHeading(new Pose2d(12, -39, Math.toRadians(90)))
-                // Flip the arm to the backboard
+                // Orange Pixel
+                .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
+
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                     FlooppyFloop.setPosition(.15);
                     FlippyFlip.setPosition(.85);
@@ -219,17 +217,14 @@ public class Red_Auto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(.5, () -> {
                     GearServo.setPosition(.75);
                 })
-
-                // Place the Orange Pixel
-                .lineToLinearHeading(new Pose2d(51, -42, Math.toRadians(0)))
-                .waitSeconds(1.5)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     LeftClaw.setPosition(Open);
                 })
-                .lineToLinearHeading(new Pose2d(52, -50, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(48, -52, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(48, -68, Math.toRadians(180)))
-                .lineToLinearHeading(new Pose2d(62, -68, Math.toRadians(180)))
+
+                // Parking Middle
+                .setReversed(false)
+                .splineToLinearHeading(new Pose2d(40, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+                .lineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)))
                 .waitSeconds(5)
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     FlooppyFloop.setPosition(0.03);
@@ -244,6 +239,9 @@ public class Red_Auto extends LinearOpMode {
 
         // This is if the camera detects the right side (code of what it does is below)
         TrajectorySequence redrightR = drive.trajectorySequenceBuilder(startPoseRedRight)
+
+
+
 
                 // Knock the team prop out of the way
                 .lineToLinearHeading(new Pose2d(20, -60, Math.toRadians(90)))
