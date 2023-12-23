@@ -225,6 +225,8 @@ public class Red_Auto extends LinearOpMode {
                 .setReversed(false)
                 .splineToLinearHeading(new Pose2d(40, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
                 .lineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)))
+
+                // Reset Claws
                 .waitSeconds(5)
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     FlooppyFloop.setPosition(0.03);
