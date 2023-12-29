@@ -4,8 +4,8 @@ Things to NOTE
 
   * The Code in this Repository, will be updated throughout the season
 
-  * Feel free to look at FTC templates in FtcRobotController -> Java -> org.fistinspires.ftc.robotcontroller
-    -> external.samples to find some useful code to look at.
+  * Feel free to look at FTC templates in (FtcRobotController -> Java -> org.fistinspires.ftc.robotcontroller
+    -> external.samples) to find some useful code to look at.
 
   * Assuming that you are using this code as a reference, there are some good videos on the
     EngiNERDs youtube channel if you are confused about any concepts, or just 
@@ -14,9 +14,8 @@ Things to NOTE
   * Some other Major channels / Videos / Manuals to look at, are
 
     * Channels
-      * https://www.youtube.com/@tccsenginerds9216  - EngiNERDs (OUR TEAM)
-      * https://www.youtube.com/@ArtemisRobotics - Helpful for Learning Gyroscope
-        (Credit - Artemis Robotics)
+      * https://www.youtube.com/@tccsenginerds9216  - EngiNERDs (OUR TEAM) | Coding Basics
+      * https://www.youtube.com/@ArtemisRobotics - Helpful for Learning Gyroscope (Credit - Artemis Robotics)
       * https://www.youtube.com/@noahbres/videos - Helpful for RoadRunner & Meep Meep, more of his 
         videos are in the Road Runner Manual (Credit - Noah Bres)
     

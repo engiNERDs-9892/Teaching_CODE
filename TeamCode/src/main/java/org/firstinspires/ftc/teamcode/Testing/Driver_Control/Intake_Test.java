@@ -13,24 +13,25 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name="Intake Test", group="Linear Opmode")
 //@Disabled
 public class Intake_Test extends LinearOpMode {
-
     @Override
     public void runOpMode() {
-        IntakeServo = hardwareMap.servo.get("IntakeServo");
+        IntakeServo = hardwareMap.servo.get("GearServo");
 
         waitForStart();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
         if (gamepad1.a){
-            IntakeServo.setPosition(.99);
+            IntakeServo.setPosition(0.99);
         }
 
         if (gamepad1.b){
             IntakeServo.setPosition(0.01);
         }
 
+        telemetry.addData("servo Pos", IntakeServo.getPosition());
         }
+    telemetry.update();
     }
 }
 

@@ -22,22 +22,20 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(-90)))
 
-                                // Knock the team prop out of the way
-                                .lineToLinearHeading(new Pose2d(20, 60, Math.toRadians(-90)))
-                                .lineToLinearHeading(new Pose2d(20, 10, Math.toRadians(-90)))
-
-                                // Drop the purple pixel
-                                .lineToLinearHeading(new Pose2d(20, 40, Math.toRadians(-90)))
-                                .waitSeconds(2)
+                                // 1.70 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
+                                .lineToLinearHeading(new Pose2d(22, 43, Math.toRadians(-90)))
+                                .waitSeconds(0.5)
 
 
-                                // Play the Orange pixel
-                                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(0)))
-                                .waitSeconds(1.5)
+                                // 2.40 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
+                                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(180)))
+                                .waitSeconds(0.5)
 
-                                .lineToLinearHeading(new Pose2d(48, 45, Math.toRadians(0)))
-                                .lineToLinearHeading(new Pose2d(48, 10, Math.toRadians(180)))
-                                .lineToLinearHeading(new Pose2d(62, 10, Math.toRadians(180)))
+
+                                // 1.66 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
+                                .setReversed(false)
+                                .splineToLinearHeading(new Pose2d(45, 55, Math.toRadians(180.00)), Math.toRadians(-270))
+                                .splineToLinearHeading(new Pose2d(68, 68, Math.toRadians(180.00)), Math.toRadians(-270))
 
 
                                 .build()
@@ -50,15 +48,20 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(-90)))
 
-                                // Purple Pixel Drop
-                                .lineToConstantHeading(new Vector2d(12,24))
-                                .lineToConstantHeading(new Vector2d(12, 37))
-                                .waitSeconds(1)
+                                // 2.35 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
+                                .splineToLinearHeading(new Pose2d(16.00, 37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
+                                .setReversed(true)
+                                .waitSeconds(0.5)
 
-                                // Orange Pixel Drop
-                                .lineToConstantHeading(new Vector2d(12, 39))
-                                .lineToLinearHeading(new Pose2d(52, 36, Math.toRadians(0)))
-                                .waitSeconds(.5)
+                                // 2 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
+                                .splineToLinearHeading(new Pose2d(51, 42, Math.toRadians(-180.00)), Math.toRadians(0.00))
+                                .waitSeconds(0.5)
+
+                                // 1.79 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
+                                .setReversed(false)
+                                .splineToLinearHeading(new Pose2d(45, 55, Math.toRadians(-180.00)), Math.toRadians(-270))
+                                .splineToLinearHeading(new Pose2d(68, 68, Math.toRadians(-180.00)), Math.toRadians(-270))
+
 
 
                                 .build()
@@ -71,17 +74,19 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(-90)))
 
-                                // Knock the Team Prop out of the way
-                                .splineToLinearHeading(new Pose2d(9, 40, Math.toRadians(180.00)), Math.toRadians(100))
-                                .lineToConstantHeading(new Vector2d(8, 32.5))
-                                .lineToConstantHeading(new Vector2d(0, 32.5))
+                                // 1.85 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
+                                .splineToLinearHeading(new Pose2d(6.00, 40.00, Math.toRadians(-114.44)), Math.toRadians(120.00))
+                                .waitSeconds(.5)
 
-                                // Place the Purple Pixel
-                                .lineToConstantHeading(new Vector2d(8, 30))
-                                .waitSeconds(1)
+                                // 2.40 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
+                                .lineToLinearHeading(new Pose2d(53, 24, Math.toRadians(180.00)))
+                                .waitSeconds(.5)
 
-                                // Place the Orange Pixel
-                                .lineToLinearHeading(new Pose2d(53, 30, Math.toRadians(0)))
+                                // 2.67 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
+                                .splineToLinearHeading(new Pose2d(45, 8.00, Math.toRadians(180)), Math.toRadians(180.00))
+                                .setReversed(true)
+                                .splineToLinearHeading(new Pose2d(68.00, 8.00, Math.toRadians(180)), Math.toRadians(180.00))
+
 
                                 .build()
                 );
@@ -93,17 +98,23 @@ public class ShortAuto {
                 .setConstraints(60, 60, Math.toRadians(60), Math.toRadians(60), 16.5)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
-                                // Knock the Team Prop out of the way
-                                .splineToLinearHeading(new Pose2d(9, -40, Math.toRadians(180.00)), Math.toRadians(100))
-                                .lineToConstantHeading(new Vector2d(8, -32.5))
-                                .lineToConstantHeading(new Vector2d(0, -32.5))
 
-                                // Place the Purple Pixel
-                                .lineToConstantHeading(new Vector2d(8, -30))
+                                // 1.85 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
+                                .splineToLinearHeading(new Pose2d(6.00, -40.00, Math.toRadians(114.44)), Math.toRadians(120.00))
+                                .waitSeconds(.5)
+
+                                // 1.50 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
+                                .lineToLinearHeading(new Pose2d(53, -24, Math.toRadians(180.00)))
+                                .waitSeconds(.5)
 
 
-                                // Place the Orange Pixel
-                                .lineToLinearHeading(new Pose2d(53,-18,Math.toRadians(0)))
+                                // 2.67 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
+                                .splineToLinearHeading(new Pose2d(45, -8.00, Math.toRadians(180)), Math.toRadians(180.00))
+                                .setReversed(true)
+                                .splineToLinearHeading(new Pose2d(68.00, -8.00, Math.toRadians(180)), Math.toRadians(180.00))
+
+
+
 
                                 .build());
 
@@ -120,6 +131,7 @@ public class ShortAuto {
                                 .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
                                 .setReversed(true)
                                 .waitSeconds(0.5)
+
 
                                 // 2 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
                                 .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
@@ -169,12 +181,12 @@ public class ShortAuto {
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
 
-                //.addEntity(RedRightL)  (HASN'T STARTED)
+                .addEntity(RedRightL)
                 //.addEntity(RedRightM)  (DONE)
-                .addEntity(RedRightR)    //  (WIP)
-                //.addEntity(BlueLeftL)  (HASN'T STARTED)
-                //.addEntity(BlueLeftM)  (HASN'T STARTED)
-                //.addEntity(BlueLeftR)  (HASN'T STARTED)
+                //.addEntity(RedRightR)  (DONE)
+                //.addEntity(BlueLeftL)
+                //.addEntity(BlueLeftM)
+                .addEntity(BlueLeftR)
                 .start();
     }
 }
