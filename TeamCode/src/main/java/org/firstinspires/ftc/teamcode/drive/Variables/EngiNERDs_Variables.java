@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Disabled
-public class TeleOP_Variables {
+public class EngiNERDs_Variables {
 
     public static DcMotor motorFL = null;
     public static DcMotor motorFR = null;
@@ -28,8 +28,6 @@ public class TeleOP_Variables {
 
     public static Servo GearServo;
     public static Servo AirplaneServo;
-    public static Servo HookL;
-    public static Servo HookR;
     public static Servo IntakeServo;
 
     // Position for the Claws to close
@@ -41,8 +39,41 @@ public class TeleOP_Variables {
     public static final int slideySlideMax = 7700;
     public static final int slideySlideMin = 100;
 
+    public static double DegreeClaw = 0.00333333333;  // 1/300 (Torque Servo)
+    public static double DegreeArm = 0.00333333333; //  1/300 (Torque Servo)
+    public static double DegreeAirplane = 0.00333333333; //  1/300 (Torque Servo)
+    public static double DegreeWrist = 0.000555555556; // 1/1800 (5 Turn Servo)
 
-    public TeleOP_Variables(HardwareMap hardwareMap) {
+    public static double GroundArmLRotate = 9;
+    public static double GroundArmRRotate = 291 ;
+    public static double BackboardArmLRotate = 90;
+    public static double BackboardArmRRotate = 210;
+
+    public static double Stack5ArmLRotate = 45;
+    public static double Stack5ArmRRotate = 255; //300-45 Since servo = reversed
+
+    public static double Stack4ArmLRotate = 35;
+    public static double Stack4ArmRRotate = 245; //300-35 Since servo = reversed
+
+    public static double Stack3ArmLRotate = 25;
+    public static double Stack3ArmRRotate = 275; //300-25 Since servo = reversed
+
+    public static double Stack2ArmLRotate = 15;
+    public static double Stack2ArmRRotate = 285; //300-15 Since servo = reversed
+    public static double Stack1ArmLRotate = 5;
+    public static double Stack1ArmRRotate = 295; //300-5 Since servo = reversed
+
+    public static double WristRotateGround = 0;
+    public static double WristRotateStack = 0;
+    public static double WristRotateBackboard = 165;
+
+    public static double ClawR_Open = 255;
+    public static double ClawR_Close = 300;
+    public static double ClawL_Open = 45;
+    public static double ClawL_Close = 0;
+
+
+    public EngiNERDs_Variables(HardwareMap hardwareMap) {
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorBL = hardwareMap.dcMotor.get("motorBL");
@@ -56,8 +87,6 @@ public class TeleOP_Variables {
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
         GearServo = hardwareMap.servo.get("GearServo");
         AirplaneServo = hardwareMap.servo.get("AirplaneServo");
-        HookR = hardwareMap.servo.get("HookR");
-        HookL = hardwareMap.servo.get("HookL");
 
 
         motorFL.setPower(0);
@@ -70,8 +99,6 @@ public class TeleOP_Variables {
         // this call sets the servos during initialization
         LeftClaw.setPosition(1);
         RightClaw.setPosition(0);
-        HookR.setPosition(1);
-        HookL.setPosition(1);
         AirplaneServo.setPosition(1);
 
         motorRiseyRise.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

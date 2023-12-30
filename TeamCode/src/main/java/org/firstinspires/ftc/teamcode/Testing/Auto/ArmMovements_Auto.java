@@ -1,35 +1,30 @@
 package org.firstinspires.ftc.teamcode.Testing.Auto;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.BackboardArmLRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.BackboardArmRRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawL_Close;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawL_Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawR_Close;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.ClawR_Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.DegreeAirplane;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.GroundArmLRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.GroundArmRRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.Stack5ArmLRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.Stack5ArmRRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.WristRotateBackboard;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.WristRotateGround;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.WristRotateStack;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.DegreeArm;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.DegreeClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.DegreeWrist;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmLRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.ClawL_Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.ClawR_Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmLRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmLRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateBackboard;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateGround;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateStack;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
 
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -44,38 +39,11 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-//////////////////////////////////////////////
-// AUTO PLAN - This is as of Dec 23, 2023    //
-//                                          //
-// a = Right, b = Middle, c = Left          //
-//////////////////////////////////////////////
-
-// 1. Drive to the location of the Team Prop and move the team prop out of the way
-// 1a. Drive Diagonal Left and Forwards to move the team prop into the middle of the trusses
-// 1b. Spline at a 180 Degree (Robot facing the Truss) Forward enough to place the purple pixel without driving into the Team prop
-// 1c.
-
-// 2. Place the purple pixel depending on wherever the Team Prop is located
-// 2a.
-// 2b. Drop the Purple Pixel
-// 2c.
-
-// 3. Place the Orange Pixel wherever the Team prop is located
-// 3a.
-// 3b. Drive spline backwards at the same heading and play the pixel behind us
-// 3c.
-
-// 4. Drive to pick up 2 white pixels (Ideally)
-
-
 // @ CONFIG is used for FTC Dashboard
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class ArmMovements_Auto extends LinearOpMode {
-
-
-
 
     // Calls the Variable webcam
     OpenCvWebcam webcam;
@@ -95,17 +63,15 @@ public class ArmMovements_Auto extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
         AirplaneServo = hardwareMap.servo.get("AirplaneServo");
-        HookR = hardwareMap.servo.get("HookR");
-        HookL = hardwareMap.servo.get("HookL");
 
 
         // this call sets the servos during initialization
-        FlooppyFloop.setPosition(255 * DegreeArm);
-        FlippyFlip.setPosition(45 * DegreeArm);
-        GearServo.setPosition(180 * DegreeWrist);
-        LeftClaw.setPosition(300 * DegreeClaw);
-        RightClaw.setPosition(0 * DegreeClaw);
-        AirplaneServo.setPosition(300 * DegreeAirplane);
+        FlooppyFloop.setPosition(255 * DegreeArm); // Rotates at an angle forwards
+        FlippyFlip.setPosition(45 * DegreeArm); // rotates at an angle forwards
+        GearServo.setPosition(165 * DegreeWrist); // Rotates into the air
+        LeftClaw.setPosition(300 * DegreeClaw); // Closes
+        RightClaw.setPosition(0 * DegreeClaw); // Closes
+        AirplaneServo.setPosition(300 * DegreeAirplane); // Closes
 
         // this sets the servos in the proper direction
         LeftClaw.setDirection(Servo.Direction.REVERSE);

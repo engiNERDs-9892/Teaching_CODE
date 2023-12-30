@@ -1,14 +1,12 @@
 package org.firstinspires.ftc.teamcode.autos;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -74,8 +72,6 @@ public class Blue_Auto extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
         AirplaneServo = hardwareMap.servo.get("AirplaneServo");
-        HookR = hardwareMap.servo.get("HookR");
-        HookL = hardwareMap.servo.get("HookL");
 
 
         // this call sets the servos during initialization

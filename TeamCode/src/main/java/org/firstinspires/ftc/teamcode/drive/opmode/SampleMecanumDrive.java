@@ -26,11 +26,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
@@ -40,14 +38,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.Autonomous_Variables.RightClaw;
 import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ANG_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.opmode.DriveConstants.MAX_ANG_VEL;

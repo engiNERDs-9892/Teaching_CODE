@@ -1,34 +1,25 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Close;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorBL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorBR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorFL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorFR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorLiftyLift;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorRiseyRise;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMax;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMin;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Close;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMax;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMin;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
+import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 import org.firstinspires.ftc.teamcode.drive.opmode.SampleMecanumDrive;
 
 /**
@@ -53,7 +44,7 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
 
-        new TeleOP_Variables(hardwareMap);
+        new EngiNERDs_Variables(hardwareMap);
 
         boolean Right_Claw_Toggle = false;
 
@@ -214,26 +205,6 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
                 LeftClaw.setPosition(Close);
-            }
-
-
-            // Toggle / Close & Open for the Right claw
-            if (currentGamepad2.b && !previousGamepad2.b) {
-                // This will set intakeToggle to true if it was previously false
-                // and intakeToggle to false if it was previously true,
-                // providing a toggling behavior.
-                Hook_Toggle = !Hook_Toggle;
-            }
-
-            // Opens the claws after the 1st press of the bumper and alternates once pressed again
-            if (Hook_Toggle) {
-                HookR.setPosition(.23);
-                HookL.setPosition(.23);
-            }
-            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
-            else {
-                HookR.setPosition(1);
-                HookL.setPosition(1);
             }
 
 

@@ -1,35 +1,30 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Close;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorBL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorBR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorFL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorFR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorLiftyLift;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorRiseyRise;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMax;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMin;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBR;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFR;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
+import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 
 @TeleOp(name="RESET_HARDWARE", group="Linear Opmode")
 //@Disabled
@@ -37,7 +32,7 @@ public class RESET_EVERYTHING extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        new TeleOP_Variables(hardwareMap);
+        new EngiNERDs_Variables(hardwareMap);
 
 
         // Declare our IMU (Inertial Motion Unit)
@@ -57,7 +52,9 @@ public class RESET_EVERYTHING extends LinearOpMode {
         motorRiseyRise.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLiftyLift.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        // this sets the servos in the proper direction
         LeftClaw.setDirection(Servo.Direction.REVERSE);
+        RightClaw.setDirection(Servo.Direction.REVERSE);
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
         GearServo.setDirection(Servo.Direction.REVERSE);
@@ -86,12 +83,10 @@ public class RESET_EVERYTHING extends LinearOpMode {
 
         // this call sets the servos during initialization
         // this call sets the servos during initialization
-        LeftClaw.setPosition(0);
-        RightClaw.setPosition(1);
-        GearServo.setPosition(1);
-        HookR.setPosition(1);
-        HookL.setPosition(1);
-        AirplaneServo.setPosition(1);
+        LeftClaw.setPosition(300 * DegreeClaw); // Closes
+        RightClaw.setPosition(0 * DegreeClaw); // Closes
+        GearServo.setPosition(0 * DegreeWrist);
+        AirplaneServo.setPosition(300 * DegreeAirplane);
 
 
         imu.initialize(parameters);

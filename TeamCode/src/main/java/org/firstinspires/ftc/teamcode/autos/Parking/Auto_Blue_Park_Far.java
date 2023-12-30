@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.autos.Parking;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -33,8 +31,6 @@ public class Auto_Blue_Park_Far extends LinearOpMode {
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
         AirplaneServo = hardwareMap.servo.get("AirplaneServo");
-        HookR = hardwareMap.servo.get("HookR");
-        HookL = hardwareMap.servo.get("HookL");
 
 
         // this call sets the servos during initialization
@@ -43,8 +39,6 @@ public class Auto_Blue_Park_Far extends LinearOpMode {
         GearServo.setPosition(.7);
         LeftClaw.setPosition(0);
         RightClaw.setPosition(1);
-        HookR.setPosition(1);
-        HookL.setPosition(1);
         AirplaneServo.setPosition(1);
 
         // this sets the servos in the proper direction

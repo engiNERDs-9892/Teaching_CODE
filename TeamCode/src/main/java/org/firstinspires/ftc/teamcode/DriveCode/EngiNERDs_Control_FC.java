@@ -1,38 +1,32 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.AirplaneServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Close;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.HookR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.RightClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorBL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorBR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorFL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorFR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorLiftyLift;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.motorRiseyRise;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMax;
-import static org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables.slideySlideMin;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Close;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBR;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFR;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMax;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMin;
 
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.drive.Variables.TeleOP_Variables;
+import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 
 @TeleOp(name="EngiNERDs Control FC", group="Linear Opmode")
 @Disabled
@@ -48,7 +42,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
 
-        new TeleOP_Variables(hardwareMap);
+        new EngiNERDs_Variables(hardwareMap);
 
         // Declare our IMU (Inertial Motion Unit)
         // Make sure your ID's match your configuration
@@ -249,26 +243,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
-            // Toggle / Close & Open for the Right claw
-            if (currentGamepad2.b && !previousGamepad2.b) {
-                // This will set intakeToggle to true if it was previously false
-                // and intakeToggle to false if it was previously true,
-                // providing a toggling behavior.
-                Hook_Toggle = !Hook_Toggle;
-            }
-
-            // Opens the claws after the 1st press of the bumper and alternates once pressed again
-            if (Hook_Toggle) {
-                HookR.setPosition(.23);
-                HookL.setPosition(.23);
-            }
-            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
-            else {
-                HookR.setPosition(1);
-                HookL.setPosition(1);
-            }
-
-
             if (Math.abs(gamepad2.left_stick_y) >= 0.5) {
                 GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
             }
@@ -284,8 +258,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             telemetry.addData("Left Claw Position", LeftClaw.getPosition());
             telemetry.addData("Left Claw Position", RightClaw.getPosition());
             telemetry.addData("Gear Servo Position", GearServo.getPosition());
-            telemetry.addData("HookL Servo Position", HookL.getPosition());
-            telemetry.addData("HookR Servo Position", HookR.getPosition());
             updateTelemetry(telemetry);
 
 
