@@ -4,7 +4,7 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Examples.RedPipline;
+import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 import org.firstinspires.ftc.teamcode.drive.opmode.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -46,28 +47,12 @@ public class Movement_Auto extends LinearOpMode {
 
         // This calls the hardware map for servos and motors
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        GearServo = hardwareMap.servo.get("GearServo");
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        LeftClaw = hardwareMap.servo.get("LeftClaw");
-        RightClaw = hardwareMap.servo.get("RightClaw");
-        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
-
+        new EngiNERDs_Variables(hardwareMap);
 
         // this call sets the servos during initialization
-        FlooppyFloop.setPosition(255 * DegreeArm); // Rotates at an angle forwards
+        FlooppyFloop.setPosition(50 * DegreeArm); // Rotates at an angle forwards
         FlippyFlip.setPosition(45 * DegreeArm); // rotates at an angle forwards
-        GearServo.setPosition(165 * DegreeWrist); // Rotates into the air
-        LeftClaw.setPosition(300 * DegreeClaw); // Closes
-        RightClaw.setPosition(0 * DegreeClaw); // Closes
-        AirplaneServo.setPosition(300 * DegreeAirplane); // Closes
-
-        // this sets the servos in the proper direction
-        LeftClaw.setDirection(Servo.Direction.REVERSE);
-        RightClaw.setDirection(Servo.Direction.REVERSE);
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
-        FlooppyFloop.setDirection(Servo.Direction.REVERSE);
-        GearServo.setDirection(Servo.Direction.REVERSE);
+        GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)

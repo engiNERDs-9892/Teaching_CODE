@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Close;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
@@ -182,11 +183,11 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Right_Claw_Toggle) {
-                RightClaw.setPosition(.77);
+                RightClaw.setPosition(Open * DegreeClaw);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                RightClaw.setPosition(1);
+                RightClaw.setPosition(Close * DegreeClaw);
             }
 
 
@@ -200,11 +201,11 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Left_Claw_Toggle) {
-                LeftClaw.setPosition(Open);
+                LeftClaw.setPosition(Open * DegreeClaw);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                LeftClaw.setPosition(Close);
+                LeftClaw.setPosition(Close * DegreeClaw);
             }
 
 
@@ -214,7 +215,7 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
 
             if (gamepad1.a) {
-                AirplaneServo.setPosition(0.7);
+                AirplaneMountServo.setPosition(0.7);
             }
         }
     }

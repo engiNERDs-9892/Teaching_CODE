@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
@@ -39,55 +40,16 @@ public class RESET_EVERYTHING extends LinearOpMode {
         // Make sure your ID's match your configuration
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
-        // Reverse the right side motors. This may be wrong for your setup.
-        // If your robot moves backwards when commanded to go forwards,
-        // reverse the left side instead.
-        // See the note about this earlier on this page.
-        // Setting the motor Direction, so the motors or servos rotate correctly (Default Direction = Forward)
-
-        motorFL.setDirection(DcMotor.Direction.FORWARD);
-        motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.REVERSE);
-        motorBL.setDirection(DcMotor.Direction.FORWARD);
-        motorRiseyRise.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorLiftyLift.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        // this sets the servos in the proper direction
-        LeftClaw.setDirection(Servo.Direction.REVERSE);
-        RightClaw.setDirection(Servo.Direction.REVERSE);
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
-        FlooppyFloop.setDirection(Servo.Direction.REVERSE);
-        GearServo.setDirection(Servo.Direction.REVERSE);
-
         // Adjust the orientation parameters to match your robot (Adjust which way the Control Hub is facing)
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
         RevHubOrientationOnRobot.LogoFacingDirection.UP,
         RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
-        // Resets the Encoder Position to 0 so that we can use Encoders for our Driver Control instead
-        // of Magnetic Limit Switches
-        motorRiseyRise.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLiftyLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Tells the motors to Run using those specific encoders
-        motorRiseyRise.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLiftyLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        // Setting the motor Power for Driver Control
-        motorFL.setPower(0);
-        motorBL.setPower(0);
-        motorFR.setPower(0);
-        motorBR.setPower(0);
-        motorRiseyRise.setPower(0);
-        motorLiftyLift.setPower(0);
-
         // this call sets the servos during initialization
-        // this call sets the servos during initialization
-        LeftClaw.setPosition(300 * DegreeClaw); // Closes
-        RightClaw.setPosition(0 * DegreeClaw); // Closes
+
+        FlippyFlip.setPosition(0 * DegreeArm);
+        FlooppyFloop.setPosition(0 * DegreeArm);
         GearServo.setPosition(0 * DegreeWrist);
-        AirplaneServo.setPosition(300 * DegreeAirplane);
-
 
         imu.initialize(parameters);
 

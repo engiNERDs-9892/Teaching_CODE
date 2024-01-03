@@ -1,18 +1,11 @@
 package org.firstinspires.ftc.teamcode.Testing.Auto;
-
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmLRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.ClawL_Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.ClawR_Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmLRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmLRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateBackboard;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateGround;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateStack;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
@@ -32,6 +25,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Examples.RedPipline;
+import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 import org.firstinspires.ftc.teamcode.drive.opmode.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -57,28 +51,12 @@ public class ArmMovements_Auto extends LinearOpMode {
 
         // This calls the hardware map for servos and motors
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        GearServo = hardwareMap.servo.get("GearServo");
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        LeftClaw = hardwareMap.servo.get("LeftClaw");
-        RightClaw = hardwareMap.servo.get("RightClaw");
-        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
-
+        new EngiNERDs_Variables(hardwareMap);
 
         // this call sets the servos during initialization
-        FlooppyFloop.setPosition(255 * DegreeArm); // Rotates at an angle forwards
+        FlooppyFloop.setPosition(50 * DegreeArm); // Rotates at an angle forwards
         FlippyFlip.setPosition(45 * DegreeArm); // rotates at an angle forwards
-        GearServo.setPosition(165 * DegreeWrist); // Rotates into the air
-        LeftClaw.setPosition(300 * DegreeClaw); // Closes
-        RightClaw.setPosition(0 * DegreeClaw); // Closes
-        AirplaneServo.setPosition(300 * DegreeAirplane); // Closes
-
-        // this sets the servos in the proper direction
-        LeftClaw.setDirection(Servo.Direction.REVERSE);
-        RightClaw.setDirection(Servo.Direction.REVERSE);
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
-        FlooppyFloop.setDirection(Servo.Direction.REVERSE);
-        GearServo.setDirection(Servo.Direction.REVERSE);
+        GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
@@ -121,39 +99,39 @@ public class ArmMovements_Auto extends LinearOpMode {
         drive.setPoseEstimate(startPoseRedRight);
 
 
-        // This is if the camera detects the left side (code of what it does is below)
+        //
         TrajectorySequence PurplePixelArmMovement = drive.trajectorySequenceBuilder(startPoseRedRight)
 
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(GroundArmLRotate * DegreeArm);
-                    FlippyFlip.setPosition(GroundArmRRotate * DegreeArm);
+                    FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
+                    FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
-                    RightClaw.setPosition(ClawR_Open * DegreeClaw);
+                    RightClaw.setPosition(Open * DegreeClaw);
                 })
                 .waitSeconds(25)
 
                 .build();
 
-        // This is if the camera detects the left side (code of what it does is below)
+        //
         TrajectorySequence OrangePixelArmMovement = drive.trajectorySequenceBuilder(startPoseRedRight)
 
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(BackboardArmLRotate * DegreeArm);
-                    FlippyFlip.setPosition(BackboardArmRRotate * DegreeArm);
+                    FlooppyFloop.setPosition(BackboardArmRotate * DegreeArm);
+                    FlippyFlip.setPosition(BackboardArmRotate * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateBackboard * DegreeWrist);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
-                    LeftClaw.setPosition(ClawL_Open * DegreeClaw);
+                    LeftClaw.setPosition(Open * DegreeClaw);
                 })
                 .waitSeconds(25)
 
@@ -161,20 +139,20 @@ public class ArmMovements_Auto extends LinearOpMode {
 
 
 
-
+        //
         TrajectorySequence WhitePixelArmMovement = drive.trajectorySequenceBuilder(startPoseRedRight)
 
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(Stack5ArmLRotate * DegreeArm);
-                    FlippyFlip.setPosition(Stack5ArmRRotate * DegreeArm);
+                    FlooppyFloop.setPosition(Stack5ArmRotate * DegreeArm);
+                    FlippyFlip.setPosition(Stack5ArmRotate * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateStack * DegreeWrist);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
-                    RightClaw.setPosition(ClawR_Open  * DegreeClaw);
+                    RightClaw.setPosition(Open  * DegreeClaw);
                 })
                 .waitSeconds(25)
 
@@ -185,12 +163,6 @@ public class ArmMovements_Auto extends LinearOpMode {
         waitForStart();
 
 
-                drive.followTrajectorySequence(PurplePixelArmMovement);
-
-
-
-
+        drive.followTrajectorySequence(OrangePixelArmMovement);
         }
     }
-
-

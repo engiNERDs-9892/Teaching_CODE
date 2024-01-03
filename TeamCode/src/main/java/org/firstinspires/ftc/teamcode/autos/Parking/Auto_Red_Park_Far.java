@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.autos.Parking;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
@@ -31,7 +31,7 @@ public class Auto_Red_Park_Far extends LinearOpMode {
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
         LeftClaw = hardwareMap.servo.get("LeftClaw");
         RightClaw = hardwareMap.servo.get("RightClaw");
-        AirplaneServo = hardwareMap.servo.get("AirplaneServo");
+        AirplaneMountServo = hardwareMap.servo.get("AirplaneServo");
 
 
         // this call sets the servos during initialization
@@ -40,7 +40,7 @@ public class Auto_Red_Park_Far extends LinearOpMode {
         GearServo.setPosition(.7);
         LeftClaw.setPosition(0);
         RightClaw.setPosition(1);
-        AirplaneServo.setPosition(1);
+        AirplaneMountServo.setPosition(1);
 
         // this sets the servos in the proper direction
         LeftClaw.setDirection(Servo.Direction.REVERSE);

@@ -1,13 +1,25 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMount_Rotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Close;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack3ArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateGround;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateStack;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBL;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFL;
@@ -25,7 +37,7 @@ import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 
 
 @TeleOp(name="EngiNERDs Control RC", group="Linear Opmode")
-@Disabled
+//@Disabled
 
 public class EngiNERDs_Control_RC extends LinearOpMode {
     @Override
@@ -45,11 +57,15 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         boolean Arm_Toggle = false;
 
+        boolean AirplaneMount_Toggle = false;
+
         // Hardware Map
         new EngiNERDs_Variables(hardwareMap);
+        FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
+        FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
+        GearServo.setPosition(WristRotateGround * DegreeWrist);
 
         waitForStart();
-
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -143,16 +159,16 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             // If you are trying to raise the linear Slide
             // Then raise the linear slides!
             if (RaiseandLower < -0.05) {
-                motorRiseyRise.setPower(RaiseandLower);
-                motorLiftyLift.setPower(RaiseandLower);
+                motorRiseyRise.setPower(RaiseandLower * 1);
+                motorLiftyLift.setPower(RaiseandLower * 1);
             }
 
 
             // if you are trying to lower the linear Slide
             // Then lower the linear slides!
             if (RaiseandLower > 0.05) {
-                motorRiseyRise.setPower(RaiseandLower);
-                motorLiftyLift.setPower(RaiseandLower);
+                motorRiseyRise.setPower(RaiseandLower * 1);
+                motorLiftyLift.setPower(RaiseandLower * 1);
             }
 
             // If you are not pushing on the joystick the power = 0
@@ -172,13 +188,13 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Arm_Toggle) {
-                FlooppyFloop.setPosition(.5);
-                FlippyFlip.setPosition(.5);
+                FlooppyFloop.setPosition(BackboardArmRotate * DegreeArm);
+                FlippyFlip.setPosition(BackboardArmRotate * DegreeArm);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                FlooppyFloop.setPosition(.02);
-                FlippyFlip.setPosition(.98);
+                FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
+                FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
             }
 
 
@@ -194,11 +210,11 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Right_Claw_Toggle) {
-                RightClaw.setPosition(.77);
+                RightClaw.setPosition(Open * DegreeClaw);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                RightClaw.setPosition(1);
+                RightClaw.setPosition(Close * DegreeClaw);
             }
 
 
@@ -212,21 +228,63 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Left_Claw_Toggle) {
-                LeftClaw.setPosition(Open);
+                LeftClaw.setPosition(Open * DegreeClaw);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                LeftClaw.setPosition(Close);
+                LeftClaw.setPosition(Close * DegreeClaw);
             }
+
+            // Toggle / Close & Open for the Left claw
+            if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) {
+                // This will set intakeToggle to true if it was previously false
+                // and intakeToggle to false if it was previously true,
+                // providing a toggling behavior.
+                AirplaneMount_Toggle = !AirplaneMount_Toggle;
+            }
+
+            // Opens the claws after the 1st press of the bumper and alternates once pressed again
+            if (AirplaneMount_Toggle) {
+                AirplaneMountServo.setPosition(AirplaneMount_Rotate * DegreeAirplane);
+            }
+            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
+            else {
+                AirplaneMountServo.setPosition(Close * DegreeAirplane);
+            }
+
+
+            // if (gamepad1.right_bumper) {
+            //    AirplaneLaucherServo.setPosition(AirplaneLauncher_Rotate * DegreeAirplane);
+            // }
+
+
+
 
 
             if (Math.abs(gamepad2.left_stick_y) >= 0.5) {
-                GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
+                GearServo.setPosition((GearServo.getPosition() + 0.0005 * Math.signum(-gamepad2.left_stick_y)));
             }
 
 
-            if (gamepad1.y) {
-                AirplaneServo.setPosition(0.7);
+            // Macro For stack 5
+            if (gamepad1.x) {
+                FlooppyFloop.setPosition(Stack5ArmRotate * DegreeArm);
+                FlippyFlip.setPosition(Stack5ArmRotate * DegreeArm);
+                GearServo.setPosition(WristRotateStack * DegreeWrist);
+            }
+
+            // Macro for stack 4
+            else if (gamepad1.y || gamepad1.triangle) {
+                FlooppyFloop.setPosition(Stack4ArmRotate * DegreeArm);
+                FlippyFlip.setPosition(Stack4ArmRotate * DegreeArm);
+                GearServo.setPosition(WristRotateStack * DegreeWrist);
+            }
+
+            // Macro for stack 3
+            else if (gamepad1.b || gamepad1.circle) {
+                FlooppyFloop.setPosition(Stack3ArmRotate * DegreeArm);
+                FlippyFlip.setPosition(Stack3ArmRotate * DegreeArm);
+                GearServo.setPosition(WristRotateStack * DegreeWrist);
             }
 
 

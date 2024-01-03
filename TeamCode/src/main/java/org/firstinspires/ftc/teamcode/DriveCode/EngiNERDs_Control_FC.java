@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Close;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
@@ -217,11 +218,11 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Right_Claw_Toggle) {
-                RightClaw.setPosition(.77);
+                RightClaw.setPosition(Open * DegreeClaw);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                RightClaw.setPosition(1);
+                RightClaw.setPosition(Close * DegreeClaw);
             }
 
 
@@ -235,13 +236,12 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (Left_Claw_Toggle) {
-                LeftClaw.setPosition(Open);
+                LeftClaw.setPosition(Open * DegreeClaw);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                LeftClaw.setPosition(Close);
+                LeftClaw.setPosition(Close * DegreeClaw);
             }
-
 
             if (Math.abs(gamepad2.left_stick_y) >= 0.5) {
                 GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
@@ -249,7 +249,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
 
             if (gamepad1.a) {
-                AirplaneServo.setPosition(0.35);
+                AirplaneMountServo.setPosition(0.35);
             }
 
 
