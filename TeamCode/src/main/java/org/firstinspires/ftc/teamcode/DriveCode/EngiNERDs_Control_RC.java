@@ -11,7 +11,8 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
@@ -61,8 +62,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         // Hardware Map
         new EngiNERDs_Variables(hardwareMap);
-        FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
-        FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
+        FlooppyFloop.setPosition(GroundArmRotateL * DegreeArm);
+        FlippyFlip.setPosition(GroundArmRotateR * DegreeArm);
         GearServo.setPosition(WristRotateGround * DegreeWrist);
 
         waitForStart();
@@ -193,8 +194,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
-                FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
+                FlooppyFloop.setPosition(GroundArmRotateL * DegreeArm);
+                FlippyFlip.setPosition(GroundArmRotateR * DegreeArm);
             }
 
 

@@ -44,7 +44,8 @@ public class EngiNERDs_Variables {
     public static double DegreeAirplane = 0.00333333333; //  1/300 (Torque Servo)
     public static double DegreeWrist = 0.000555555556; // 1/1800 (5 Turn Servo)
 
-    public static double GroundArmRotate = 9;
+    public static double GroundArmRotateL = 9;
+    public static double GroundArmRotateR = 9;
     public static double BackboardArmRotate = 175;
 
 
@@ -108,9 +109,6 @@ public class EngiNERDs_Variables {
         AirplaneMountServo.setDirection(Servo.Direction.FORWARD);
         LeftClaw.setDirection(Servo.Direction.REVERSE);
         FlooppyFloop.setDirection(Servo.Direction.REVERSE);
-
-        motorRiseyRise.setPower(0);
-        motorLiftyLift.setPower(0);
 
         AirplaneMountServo.setPosition(0 * DegreeAirplane);
         LeftClaw.setPosition(0 * DegreeClaw); // Closes

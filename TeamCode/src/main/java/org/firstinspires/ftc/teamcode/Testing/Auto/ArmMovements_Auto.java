@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Testing.Auto;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateL;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateBackboard;
@@ -14,14 +15,18 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
 
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Examples.RedPipline;
@@ -46,16 +51,40 @@ public class ArmMovements_Auto extends LinearOpMode {
     // This just is determining the default position of the camera detection (this is right due to where our camera is placed)
     RedPipline.redPipline.Detection_Positions snapshotAnalysis = RedPipline.redPipline.Detection_Positions.RIGHT; // default
 
+    private PIDController controller;
+    private PIDController controller2;
+    // P = How quickly the thing moves, D = Dampener of how much it slows down at the end (Only 2 you should adjust)
+    // the letter after the main
+    public static double Pl = 0.021, Il = 0, Dl = 0.0004;
+
+    public static double Pr = 0.021, Ir = 0, Dr = 0.0004;
+
+    // Feedforward Component of the linear slides
+    public static double f = 0;
+
+    public static int target1 = 1500;
+
+    public static int target2 = 0;
+
+    public final double ticks_in_degrees = 1993.6 / 180;
+
+
     @Override
     public void runOpMode() {
 
         // This calls the hardware map for servos and motors
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         new EngiNERDs_Variables(hardwareMap);
+        controller = new PIDController(Pr, Ir,Dr);
+        controller2 = new PIDController(Pl, Il,Dl);
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+
+        motorLiftyLift = hardwareMap.get(DcMotor.class,"motorLiftyLift");
+        motorRiseyRise = hardwareMap.get(DcMotor.class,"motorRiseyRise");
 
         // this call sets the servos during initialization
         FlooppyFloop.setPosition(50 * DegreeArm); // Rotates at an angle forwards
-        FlippyFlip.setPosition(45 * DegreeArm); // rotates at an angle forwards
+        FlippyFlip.setPosition(48 * DegreeArm); // rotates at an angle forwards
         GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
@@ -105,8 +134,8 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
-                    FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
+                    FlooppyFloop.setPosition(GroundArmRotateL * DegreeArm);
+                    FlippyFlip.setPosition(GroundArmRotateR * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
@@ -159,10 +188,60 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .build();
 
 
+
+
+
         // This is starting after the driver presses play
         waitForStart();
 
 
+        while (opModeIsActive()){
+            controller.setPID(Pr, Ir,Dr);
+            controller2.setPID(Pl, Il,Dl);
+            int LinearSlide_Pos1 = motorRiseyRise.getCurrentPosition();
+            int LinearSlide_Pos2 = motorLiftyLift.getCurrentPosition();
+
+            double pidR1 = controller.calculate(LinearSlide_Pos1,target1);
+            double pidL1 = controller2.calculate(LinearSlide_Pos2, target1);
+            double ff = Math.cos(Math.toRadians(target1 / ticks_in_degrees)) * f;
+
+            double pidR2 = controller.calculate(LinearSlide_Pos1,target2);
+            double pidL2 = controller2.calculate(LinearSlide_Pos2, target2);
+
+            double powerR1 = pidR1 + ff;
+            double powerL1 = pidL1 + ff;
+
+            double powerR2 = pidR2 + ff;
+            double powerL2 = pidL2 + ff;
+
+            motorRiseyRise.setPower(-powerR1);
+            motorLiftyLift.setPower(powerL1);
+            motorRiseyRise.setPower(-powerR2);
+            motorLiftyLift.setPower(powerL2);
+
+            telemetry.addData("Risey Rise Pos", LinearSlide_Pos1);
+            telemetry.addData("LiftyLift Pos", LinearSlide_Pos2);
+            telemetry.addData("Target Pos 1", target1);
+            telemetry.addData("Target Pos 2", target2);
+            telemetry.update();
+        }
+
+        TrajectorySequence LinearslideMovement = drive.trajectorySequenceBuilder(startPoseRedRight)
+
+                .forward(1)
+
+                .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
+
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
+                    GearServo.setPosition(WristRotateStack * DegreeWrist);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
+                    RightClaw.setPosition(Open  * DegreeClaw);
+                })
+                .waitSeconds(25)
+
+                .build();
         drive.followTrajectorySequence(OrangePixelArmMovement);
         }
     }

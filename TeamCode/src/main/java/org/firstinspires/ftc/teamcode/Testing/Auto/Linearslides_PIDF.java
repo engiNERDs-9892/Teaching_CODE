@@ -8,29 +8,28 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class Linearslides_PIDF extends OpMode {
 
 
     private PIDController controller;
     private PIDController controller2;
-    // P = How quickly the thing moves, D = Dampener of how much it slows down at the end (Only 2 you should adjust)
-    // the letter after the main
+
+    // Variables For the left side calculations
     public static double Pl = 0.021, Il = 0, Dl = 0.0004;
 
+    // Variables For the right side calculations
     public static double Pr = 0.021, Ir = 0, Dr = 0.0004;
 
     // Feedforward Component of the linear slides
     public static double f = 0;
 
-    public static int target1 = 700;
+    private double target;
 
     public final double ticks_in_degrees = 1993.6 / 180;
 
@@ -51,23 +50,20 @@ public class Linearslides_PIDF extends OpMode {
             int LinearSlide_Pos1 = motorRiseyRise.getCurrentPosition();
             int LinearSlide_Pos2 = motorLiftyLift.getCurrentPosition();
 
-            double pidR = controller.calculate(LinearSlide_Pos1,target1);
-            double pidL = controller2.calculate(LinearSlide_Pos2, target1);
-            double ff = Math.cos(Math.toRadians(target1 / ticks_in_degrees)) * f;
+            double pidR = controller.calculate(LinearSlide_Pos1,target);
+            double pidL = controller2.calculate(LinearSlide_Pos2, target);
+            double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
 
             double powerR = pidR + ff;
             double powerL = pidL + ff;
 
-            motorRiseyRise.setPower(powerR);
+            motorRiseyRise.setPower(-powerR);
             motorLiftyLift.setPower(powerL);
 
             telemetry.addData("Risey Rise Pos", LinearSlide_Pos1);
             telemetry.addData("LiftyLift Pos", LinearSlide_Pos2);
-            telemetry.addData("Target Pos", target1);
+            telemetry.addData("Target Pos", target);
             telemetry.update();}
-
-
-
 
     }
 

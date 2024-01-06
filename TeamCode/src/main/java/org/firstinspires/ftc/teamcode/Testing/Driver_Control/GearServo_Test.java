@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
