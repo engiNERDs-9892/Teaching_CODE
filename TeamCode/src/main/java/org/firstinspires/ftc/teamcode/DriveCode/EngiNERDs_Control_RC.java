@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
 
 
 @TeleOp(name="EngiNERDs Control RC", group="Linear Opmode")
-//@Disabled
+@Disabled
 
 public class EngiNERDs_Control_RC extends LinearOpMode {
     @Override
