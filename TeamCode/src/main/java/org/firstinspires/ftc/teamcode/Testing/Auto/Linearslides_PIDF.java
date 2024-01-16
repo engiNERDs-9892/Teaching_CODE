@@ -8,11 +8,12 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Config
-//@Disabled
+@Disabled
 @Autonomous(group = "drive")
 public class Linearslides_PIDF extends OpMode {
 
@@ -29,7 +30,7 @@ public class Linearslides_PIDF extends OpMode {
     // Feedforward Component of the linear slides
     public static double f = 0;
 
-    private double target;
+    public static int target = 0;
 
     public final double ticks_in_degrees = 1993.6 / 180;
 
@@ -57,7 +58,7 @@ public class Linearslides_PIDF extends OpMode {
             double powerR = pidR + ff;
             double powerL = pidL + ff;
 
-            motorRiseyRise.setPower(-powerR);
+            motorRiseyRise.setPower(powerR);
             motorLiftyLift.setPower(powerL);
 
             telemetry.addData("Risey Rise Pos", LinearSlide_Pos1);

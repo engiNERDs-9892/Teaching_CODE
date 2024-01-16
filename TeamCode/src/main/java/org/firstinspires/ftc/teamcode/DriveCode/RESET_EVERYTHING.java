@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.DriveCode;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
@@ -50,6 +51,7 @@ public class RESET_EVERYTHING extends LinearOpMode {
         FlippyFlip.setPosition(0 * DegreeArm);
         FlooppyFloop.setPosition(0 * DegreeArm);
         GearServo.setPosition(0 * DegreeWrist);
+        AirplaneLaunchServo.setPosition(0*DegreeAirplane);
 
         imu.initialize(parameters);
 

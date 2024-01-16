@@ -127,21 +127,18 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
 
-                                // 2.35 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
-                                .splineToLinearHeading(new Pose2d(16.00, -37.00, Math.toRadians(180.00)), Math.toRadians(180.00))
+                                .splineTo(new Vector2d(9.91, -25.20), Math.toRadians(90.30))
                                 .setReversed(true)
-                                .waitSeconds(0.5)
-
-
-                                // 2 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
-                                .splineToLinearHeading(new Pose2d(51, -42, Math.toRadians(-180.00)), Math.toRadians(0.00))
-                                .waitSeconds(0.5)
-
-
-                                // 1.79 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
+                                .splineTo(new Vector2d(58.79, -42.37), Math.toRadians(0.00))
                                 .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(45, -55, Math.toRadians(-180.00)), Math.toRadians(-90))
-                                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(-180.00)), Math.toRadians(-90))
+                                .splineToLinearHeading(new Pose2d(-13.31, -60.30, Math.toRadians(180.00)), Math.toRadians(180.00))
+                                .splineToLinearHeading(new Pose2d(-54.26, -50.30, Math.toRadians(143.42)), Math.toRadians(143.42))
+                                .splineToLinearHeading(new Pose2d(-64.00, -23.50, Math.toRadians(180.00)), Math.toRadians(180.00))
+                                .lineToLinearHeading(new Pose2d(-64.00, -10.29, Math.toRadians(180.00)))
+                                .setReversed(true)
+                                .splineTo(new Vector2d(17.27, -10.29), Math.toRadians(-0.16))
+                                .splineTo(new Vector2d(58.41, -42.18), Math.toRadians(0.39))
+                                .setReversed(false)
 
 
 
@@ -181,12 +178,12 @@ public class ShortAuto {
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
 
-                .addEntity(RedRightL)
-                //.addEntity(RedRightM)
+                //.addEntity(RedRightL)
+                .addEntity(RedRightM)
                 //.addEntity(RedRightR)  (DONE)
                 //.addEntity(BlueLeftL)
                 //.addEntity(BlueLeftM)
-                .addEntity(BlueLeftR)
+                //.addEntity(BlueLeftR)
                 .start();
     }
 }

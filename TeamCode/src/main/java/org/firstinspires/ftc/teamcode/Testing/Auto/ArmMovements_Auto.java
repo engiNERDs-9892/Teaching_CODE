@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Testing.Auto;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateR;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotate;
+
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotateFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotateFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotateFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateBackboard;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateGround;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateStack;
@@ -25,6 +27,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -40,7 +43,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 // @ CONFIG is used for FTC Dashboard
 @Config
-//@Disabled
+@Disabled
 @Autonomous(group = "drive")
 public class ArmMovements_Auto extends LinearOpMode {
 
@@ -134,8 +137,8 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(GroundArmRotateL * DegreeArm);
-                    FlippyFlip.setPosition(GroundArmRotateR * DegreeArm);
+                    FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
+                    FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
@@ -174,8 +177,8 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(Stack5ArmRotate * DegreeArm);
-                    FlippyFlip.setPosition(Stack5ArmRotate * DegreeArm);
+                    FlooppyFloop.setPosition(Stack5ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack5ArmRotateFlip * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateStack * DegreeWrist);

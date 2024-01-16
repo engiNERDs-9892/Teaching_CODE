@@ -11,14 +11,12 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotateR;
+
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack3ArmRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotate;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotate;
+
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateGround;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateStack;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBL;
@@ -62,8 +60,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         // Hardware Map
         new EngiNERDs_Variables(hardwareMap);
-        FlooppyFloop.setPosition(GroundArmRotateL * DegreeArm);
-        FlippyFlip.setPosition(GroundArmRotateR * DegreeArm);
+        FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
+        FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
         GearServo.setPosition(WristRotateGround * DegreeWrist);
 
         waitForStart();
@@ -194,8 +192,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                FlooppyFloop.setPosition(GroundArmRotateL * DegreeArm);
-                FlippyFlip.setPosition(GroundArmRotateR * DegreeArm);
+                FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
+                FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
             }
 
 
@@ -266,27 +264,6 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
                 GearServo.setPosition((GearServo.getPosition() + 0.0005 * Math.signum(-gamepad2.left_stick_y)));
             }
 
-
-            // Macro For stack 5
-            if (gamepad1.x) {
-                FlooppyFloop.setPosition(Stack5ArmRotate * DegreeArm);
-                FlippyFlip.setPosition(Stack5ArmRotate * DegreeArm);
-                GearServo.setPosition(WristRotateStack * DegreeWrist);
-            }
-
-            // Macro for stack 4
-            else if (gamepad1.y || gamepad1.triangle) {
-                FlooppyFloop.setPosition(Stack4ArmRotate * DegreeArm);
-                FlippyFlip.setPosition(Stack4ArmRotate * DegreeArm);
-                GearServo.setPosition(WristRotateStack * DegreeWrist);
-            }
-
-            // Macro for stack 3
-            else if (gamepad1.b || gamepad1.circle) {
-                FlooppyFloop.setPosition(Stack3ArmRotate * DegreeArm);
-                FlippyFlip.setPosition(Stack3ArmRotate * DegreeArm);
-                GearServo.setPosition(WristRotateStack * DegreeWrist);
-            }
 
 
             telemetry.addData("Left Claw Position", LeftClaw.getPosition());
