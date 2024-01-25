@@ -17,6 +17,7 @@ public class EngiNERDs_Variables {
     public static DcMotor motorLiftyLift;
 
     public static DcMotor motorRiseyRise;
+    public static DcMotor motorINTAKE;
 
     public static Servo FlippyFlip;
 

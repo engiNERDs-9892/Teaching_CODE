@@ -43,7 +43,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 // @ CONFIG is used for FTC Dashboard
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class ArmMovements_Auto extends LinearOpMode {
 
@@ -197,54 +197,6 @@ public class ArmMovements_Auto extends LinearOpMode {
         // This is starting after the driver presses play
         waitForStart();
 
-
-        while (opModeIsActive()){
-            controller.setPID(Pr, Ir,Dr);
-            controller2.setPID(Pl, Il,Dl);
-            int LinearSlide_Pos1 = motorRiseyRise.getCurrentPosition();
-            int LinearSlide_Pos2 = motorLiftyLift.getCurrentPosition();
-
-            double pidR1 = controller.calculate(LinearSlide_Pos1,target1);
-            double pidL1 = controller2.calculate(LinearSlide_Pos2, target1);
-            double ff = Math.cos(Math.toRadians(target1 / ticks_in_degrees)) * f;
-
-            double pidR2 = controller.calculate(LinearSlide_Pos1,target2);
-            double pidL2 = controller2.calculate(LinearSlide_Pos2, target2);
-
-            double powerR1 = pidR1 + ff;
-            double powerL1 = pidL1 + ff;
-
-            double powerR2 = pidR2 + ff;
-            double powerL2 = pidL2 + ff;
-
-            motorRiseyRise.setPower(-powerR1);
-            motorLiftyLift.setPower(powerL1);
-            motorRiseyRise.setPower(-powerR2);
-            motorLiftyLift.setPower(powerL2);
-
-            telemetry.addData("Risey Rise Pos", LinearSlide_Pos1);
-            telemetry.addData("LiftyLift Pos", LinearSlide_Pos2);
-            telemetry.addData("Target Pos 1", target1);
-            telemetry.addData("Target Pos 2", target2);
-            telemetry.update();
-        }
-
-        TrajectorySequence LinearslideMovement = drive.trajectorySequenceBuilder(startPoseRedRight)
-
-                .forward(1)
-
-                .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
-                    GearServo.setPosition(WristRotateStack * DegreeWrist);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
-                    RightClaw.setPosition(Open  * DegreeClaw);
-                })
-                .waitSeconds(25)
-
-                .build();
-        drive.followTrajectorySequence(OrangePixelArmMovement);
+        drive.followTrajectorySequence(WhitePixelArmMovement);
         }
     }

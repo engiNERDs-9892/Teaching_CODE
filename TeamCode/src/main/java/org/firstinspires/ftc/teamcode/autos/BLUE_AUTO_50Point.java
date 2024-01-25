@@ -42,7 +42,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 @Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-public class BLUE_AUTO extends LinearOpMode {
+public class BLUE_AUTO_50Point extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
     // Calls the proper pipline in order to detect the correct color (in this case its red)

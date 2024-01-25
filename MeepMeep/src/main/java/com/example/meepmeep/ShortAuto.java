@@ -154,21 +154,15 @@ public class ShortAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
 
-                                // 1.70 Seconds to drive to the Spike Mark (PURPLE PIXEL | LEFT CLAW)
-                                .lineToLinearHeading(new Pose2d(25, -43, Math.toRadians(90)))
-                                .waitSeconds(0.5)
+                                .waitSeconds(.5)
 
+                                .lineToLinearHeading(new Pose2d(35,12,Math.toRadians(90)))
+                                .waitSeconds(.5)
+                                .lineToLinearHeading(new Pose2d(28,-50,Math.toRadians(-90)))
 
-                                // 2.40 Seconds to drive to the Backboard (ORANGE PIXEL | RIGHT CLAW)
-                                .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(180)))
-                                .waitSeconds(0.5)
-
-
-                                // 1.66 Seconds to drive to Park (RESET CLAWS / Wrist - *POSSIBLY EXTEND INTAKE*)
-                                .setReversed(false)
-                                .splineToLinearHeading(new Pose2d(45, -55, Math.toRadians(180.00)), Math.toRadians(-90))
-                                .splineToLinearHeading(new Pose2d(68, -68, Math.toRadians(180.00)), Math.toRadians(-90))
-
+                                .lineToLinearHeading(new Pose2d(35,-40,Math.toRadians(-90)))
+                                .lineToLinearHeading(new Pose2d(8,-40,Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d(8,-60,Math.toRadians(90)))
 
                                 .build());
 
@@ -179,8 +173,8 @@ public class ShortAuto {
                 .setBackgroundAlpha(0.95f)
 
                 //.addEntity(RedRightL)
-                .addEntity(RedRightM)
-                //.addEntity(RedRightR)  (DONE)
+                //.addEntity(RedRightM)
+                .addEntity(RedRightR) // (DONE)
                 //.addEntity(BlueLeftL)
                 //.addEntity(BlueLeftM)
                 //.addEntity(BlueLeftR)
