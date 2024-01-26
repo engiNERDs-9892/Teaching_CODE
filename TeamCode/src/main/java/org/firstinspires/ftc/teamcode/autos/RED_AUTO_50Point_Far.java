@@ -12,9 +12,12 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.OpenAuto;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack2ArmRotateFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack2ArmRotateFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotateFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotateFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristRotateGround;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
@@ -95,8 +98,8 @@ public class RED_AUTO_50Point_Far extends LinearOpMode {
         AirplaneMountServo.setPosition(0 * DegreeAirplane);
         LeftClaw.setPosition(0 * DegreeClaw); // Closes
         RightClaw.setPosition(0 * DegreeClaw); // Closes
-        FlooppyFloop.setPosition(45 * DegreeArm); // Rotates at an angle forwards
-        FlippyFlip.setPosition(50 * DegreeArm); // rotates at an angle forwards
+        FlooppyFloop.setPosition(70 * DegreeArm); // Rotates at an angle forwards
+        FlippyFlip.setPosition(80 * DegreeWrist); // rotates at an angle forwards
         GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
@@ -136,27 +139,36 @@ public class RED_AUTO_50Point_Far extends LinearOpMode {
         telemetry.update();
 
         // Let's define our trajectories
-        TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
+        TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
+                .waitSeconds(.5)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
-                .lineToLinearHeading(new Pose2d(30,0,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(33,2,Math.toRadians(90)))
                 .waitSeconds(.5)
-                .back(2)
+                .back(3)
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
-                    LeftClaw.setPosition(Open * DegreeClaw);
+                    LeftClaw.setPosition(OpenAuto * DegreeClaw);
                 })
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(Stack4ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack4ArmRotateFlip * DegreeWrist);
+                })
+                .lineToLinearHeading(new Pose2d(52,2,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(53,2,Math.toRadians(-93)))
+                .lineToLinearHeading(new Pose2d(56,-15,Math.toRadians(-93)))
+                .waitSeconds(25)
                 .build();
 
         TrajectorySequence POSITIONR = drive.trajectorySequenceBuilder(new Pose2d())
                 .waitSeconds(.5)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
@@ -166,23 +178,31 @@ public class RED_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
+                .waitSeconds(25)
                 .build();
 
 
-        TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
+        TrajectorySequence PositionM = drive.trajectorySequenceBuilder(new Pose2d())
                 .waitSeconds(.5)
-                    .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                        FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
-                    })
-                    .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
-                        GearServo.setPosition(WristRotateGround * DegreeWrist);
-                    })
-                    .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(-90)))
-                    .waitSeconds(.5)
-                    .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
-                        LeftClaw.setPosition(Open * DegreeClaw);
-                    })
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
+                })
+                .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
+                    GearServo.setPosition(WristRotateGround * DegreeWrist);
+                })
+                .lineToLinearHeading(new Pose2d(49,6,Math.toRadians(180)))
+                .waitSeconds(.5)
+                .back(3)
+                .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
+                    LeftClaw.setPosition(Open * DegreeClaw);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(Stack4ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFloop * DegreeWrist);
+                })
+                .lineToLinearHeading(new Pose2d(59,-12,Math.toRadians(-90)))
+                .waitSeconds(25)
                 .build();
 
 
@@ -190,10 +210,11 @@ public class RED_AUTO_50Point_Far extends LinearOpMode {
 
         if (isStopRequested()) return;
 
+        drive.followTrajectorySequenceAsync(POSITIONR);
         while (opModeIsActive() && !isStopRequested()) {
 
 
-            drive.followTrajectorySequenceAsync(POSITIONL);
+
 
 
             // We update drive continuously in the background, regardless of state

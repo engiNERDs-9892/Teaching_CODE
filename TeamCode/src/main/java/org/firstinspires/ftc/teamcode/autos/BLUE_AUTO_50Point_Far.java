@@ -142,11 +142,11 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
         // Let's define our trajectories
         TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
                 .waitSeconds(.5)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> {
                     FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
                 })
-                .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(-0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
                 .splineTo(new Vector2d(35,4),Math.toRadians(90))
@@ -154,45 +154,15 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(55 * DegreeArm);
-                    FlippyFlip.setPosition(60 * DegreeArm);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> {
-                    GearServo.setPosition(75 * DegreeWrist);
-                })
-                .lineToLinearHeading(new Pose2d(28,-49.5,Math.toRadians(-85)))
-                .waitSeconds(.5)
-                .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
-                    RightClaw.setPosition(Open * DegreeClaw);
-                })
-
-                .lineToLinearHeading(new Pose2d(25,-36,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(0,-36,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(-6,-65,Math.toRadians(90)))
-
-                .waitSeconds(5)
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    LeftClaw.setPosition(Close * DegreeClaw);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    RightClaw.setPosition(Close * DegreeClaw);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    GearServo.setPosition(WristRotateGround * DegreeWrist);
-                })
+                .waitSeconds(25)
                 .build();
 
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(-.5, () -> {
                     FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
                 })
-                .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(-0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
                 .lineToLinearHeading(new Pose2d(25,0,Math.toRadians(0)))
@@ -201,48 +171,16 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(55 * DegreeArm);
-                    FlippyFlip.setPosition(60 * DegreeArm);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> {
-                    GearServo.setPosition(75 * DegreeWrist);
-                })
-
-                .lineToLinearHeading(new Pose2d(20,-40,Math.toRadians(-90)))
-                .waitSeconds(.5)
-                .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
-                    RightClaw.setPosition(Open * DegreeClaw);
-                })
-
-                .lineToLinearHeading(new Pose2d(25,-36,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(0,-36,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(-4,-60,Math.toRadians(90)))
-
-                .waitSeconds(3)
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    LeftClaw.setPosition(Close * DegreeClaw);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    RightClaw.setPosition(Close * DegreeClaw);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    GearServo.setPosition(WristRotateGround * DegreeWrist);
-                })
-
+                .waitSeconds(25)
                 .build();
 
         TrajectorySequence POSITIONR = drive.trajectorySequenceBuilder(new Pose2d())
                 .waitSeconds(.5)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(-.5, () -> {
                     FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
                 })
-                .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(-0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
                 .lineToLinearHeading(new Pose2d(35,12,Math.toRadians(90)))
@@ -250,36 +188,7 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(55 * DegreeArm);
-                    FlippyFlip.setPosition(60 * DegreeArm);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(.25, () -> {
-                    GearServo.setPosition(75 * DegreeWrist);
-                })
-                .lineToLinearHeading(new Pose2d(28,-50,Math.toRadians(-90)))
-                .waitSeconds(.5)
-                .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
-                    RightClaw.setPosition(Open * DegreeClaw);
-                })
-                .lineToLinearHeading(new Pose2d(35,-40,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(8,-40,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(8,-60,Math.toRadians(90)))
-
-                .waitSeconds(3)
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    LeftClaw.setPosition(Close * DegreeClaw);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-3, () -> {
-                    RightClaw.setPosition(Close * DegreeClaw);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
-                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    GearServo.setPosition(WristRotateGround * DegreeWrist);
-                })
+                .waitSeconds(25)
                 .build();
 
         waitForStart();

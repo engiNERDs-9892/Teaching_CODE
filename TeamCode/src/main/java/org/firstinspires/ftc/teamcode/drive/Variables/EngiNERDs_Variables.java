@@ -37,6 +37,7 @@ public class EngiNERDs_Variables {
 
     // Position for the Claws to close
     public static double Open = 45;
+    public static double OpenAuto = 65;
     public static double Close = 0;
     public static double ShootPlane = 90;
     public static double AirplaneMount_Rotate = 60;
@@ -61,8 +62,8 @@ public class EngiNERDs_Variables {
     ///////////////////////////////////////////////////////////////////
     // *NOTE* that 3.5 Degrees = Have Inch in movement for the Wrist //
     ///////////////////////////////////////////////////////////////////
-    public static double Stack5ArmRotateFloop = 28;
-    public static double Stack5ArmRotateFlip = 34;
+    public static double Stack5ArmRotateFloop = 41;
+    public static double Stack5ArmRotateFlip = 40;
 
     public static double Stack4ArmRotateFloop = 26;
     public static double Stack4ArmRotateFlip = 32;
@@ -70,8 +71,8 @@ public class EngiNERDs_Variables {
     public static double Stack3ArmRotateFlip = 25;
     public static double Stack3ArmRotateFloop = 19;
 
-    public static double Stack2ArmRotateFloop = 16;
-    public static double Stack2ArmRotateFlip = 23;
+    public static double Stack2ArmRotateFloop = 21;
+    public static double Stack2ArmRotateFlip = 28;
 
     public static double Stack1ArmRotateFloop = 12;
     public static double Stack1ArmRotateFlip = 18;

@@ -94,8 +94,8 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
         AirplaneMountServo.setPosition(0 * DegreeAirplane);
         LeftClaw.setPosition(0 * DegreeClaw); // Closes
         RightClaw.setPosition(0 * DegreeClaw); // Closes
-        FlooppyFloop.setPosition(45 * DegreeArm); // Rotates at an angle forwards
-        FlippyFlip.setPosition(50 * DegreeArm); // rotates at an angle forwards
+        FlooppyFloop.setPosition(70 * DegreeArm); // Rotates at an angle forwards
+        FlippyFlip.setPosition(80 * DegreeWrist); // rotates at an angle forwards
         GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
@@ -141,8 +141,9 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
         // Let's define our trajectories
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
+                        FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
+
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);

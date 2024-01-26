@@ -1,8 +1,13 @@
 package org.firstinspires.ftc.teamcode.Testing.Auto;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.BackboardArmRotate;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeAirplane;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GroundArmRotate;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
 
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack2ArmRotateFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack2ArmRotateFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotateFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotateFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotateFloop;
@@ -30,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Examples.RedPipline;
@@ -69,25 +75,33 @@ public class ArmMovements_Auto extends LinearOpMode {
 
     public static int target2 = 0;
 
-    public final double ticks_in_degrees = 1993.6 / 180;
-
 
     @Override
     public void runOpMode() {
 
         // This calls the hardware map for servos and motors
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        new EngiNERDs_Variables(hardwareMap);
+
         controller = new PIDController(Pr, Ir,Dr);
         controller2 = new PIDController(Pl, Il,Dl);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        motorLiftyLift = hardwareMap.get(DcMotor.class,"motorLiftyLift");
-        motorRiseyRise = hardwareMap.get(DcMotor.class,"motorRiseyRise");
+        LeftClaw = hardwareMap.servo.get("LeftClaw");
+        RightClaw = hardwareMap.servo.get("RightClaw");
+        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
+        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        GearServo = hardwareMap.servo.get("GearServo");
+        AirplaneMountServo = hardwareMap.servo.get("AirplaneMountServo");
+        AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
 
-        // this call sets the servos during initialization
-        FlooppyFloop.setPosition(50 * DegreeArm); // Rotates at an angle forwards
-        FlippyFlip.setPosition(48 * DegreeArm); // rotates at an angle forwards
+        LeftClaw.setDirection(Servo.Direction.REVERSE);
+        FlooppyFloop.setDirection(Servo.Direction.REVERSE);
+
+        AirplaneMountServo.setPosition(0 * DegreeAirplane);
+        LeftClaw.setPosition(0 * DegreeClaw); // Closes
+        RightClaw.setPosition(0 * DegreeClaw); // Closes
+        FlooppyFloop.setPosition(70 * DegreeArm); // Rotates at an angle forwards
+        FlippyFlip.setPosition(80 * DegreeWrist); // rotates at an angle forwards
         GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
@@ -138,7 +152,7 @@ public class ArmMovements_Auto extends LinearOpMode {
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
                     FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
-                    FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
+                    FlippyFlip.setPosition(GroundArmRotate * DegreeWrist);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
@@ -177,8 +191,8 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(Stack5ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack5ArmRotateFlip * DegreeArm);
+                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateStack * DegreeWrist);
@@ -187,8 +201,26 @@ public class ArmMovements_Auto extends LinearOpMode {
                     RightClaw.setPosition(Open  * DegreeClaw);
                 })
                 .waitSeconds(25)
-
                 .build();
+
+
+        TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
+                .waitSeconds(.5)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
+                })
+                .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
+                    GearServo.setPosition(WristRotateGround * DegreeWrist);
+                })
+                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(-90)))
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
+                    LeftClaw.setPosition(Open * DegreeClaw);
+                })
+                .waitSeconds(25)
+                .build();
+
 
 
 
@@ -197,6 +229,6 @@ public class ArmMovements_Auto extends LinearOpMode {
         // This is starting after the driver presses play
         waitForStart();
 
-        drive.followTrajectorySequence(WhitePixelArmMovement);
+        drive.followTrajectorySequence(POSITIONL);
         }
     }
