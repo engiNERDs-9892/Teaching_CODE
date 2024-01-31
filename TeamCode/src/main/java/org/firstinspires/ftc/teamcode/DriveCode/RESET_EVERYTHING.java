@@ -49,7 +49,7 @@ public class RESET_EVERYTHING extends LinearOpMode {
         // this call sets the servos during initialization
 
         FlippyFlip.setPosition(0 * DegreeArm);
-        FlooppyFloop.setPosition(0 * DegreeArm);
+        FlooppyFloop.setPosition(1800 * DegreeArm);
         GearServo.setPosition(0 * DegreeWrist);
         AirplaneLaunchServo.setPosition(0*DegreeAirplane);
 

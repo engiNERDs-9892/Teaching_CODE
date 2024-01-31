@@ -8,6 +8,8 @@ import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables
 
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack2ArmRotateFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack2ArmRotateFloop;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack3ArmRotateFlip;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack3ArmRotateFloop;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack4ArmRotateFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotateFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Stack5ArmRotateFloop;
@@ -100,8 +102,8 @@ public class ArmMovements_Auto extends LinearOpMode {
         AirplaneMountServo.setPosition(0 * DegreeAirplane);
         LeftClaw.setPosition(0 * DegreeClaw); // Closes
         RightClaw.setPosition(0 * DegreeClaw); // Closes
-        FlooppyFloop.setPosition(70 * DegreeArm); // Rotates at an angle forwards
-        FlippyFlip.setPosition(80 * DegreeWrist); // rotates at an angle forwards
+        FlooppyFloop.setPosition(80 * DegreeArm); // Rotates at an angle forwards
+        FlippyFlip.setPosition(80 * DegreeArm); // rotates at an angle forwards
         GearServo.setPosition(225 * DegreeWrist); // Rotates into the air
 
 
@@ -152,7 +154,7 @@ public class ArmMovements_Auto extends LinearOpMode {
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
                     FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
-                    FlippyFlip.setPosition(GroundArmRotate * DegreeWrist);
+                    FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
@@ -191,8 +193,8 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .forward(1)
 
                 .UNSTABLE_addTemporalMarkerOffset(-1.25, () -> {
-                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
+                    FlooppyFloop.setPosition(Stack3ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack3ArmRotateFlip * DegreeArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     GearServo.setPosition(WristRotateStack * DegreeWrist);
@@ -200,23 +202,8 @@ public class ArmMovements_Auto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
                     RightClaw.setPosition(Open  * DegreeClaw);
                 })
-                .waitSeconds(25)
-                .build();
-
-
-        TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
-                .waitSeconds(.5)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeWrist);
-                })
-                .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
-                    GearServo.setPosition(WristRotateGround * DegreeWrist);
-                })
-                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(-90)))
-                .waitSeconds(.5)
-                .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
-                    LeftClaw.setPosition(Open * DegreeClaw);
+                .UNSTABLE_addTemporalMarkerOffset(0.25, () -> {
+                    LeftClaw.setPosition(Open  * DegreeClaw);
                 })
                 .waitSeconds(25)
                 .build();
@@ -229,6 +216,6 @@ public class ArmMovements_Auto extends LinearOpMode {
         // This is starting after the driver presses play
         waitForStart();
 
-        drive.followTrajectorySequence(POSITIONL);
+        drive.followTrajectorySequence(WhitePixelArmMovement);
         }
     }
