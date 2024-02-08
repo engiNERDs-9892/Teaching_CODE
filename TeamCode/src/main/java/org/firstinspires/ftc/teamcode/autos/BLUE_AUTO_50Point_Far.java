@@ -166,9 +166,9 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
                 .lineToLinearHeading(new Pose2d(23,-2,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(43,-2,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(43,23,Math.toRadians(94)))
-                .lineToLinearHeading(new Pose2d(43,58,Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(40,-2,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(40,23,Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(40,58,Math.toRadians(94)))
                 .waitSeconds(2)
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     armBackBoard();
@@ -177,7 +177,7 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                     GearServo.setPosition(80 * DegreeWrist);
                 })
                 .lineToLinearHeading(new Pose2d(11,58,Math.toRadians(94)))
-                .lineToLinearHeading(new Pose2d(11,66,Math.toRadians(95)))
+                .lineToLinearHeading(new Pose2d(11,69,Math.toRadians(95)))
                 .waitSeconds(.5)
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     RightClaw.setPosition(Open * DegreeClaw);
