@@ -160,7 +160,7 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(-0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
-                .splineTo(new Vector2d(23,8),Math.toRadians(90))
+                .splineTo(new Vector2d(24.5,8),Math.toRadians(90))
                 .waitSeconds(.5)
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
