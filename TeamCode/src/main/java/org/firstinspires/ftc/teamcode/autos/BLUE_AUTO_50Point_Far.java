@@ -160,15 +160,15 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(-0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
-                .splineTo(new Vector2d(21,8),Math.toRadians(90))
+                .splineTo(new Vector2d(23,8),Math.toRadians(90))
                 .waitSeconds(.5)
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
-                .lineToLinearHeading(new Pose2d(25,-2,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(23,-2,Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(43,-2,Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(43,23,Math.toRadians(94)))
-                .lineToLinearHeading(new Pose2d(43,55,Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(43,58,Math.toRadians(94)))
                 .waitSeconds(2)
                 .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     armBackBoard();
@@ -176,15 +176,15 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     GearServo.setPosition(80 * DegreeWrist);
                 })
-                .lineToLinearHeading(new Pose2d(11,55,Math.toRadians(94)))
-                .lineToLinearHeading(new Pose2d(11,62,Math.toRadians(95)))
+                .lineToLinearHeading(new Pose2d(11,58,Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(11,66,Math.toRadians(95)))
                 .waitSeconds(.5)
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     RightClaw.setPosition(Open * DegreeClaw);
                 })
-                .lineToLinearHeading(new Pose2d(11,55,Math.toRadians(95)))
-                .lineToLinearHeading(new Pose2d(46,56,Math.toRadians(-95)))
-                .lineToLinearHeading(new Pose2d(46,62,Math.toRadians(-95)))
+                .lineToLinearHeading(new Pose2d(11,66,Math.toRadians(95)))
+                .lineToLinearHeading(new Pose2d(38,66,Math.toRadians(-95)))
+                .lineToLinearHeading(new Pose2d(38,70,Math.toRadians(-95)))
                 .waitSeconds(5)
                 .UNSTABLE_addTemporalMarkerOffset(-5, () -> {
                     LeftClaw.setPosition(Close * DegreeClaw);
