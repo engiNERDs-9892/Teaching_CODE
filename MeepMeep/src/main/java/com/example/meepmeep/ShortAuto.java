@@ -173,8 +173,8 @@ public class ShortAuto {
                 .setBackgroundAlpha(0.95f)
 
                 //.addEntity(RedRightL)
-                //.addEntity(RedRightM)
-                .addEntity(RedRightR) // (DONE)
+                .addEntity(RedRightM)
+                //.addEntity(RedRightR) // (DONE)
                 //.addEntity(BlueLeftL)
                 //.addEntity(BlueLeftM)
                 //.addEntity(BlueLeftR)

@@ -60,8 +60,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         // Hardware Map
         new EngiNERDs_Variables(hardwareMap);
-        FlooppyFloop.setPosition(GroundArmRotate * DegreeArm);
-        FlippyFlip.setPosition(GroundArmRotate * DegreeArm);
+        FlooppyFloop.setPosition(1780 * DegreeArm);
+        FlippyFlip.setPosition(20 * DegreeArm);
         GearServo.setPosition(WristRotateGround * DegreeWrist);
 
         waitForStart();

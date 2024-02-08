@@ -96,9 +96,9 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
         waitForStart();
 
-        FlooppyFloop.setPosition(RESET_ARM * DegreeArm);
-        FlippyFlip.setPosition(RESETARM * DegreeArm);
-        GearServo.setPosition(WristRotateGround * DegreeWrist);
+        FlooppyFloop.setPosition(1791 * DegreeArm);
+        FlippyFlip.setPosition(18 * DegreeArm);
+        GearServo.setPosition(6 * DegreeWrist);
 
         while (opModeIsActive()) {
 
@@ -225,10 +225,10 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
             switch (liftState) {
                 case LIFT_START:
                     // Waiting for some input
-                    if (gamepad1.dpad_up) {
+                    if (gamepad2.dpad_up) {
                         // x is pressed, start extending
-                        FlooppyFloop.setPosition(Stack5ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack5ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(1772 * DegreeArm);
+                        FlippyFlip.setPosition(35 * DegreeArm);
                         liftState = LiftState.ARM_ROTATED;
                     }
                     break;
@@ -249,10 +249,10 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
             switch (liftState) {
                 case LIFT_START:
                     // Waiting for some input
-                    if (gamepad1.dpad_left) {
+                    if (gamepad2.dpad_left) {
                         // x is pressed, start extending
-                        FlooppyFloop.setPosition(Stack4ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack4ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(1775 * DegreeArm);
+                        FlippyFlip.setPosition(32 * DegreeArm);
                         liftState = LiftState.ARM_ROTATED;
                     }
                     break;
@@ -267,15 +267,15 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
             }
 
             ////////////////////////////////////////////////
-            // Macro - Stack 2 High / Grab 2 from Stack 2 //
+            // Macro - Stack 3 High / Grab 2 from Stack 3 //
             ////////////////////////////////////////////////
             switch (liftState) {
                 case LIFT_START:
                     // Waiting for some input
-                    if (gamepad1.dpad_right) {
+                    if (gamepad2.dpad_right) {
                         // x is pressed, start extending
-                        FlooppyFloop.setPosition(Stack3ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack3ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(1780 * DegreeArm);
+                        FlippyFlip.setPosition(29 * DegreeArm);
                         liftState = LiftState.ARM_ROTATED;
                     }
                     break;
@@ -295,10 +295,10 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
             switch (liftState) {
                 case LIFT_START:
                     // Waiting for some input
-                    if (gamepad1.dpad_down) {
+                    if (gamepad2.dpad_down) {
                         // x is pressed, start extending
-                        FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(1790 * DegreeArm);
+                        FlippyFlip.setPosition(20 * DegreeArm);
                         liftState = LiftState.ARM_ROTATED;
                     }
                     break;
@@ -312,40 +312,17 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
                     break;
             }
 
-            ////////////////////////////////////////////////
-            // Macro - HANG //
-            ////////////////////////////////////////////////
-            switch (liftState) {
-                case LIFT_START:
-                    // Waiting for some input
-                    if (gamepad2.x) {
-                        // x is pressed, start extending
-                        FlooppyFloop.setPosition(BackboardArmRotate * DegreeArm);
-                        FlippyFlip.setPosition(BackboardArmRotat * DegreeArm);
-                        liftState = LiftState.ARM_ROTATED;
-                    }
-                    break;
-
-                case ARM_ROTATED:
-                    if ((FlooppyFloop.getPosition() == (BackboardArmRotate * DegreeArm)) || (FlippyFlip.getPosition() == (BackboardArmRotat * DegreeArm))) {
-
-                        GearServo.setPosition(WristRotateBackboard * DegreeWrist);
-                        liftState = LiftState.LIFT_START;
-                    }
-                    break;
-            }
-
-
-
 
             switch (liftState) {
                 case LIFT_START:
                     // Waiting for some input
                     if (gamepad1.triangle || gamepad1.y || gamepad2.y) {
                         // x is pressed, start extending
-                        FlooppyFloop.setPosition(Stack1ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack1ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(1795 * DegreeArm);
+                        FlippyFlip.setPosition(10 * DegreeArm);
                         liftState = LiftState.ARM_ROTATED;
+
+
                     }
 
                 case ARM_ROTATED:

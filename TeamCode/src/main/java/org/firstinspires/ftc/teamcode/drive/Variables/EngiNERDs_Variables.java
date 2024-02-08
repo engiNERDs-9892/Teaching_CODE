@@ -80,6 +80,9 @@ public class EngiNERDs_Variables {
     public static double Stack1ArmRotateFloop = 1786;
     public static double Stack1ArmRotateFlip = 20;
 
+    public static double BackBoardArmRotateFloop = 1755;
+    public static double BackBoardArmRotateFlip = 59;
+
     public static double RESET_ARM = 13.5;
     public static double RESETARM = 18.5;
 
@@ -87,7 +90,7 @@ public class EngiNERDs_Variables {
     public static double WristRotateGround = 0;
     public static double WristRotateStack = 0;
     public static double WristRotateFrontScoring = 95; // WIP
-    public static double WristRotateBackboard = 270;
+    public static double WristRotateBackboard = 83;
 
 
     public EngiNERDs_Variables(HardwareMap hardwareMap) {

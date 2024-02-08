@@ -160,7 +160,7 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(-0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
-                .splineTo(new Vector2d(25,8),Math.toRadians(90))
+                .splineTo(new Vector2d(28,8),Math.toRadians(90))
                 .waitSeconds(.5)
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
@@ -168,7 +168,40 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(25,-2,Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(43,-2,Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(43,23,Math.toRadians(94)))
-
+                .lineToLinearHeading(new Pose2d(43,69,Math.toRadians(94)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    armBackBoard();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    GearServo.setPosition(80 * DegreeWrist);
+                })
+                .lineToLinearHeading(new Pose2d(11,69,Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(11,76.5,Math.toRadians(95)))
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+                    RightClaw.setPosition(Open * DegreeClaw);
+                })
+                .lineToLinearHeading(new Pose2d(11,68,Math.toRadians(95)))
+                .lineToLinearHeading(new Pose2d(46,68,Math.toRadians(-95)))
+                .lineToLinearHeading(new Pose2d(46,88,Math.toRadians(-95)))
+                .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-5, () -> {
+                    LeftClaw.setPosition(Close * DegreeClaw);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-5, () -> {
+                    RightClaw.setPosition(Close * DegreeClaw);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    armGround();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(WristRotateGround * DegreeWrist);
+                })
                 .waitSeconds(25)
                 .build();
 
@@ -181,16 +214,48 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(0.15, () -> {
                     GearServo.setPosition(WristRotateGround * DegreeWrist);
                 })
-                .forward(1)
-                .waitSeconds(30)
                 .lineToLinearHeading(new Pose2d(42,8,Math.toRadians(180)))
                 .waitSeconds(.5)
-                .back(3)
                 .UNSTABLE_addTemporalMarkerOffset(-.45, () -> {
                     LeftClaw.setPosition(Open * DegreeClaw);
                 })
                 .lineToLinearHeading(new Pose2d(50,18,Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(44,26,Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(44,69,Math.toRadians(96)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    armBackBoard();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    GearServo.setPosition(90 * DegreeWrist);
+                })
+                .lineToLinearHeading(new Pose2d(19,69,Math.toRadians(96)))
+                .lineToLinearHeading(new Pose2d(19,78.5,Math.toRadians(91)))
+                .waitSeconds(.5)
+                .UNSTABLE_addTemporalMarkerOffset(-0.25, () -> {
+                    RightClaw.setPosition(Open * DegreeClaw);
+                })
+                .lineToLinearHeading(new Pose2d(19,68,Math.toRadians(91)))
+                .lineToLinearHeading(new Pose2d(45,68,Math.toRadians(-91)))
+                .lineToLinearHeading(new Pose2d(45,88,Math.toRadians(-91)))
+                .waitSeconds(5)
+                .UNSTABLE_addTemporalMarkerOffset(-5, () -> {
+                    LeftClaw.setPosition(Close * DegreeClaw);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-5, () -> {
+                    RightClaw.setPosition(Close * DegreeClaw);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    FlooppyFloop.setPosition(Stack2ArmRotateFloop * DegreeArm);
+                    FlippyFlip.setPosition(Stack2ArmRotateFlip * DegreeArm);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+                    armGround();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    GearServo.setPosition(WristRotateGround * DegreeWrist);
+                })
+
                 .waitSeconds(25)
                 .build();
 
@@ -211,16 +276,20 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                 })
                 .lineToLinearHeading(new Pose2d(46,0,Math.toRadians(-90)))
                 .lineToLinearHeading(new Pose2d(47,0,Math.toRadians(93)))
-                .lineToLinearHeading(new Pose2d(47,20,Math.toRadians(93)))
+                .lineToLinearHeading(new Pose2d(47,60,Math.toRadians(93)))
+                .lineToLinearHeading(new Pose2d(33,60,Math.toRadians(93)))
+
+
+
                 .waitSeconds(25)
-                .waitSeconds(25)
+
                 .build();
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-        drive.followTrajectorySequenceAsync(POSITIONM);
+        drive.followTrajectorySequenceAsync(POSITIONL);
 
         while (opModeIsActive() && !isStopRequested()) {
 
@@ -247,7 +316,7 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
     }
 
     public void armBackBoard() {
-        target = 1500; //adjust TODO
+        target = 2700; //adjust TODO
     }
 
     // Assume we have a hardware class called lift

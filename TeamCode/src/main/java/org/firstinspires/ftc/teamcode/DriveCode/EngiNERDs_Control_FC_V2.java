@@ -97,8 +97,8 @@ public class EngiNERDs_Control_FC_V2 extends LinearOpMode {
 
         waitForStart();
 
-        FlooppyFloop.setPosition(RESET_ARM * DegreeArm);
-        FlippyFlip.setPosition(RESETARM * DegreeArm);
+        FlooppyFloop.setPosition(1795 * DegreeArm);
+        FlippyFlip.setPosition(13 * DegreeArm);
         GearServo.setPosition(WristRotateGround * DegreeWrist);
 
         while (opModeIsActive()) {
@@ -352,8 +352,8 @@ public class EngiNERDs_Control_FC_V2 extends LinearOpMode {
                     // Waiting for some input
                     if (gamepad1.triangle || gamepad1.y || gamepad2.y) {
                         // x is pressed, start extending
-                        FlooppyFloop.setPosition(Stack1ArmRotateFloop * DegreeArm);
-                        FlippyFlip.setPosition(Stack1ArmRotateFlip * DegreeArm);
+                        FlooppyFloop.setPosition(1795 * DegreeArm);
+                        FlippyFlip.setPosition(13 * DegreeArm);
                         liftState = LiftState.ARM_ROTATED;
                     }
 
