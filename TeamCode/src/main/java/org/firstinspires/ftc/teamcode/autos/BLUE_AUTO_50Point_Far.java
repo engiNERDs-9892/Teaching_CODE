@@ -177,13 +177,13 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
                     GearServo.setPosition(80 * DegreeWrist);
                 })
                 .lineToLinearHeading(new Pose2d(10,58,Math.toRadians(94)))
-                .lineToLinearHeading(new Pose2d(10,69,Math.toRadians(95)))
+                .lineToLinearHeading(new Pose2d(10,71,Math.toRadians(95)))
                 .waitSeconds(.5)
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     RightClaw.setPosition(Open * DegreeClaw);
                 })
-                .lineToLinearHeading(new Pose2d(11,45,Math.toRadians(95)))
-                .lineToLinearHeading(new Pose2d(36,45,Math.toRadians(-95)))
+                .lineToLinearHeading(new Pose2d(10,60,Math.toRadians(95)))
+                .lineToLinearHeading(new Pose2d(36,60,Math.toRadians(-95)))
                 .lineToLinearHeading(new Pose2d(36,75,Math.toRadians(-95)))
                 .waitSeconds(5)
                 .UNSTABLE_addTemporalMarkerOffset(-5, () -> {
