@@ -26,6 +26,8 @@ public class AirplaneLaunch_Test extends LinearOpMode {
             if (gamepad1.a){
                 AirplaneLaunchServo.setPosition(0);
             }
+
+
             if (gamepad1.b){
                 AirplaneLaunchServo.setPosition(.35);
             }

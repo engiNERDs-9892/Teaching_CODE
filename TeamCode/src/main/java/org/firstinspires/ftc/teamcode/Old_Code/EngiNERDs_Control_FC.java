@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.Old_Code;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneMountServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Close;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeTorque;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Open;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.RightClaw;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.ShootPlane;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristServo;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBL;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBR;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFL;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFR;
+import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorINTAKE;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
 import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMax;
@@ -56,13 +54,7 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
 
         // Toggels so that the Claws can be opened and closed using the same button
-        boolean Right_Claw_Toggle = false;
-
-        boolean Left_Claw_Toggle = false;
-
-        boolean Arm_Toggle = false;
-
-        boolean Hook_Toggle = false;
+        boolean IntakeToggle = false;
 
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -76,7 +68,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
 
             double RaiseandLower = -gamepad2.right_stick_y;
 
-
             // A way to store values that gamepad enters
             previousGamepad1.copy(currentGamepad1);
             previousGamepad2.copy(currentGamepad2);
@@ -84,10 +75,6 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             // Stored values of the gamepad inputs
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
-
-            // Calculates the Encoder values so the Linear Slides will stop once they reach a certain point
-            int LiftyLiftPos = motorLiftyLift.getCurrentPosition();
-            int RiseyRisePos = motorRiseyRise.getCurrentPosition();
 
             // Variables used to control the movement of the robot
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
@@ -138,126 +125,84 @@ public class EngiNERDs_Control_FC extends LinearOpMode {
             }
 
 
-            if (LiftyLiftPos >= slideySlideMin && RiseyRisePos >= slideySlideMin
-                    && LiftyLiftPos <= slideySlideMax && RiseyRisePos <= slideySlideMax) {
-
-                // If you are trying to raise the linear Slide
-                // Then raise the linear slides!
-                if (RaiseandLower < -0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                }
+            ////////////////////////////////////////////////////////////////////////
+            // Arm Playing Mechanism ///////////////////////////////////////////////                                             /
+            ////////////////////////////////////////////////////////////////////////
 
 
-                // if you are trying to lower the linear Slide
-                // Then lower the linear slides!
-                if (RaiseandLower > 0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                }
-
-                // If you are not pushing on the joystick the power = 0
-                // This is mainly to prevent stick drift
-                if ((RaiseandLower >= -0.05) && (RaiseandLower <= 0.05)) {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
+            // Linear Slide Code (Up / Down is in the else statement)
+            if (RaiseandLower == 0) {
+                motorRiseyRise.setPower(0);
+                motorLiftyLift.setPower(0);
             }
 
-            if (LiftyLiftPos < slideySlideMin || RiseyRisePos < slideySlideMin) {
-
-                if (RaiseandLower > 0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                } else {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
-
+            else {
+                // move slide up for RaiseandLower < 0, move slide down on RaiseandLower > 0
+                motorRiseyRise.setPower(RaiseandLower * 1);
+                motorLiftyLift.setPower(RaiseandLower * 1);
             }
 
-            if (LiftyLiftPos > slideySlideMax || RiseyRisePos > slideySlideMax) {
-                if (RaiseandLower < -0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                } else {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
+
+
+
+
+
+            // Wrist Joint Servos
+            if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
+                WristServo.setPosition((WristServo.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
             }
+
+
+
+
+
+
+
+            // Airplane Launch Servo
+            if (gamepad1.right_bumper) {
+                AirplaneLaunchServo.setPosition(ShootPlane * DegreeTorque);
+            }
+
+
+
+
 
 
             // Toggle / Raise and Lower for the Arms
-            if (currentGamepad2.a && !previousGamepad2.a) {
-                // This will set intakeToggle to true if it was previously false
-                // and intakeToggle to false if it was previously true,
-                // providing a toggling behavior.
-                Arm_Toggle = !Arm_Toggle;
-            }
-            // Opens the claws after the 1st press of the bumper and alternates once pressed again
-            if (Arm_Toggle) {
-                FlooppyFloop.setPosition(.5);
-                FlippyFlip.setPosition(.5);
-            }
-            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
-            else {
-                FlooppyFloop.setPosition(.02);
-                FlippyFlip.setPosition(.98);
-            }
-
-
-            // Claws
-
-            // Toggle / Close & Open for the Right claw
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
-                // This will set intakeToggle to true if it was previously false
-                // and intakeToggle to false if it was previously true,
-                // providing a toggling behavior.
-                Right_Claw_Toggle = !Right_Claw_Toggle;
+                IntakeToggle = !IntakeToggle;
             }
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
-            if (Right_Claw_Toggle) {
-                RightClaw.setPosition(Open * DegreeClaw);
+            if (IntakeToggle) {
+                motorINTAKE.setPower(.65);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                RightClaw.setPosition(Close * DegreeClaw);
+                motorINTAKE.setPower(-.65);
             }
 
 
-            // Toggle / Close & Open for the Left claw
-            if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
-                // This will set intakeToggle to true if it was previously false
-                // and intakeToggle to false if it was previously true,
-                // providing a toggling behavior.
-                Left_Claw_Toggle = !Left_Claw_Toggle;
-            }
-
-            // Opens the claws after the 1st press of the bumper and alternates once pressed again
-            if (Left_Claw_Toggle) {
-                LeftClaw.setPosition(Open * DegreeClaw);
-            }
-            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
-            else {
-                LeftClaw.setPosition(Close * DegreeClaw);
-            }
-
-            if (Math.abs(gamepad2.left_stick_y) >= 0.5) {
-                GearServo.setPosition((GearServo.getPosition() + 0.005 * Math.signum(gamepad2.left_stick_y)));
-            }
 
 
-            if (gamepad1.a) {
-                AirplaneMountServo.setPosition(0.35);
-            }
 
 
-            telemetry.addData("LiftyLift Position", LiftyLiftPos);
-            telemetry.addData("RiseyRise Position", RiseyRisePos);
-            telemetry.addData("Left Claw Position", LeftClaw.getPosition());
-            telemetry.addData("Left Claw Position", RightClaw.getPosition());
-            telemetry.addData("Gear Servo Position", GearServo.getPosition());
+
+
+
+
+
+
+
+
+
+
+            // Telemetry
+            telemetry.addData("LEFT LS POS", motorLiftyLift.getCurrentPosition());
+            telemetry.addData("RIGHT LS POS", motorRiseyRise.getCurrentPosition());
+            telemetry.addData("WRIST SERVO POS", WristServo.getPosition());
+            telemetry.addData("LEFT ARM POS", FlooppyFloop.getPosition());
+            telemetry.addData("RIGHT ARM POS", FlippyFlip.getPosition());
             updateTelemetry(telemetry);
 
 
