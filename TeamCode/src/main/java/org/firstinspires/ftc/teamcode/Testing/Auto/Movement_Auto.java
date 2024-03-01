@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Testing.Auto;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeArm;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeWrist;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.GearServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeArm;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeWrist;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GearServo;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -14,10 +14,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Examples.RedPipline;
-import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
-import org.firstinspires.ftc.teamcode.drive.opmode.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.Autos.Piplines.RedPipline;
+import org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables;
+import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;

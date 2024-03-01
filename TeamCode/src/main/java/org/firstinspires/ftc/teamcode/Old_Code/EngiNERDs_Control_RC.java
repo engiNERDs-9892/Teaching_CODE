@@ -1,26 +1,27 @@
 package org.firstinspires.ftc.teamcode.Old_Code;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.AirplaneLaunchServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.Degree5Turn;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.ShootPlane;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.WristServo;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorBR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFL;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorFR;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorINTAKE;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ShootPlane;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorFL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorFR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorINTAKE;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables;
-import org.firstinspires.ftc.teamcode.drive.opmode.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables;
+import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 
 /**
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal
@@ -163,11 +164,12 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
 
 
+
             // Wrist Joint Servos
             if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
-                WristServo.setPosition((WristServo.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoL.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoR.setPosition((WristServoR.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
             }
-
 
 
 
@@ -203,7 +205,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             // Telemetry
             telemetry.addData("LEFT LS POS", motorLiftyLift.getCurrentPosition());
             telemetry.addData("RIGHT LS POS", motorRiseyRise.getCurrentPosition());
-            telemetry.addData("WRIST SERVO POS", WristServo.getPosition());
+            telemetry.addData("WRIST SERVO R POS", WristServoR.getPosition());
+            telemetry.addData("WRIST SERVO L POS", WristServoR.getPosition());
             telemetry.addData("LEFT ARM POS", FlooppyFloop.getPosition());
             telemetry.addData("RIGHT ARM POS", FlippyFlip.getPosition());
             telemetry.update();

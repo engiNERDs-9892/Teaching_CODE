@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorLiftyLift;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorRiseyRise;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMax;
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.slideySlideMin;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.slideySlideMax;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.slideySlideMin;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 
-import static org.firstinspires.ftc.teamcode.drive.Variables.EngiNERDs_Variables.motorINTAKE;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorINTAKE;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
