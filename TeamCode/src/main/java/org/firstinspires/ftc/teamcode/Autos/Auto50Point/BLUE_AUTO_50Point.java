@@ -4,9 +4,14 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitArms;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitWrist;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
+
+
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -70,12 +75,14 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
 
         FlippyFlip = hardwareMap.servo.get("FlippyFlip");
         FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        WristServo = hardwareMap.servo.get("WristServo");
+        WristServoL = hardwareMap.servo.get("WristServoL");
+        WristServoR = hardwareMap.servo.get("WristServoL");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
 
-        FlooppyFloop.setPosition(0 * Degree5Turn); // Rotates at an angle forwards
-        FlippyFlip.setPosition(0 * Degree5Turn); // rotates at an angle forwards
-        WristServo.setPosition(0 * Degree5Turn); // Rotates into the air
+        FlooppyFloop.setPosition(InitArms * Degree5Turn); // Rotates at an angle forwards
+        FlippyFlip.setPosition(InitArms * Degree5Turn); // rotates at an angle forwards
+        WristServoL.setPosition(InitWrist * Degree5Turn); // Rotates into the air
+        WristServoR.setPosition(InitWrist * Degree5Turn);
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
