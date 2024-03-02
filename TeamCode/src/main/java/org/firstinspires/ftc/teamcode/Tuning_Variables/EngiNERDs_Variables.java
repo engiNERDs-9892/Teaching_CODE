@@ -37,6 +37,8 @@ public class EngiNERDs_Variables {
     public static double InitArms = 0;
     public static double InitWrist = 0;
     public static double InitPlane = 0;
+    public static double DropPurplePixel = 94.5;
+    public static double LaunchPlane = 67.5;
     public static double ShootPlane = 90;
     public static double DegreeTorque = 0.00333333333;  // 1/300 (Torque Servo)
     public static double Degree5Turn = 0.000555555556; // 1/1800 (5 Turn Servo)
@@ -57,11 +59,9 @@ public class EngiNERDs_Variables {
         WristServoL = hardwareMap.servo.get("WristServoL");
         WristServoR = hardwareMap.servo.get("WristServoR");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
+        PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
 
         LEDs = hardwareMap.get(RevBlinkinLedDriver.class,"LEDs");
-
-
-
 
 
         motorRiseyRise.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -81,13 +81,15 @@ public class EngiNERDs_Variables {
         motorBL.setDirection(DcMotor.Direction.FORWARD);
         motorRiseyRise.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLiftyLift.setDirection(DcMotorSimple.Direction.FORWARD);
+        motorINTAKE.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // this sets the servos in the proper direction
-        FlippyFlip.setDirection(Servo.Direction.FORWARD);
+        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         WristServoL.setDirection(Servo.Direction.FORWARD);
         WristServoR.setDirection(Servo.Direction.FORWARD);
-        FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
+        PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
     }
 }

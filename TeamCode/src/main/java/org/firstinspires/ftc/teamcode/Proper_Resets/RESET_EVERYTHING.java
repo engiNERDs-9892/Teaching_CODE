@@ -1,16 +1,9 @@
 package org.firstinspires.ftc.teamcode.Proper_Resets;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneMountServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeAirplane;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeArm;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeClaw;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeWrist;
+
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GearServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.LeftClaw;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.RightClaw;
+
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -38,11 +31,6 @@ public class RESET_EVERYTHING extends LinearOpMode {
         RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
         // this call sets the servos during initialization
-
-        FlippyFlip.setPosition(0 * DegreeArm);
-        FlooppyFloop.setPosition(1800 * DegreeArm);
-        GearServo.setPosition(0 * DegreeWrist);
-        AirplaneLaunchServo.setPosition(0*DegreeAirplane);
 
         imu.initialize(parameters);
 

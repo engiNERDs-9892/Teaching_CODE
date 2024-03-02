@@ -1,21 +1,16 @@
-package org.firstinspires.ftc.teamcode.Autos.Auto50Point;
+package org.firstinspires.ftc.teamcode.Testing.Auto.PurplePixelMovement;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitArms;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitWrist;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPlane;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPurplePixel;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -25,7 +20,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Autos.Piplines.RedPipline;
+import org.firstinspires.ftc.teamcode.Autos.Piplines.BluePipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
@@ -36,16 +31,13 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Disabled
 @Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-public class RED_AUTO_50Point extends LinearOpMode {
+public class LongB_Auto extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
     // Calls the proper pipline in order to detect the correct color (in this case its red)
-    RedPipline.redPipline pipeline;
+    BluePipline.bluePipline pipeline;
     // This just is determining the default position of the camera detection (this is right due to where our camera is placed)
-    RedPipline.redPipline.Detection_Positions snapshotAnalysis = RedPipline.redPipline.Detection_Positions.RIGHT; // default
-
-
-
+    BluePipline.bluePipline.Detection_Positions snapshotAnalysis = BluePipline.bluePipline.Detection_Positions.RIGHT; // default
     private PIDController controller;
     private PIDController controller2;
 
@@ -74,22 +66,20 @@ public class RED_AUTO_50Point extends LinearOpMode {
         // Set inital pose
         drive.setPoseEstimate(new Pose2d());
 
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        WristServoL = hardwareMap.servo.get("WristServoL");
-        WristServoR = hardwareMap.servo.get("WristServoL");
+        PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
 
-        FlooppyFloop.setPosition(InitArms * Degree5Turn); // Rotates at an angle forwards
-        FlippyFlip.setPosition(InitArms * Degree5Turn); // rotates at an angle forwards
-        WristServoL.setPosition(InitWrist * Degree5Turn); // Rotates into the air
-        WristServoR.setPosition(InitWrist * Degree5Turn);
+        PurplePixelServo.setDirection(Servo.Direction.REVERSE);
+        AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
+
+        PurplePixelServo.setPosition(InitPurplePixel * DegreeTorque);
+        AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new RedPipline.redPipline();
+        pipeline = new BluePipline.bluePipline();
         webcam.setPipeline(pipeline);
 
         // This is so we can view what the camera is seeing
@@ -121,39 +111,20 @@ public class RED_AUTO_50Point extends LinearOpMode {
         telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
         telemetry.update();
 
-
-
-
-
         // Let's define our trajectories
-        TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
-                .splineTo(new Vector2d(26,6),Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(29,-20,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(29,-21,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(29,-28,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(27,-15,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(2,-15,Math.toRadians(83)))
-                .lineToLinearHeading(new Pose2d(-2,-39,Math.toRadians(83)))
-                .build();
-
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
-                .lineToLinearHeading(new Pose2d(22,0,Math.toRadians(2)))
-                .lineToLinearHeading(new Pose2d(22,-15,Math.toRadians(2)))
-                .lineToLinearHeading(new Pose2d(23,-15,Math.toRadians(-87)))
-                .lineToLinearHeading(new Pose2d(23,-33,Math.toRadians(-87)))
-                .lineToLinearHeading(new Pose2d(-1,-36,Math.toRadians(87)))
-                .lineToLinearHeading(new Pose2d(-1,-47,Math.toRadians(87)))
                 .build();
 
         TrajectorySequence POSITIONR = drive.trajectorySequenceBuilder(new Pose2d())
-                .lineToLinearHeading(new Pose2d(29,-10.5,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(22,-16,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(22,-17,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(22,-28,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(22,-25,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(7,-26,Math.toRadians(85)))
-                .lineToLinearHeading(new Pose2d(7,-45,Math.toRadians(85)))
                 .build();
+
+
+        TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
+                .build();
+
+        TrajectorySequence POSITIONUNKNOWN = drive.trajectorySequenceBuilder(new Pose2d())
+                .build();
+
 
         waitForStart();
 
@@ -163,10 +134,11 @@ public class RED_AUTO_50Point extends LinearOpMode {
         // Then have it follow that trajectory
         // Make sure you use the async version of the commands
         // Otherwise it will be blocking and pause the program here until the trajectory finishes
-        drive.followTrajectorySequenceAsync(POSITIONL);
+
+
+        drive.followTrajectorySequenceAsync(POSITIONUNKNOWN);
 
         while (opModeIsActive() && !isStopRequested()) {
-
 
             // We update drive continuously in the background, regardless of state
             drive.update();

@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.slideySlideMax;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.slideySlideMin;
+
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -36,53 +35,16 @@ public class Lift_Test extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-
-            if (LiftyLiftPos >= slideySlideMin && RiseyRisePos >= slideySlideMin
-                    && LiftyLiftPos <= slideySlideMax && RiseyRisePos <= slideySlideMax) {
-
-                // If you are trying to raise the linear Slide
-                // Then raise the linear slides!
-                if (RaiseandLower < -0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                }
-
-
-                // if you are trying to lower the linear Slide
-                // Then lower the linear slides!
-                if (RaiseandLower > 0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                }
-
-                // If you are not pushing on the joystick the power = 0
-                // This is mainly to prevent stick drift
-                if ((RaiseandLower >= -0.05) && (RaiseandLower <= 0.05)) {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
+            // Linear Slide Code (Up / Down is in the else statement)
+            if (RaiseandLower == 0) {
+                motorRiseyRise.setPower(0);
+                motorLiftyLift.setPower(0);
             }
 
-            if (LiftyLiftPos < slideySlideMin || RiseyRisePos < slideySlideMin) {
-
-                if (RaiseandLower > 0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                } else {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
-
-            }
-
-            if (LiftyLiftPos > slideySlideMax || RiseyRisePos > slideySlideMax) {
-                if (RaiseandLower < -0.05) {
-                    motorRiseyRise.setPower(RaiseandLower);
-                    motorLiftyLift.setPower(RaiseandLower);
-                } else {
-                    motorRiseyRise.setPower(0);
-                    motorLiftyLift.setPower(0);
-                }
+            else {
+                // move slide up for RaiseandLower < 0, move slide down on RaiseandLower > 0
+                motorRiseyRise.setPower(RaiseandLower * 1);
+                motorLiftyLift.setPower(RaiseandLower * 1);
             }
 
 

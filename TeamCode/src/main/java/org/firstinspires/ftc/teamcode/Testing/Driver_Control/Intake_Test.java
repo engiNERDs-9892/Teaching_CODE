@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorINTAKE;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,7 +12,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Intake_Test extends LinearOpMode {
     @Override
     public void runOpMode() {
-        motorINTAKE = hardwareMap.dcMotor.get("motorINTAKE");
 
         waitForStart();
 
@@ -32,7 +32,6 @@ public class Intake_Test extends LinearOpMode {
             if (gamepad1.back) {
                 motorINTAKE.setPower(0);
             }
-            telemetry.update();
         }
     }
 }

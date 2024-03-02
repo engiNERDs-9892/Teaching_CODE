@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.Old_Code;
+package org.firstinspires.ftc.teamcode.DriveCode.Old_Code;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
@@ -16,24 +15,20 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables;
-import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 
-/**
- * This is a simple teleop routine for testing localization. Drive the robot around like a normal
- * teleop routine and make sure the robot's estimated pose matches the robot's actual pose (slight
- * errors are not out of the ordinary, especially with sudden drive motions). The goal of this
- * exercise is to ascertain whether the localizer has been configured properly (note: the pure
- * encoder localizer heading may be significantly off if the track width has not been tuned).
- */
-@TeleOp(group = "drive")
-//@Disabled
-public class EngiNERDs_Control_RC extends LinearOpMode {
-
+@TeleOp(name="EngiNERDs Control FC", group="Linear Opmode")
+@Disabled
+public class EngiNERDs_Control_FC extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -45,102 +40,89 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
         new EngiNERDs_Variables(hardwareMap);
 
+        // Declare our IMU (Inertial Motion Unit)
+        // Make sure your ID's match your configuration
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+
+        // Adjust the orientation parameters to match your robot (Adjust which way the Control Hub is facing)
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+
+
+        // Toggels so that the Claws can be opened and closed using the same button
         boolean IntakeToggle = false;
+
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
 
 
         waitForStart();
 
-        FlooppyFloop.setPosition(1791 * Degree5Turn);
-        FlippyFlip.setPosition(18 * Degree5Turn);
+        if (isStopRequested()) return;
 
         while (opModeIsActive()) {
 
-            // Stored values of the gamepad inputs
+            double RaiseandLower = -gamepad2.right_stick_y;
+
+            // A way to store values that gamepad enters
             previousGamepad1.copy(currentGamepad1);
             previousGamepad2.copy(currentGamepad2);
-
 
             // Stored values of the gamepad inputs
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
 
+            // Variables used to control the movement of the robot
+            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            double x = gamepad1.left_stick_x;
+            double rx = gamepad1.right_stick_x;
 
-            // Variable used for Regular speed (To find the direction that the stick needs to be in) (Controller 1)
-            double max;
+            // Calculates the current heading of the robot
+            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-            // The code below talks about the Y-axis (Up and Down / Forward and Backwards)
+            // Rotate the movement direction counter to the bot's rotation
+            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-            double axial = gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            rotX = rotX * 1.1;  // Counteract imperfect strafing
 
-            // The code below talks about the X-axis (Left and Right) (Controller 1)
+            // Denominator is the largest motor power (absolute value) or 1
+            // This ensures all the powers maintain the same ratio,
+            // but only if at least one is out of the range [-1, 1]
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
 
-            double lateral = -gamepad1.left_stick_x; // The bottom two are inverted because motor direction is changed (Controller 1)
-
-            // The code below talks about Z-Axis (Spinning around) (Controller 1)
-
-            double yaw = -gamepad1.right_stick_x;
-
-            // The code to raise and lower the Linerslides (Controller 2)
-
-            double RaiseandLower = -gamepad2.left_stick_y;
-
-
-            // Combine the joystick requests for each axis-motion to determine each wheel's power
-            // And direction for Regular speed
-            double leftFrontPower = (axial + lateral + yaw);
-            double rightFrontPower = (axial - lateral - yaw);
-            double leftBackPower = (axial - lateral + yaw);
-            double rightBackPower = (axial + lateral - yaw);
-
-
-            ////////////////////////////////////////////////////////////////////////////////////////////
-            // use LEFT joystick to go Forward/Backwards & left/Right, and RIGHT joystick to Rotate.///
-            //////////////////////////////////////////////////////////////////////////////////////////
-
-
-            // This calculates the direction & power for Regular Speed
-            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
-
-            // sets the wheels to do whatever the calculation above tells it to do for Regular Speed
-            if (max > 1.0) {
-                leftFrontPower /= max;
-                rightFrontPower /= max;
-                leftBackPower /= max;
-                rightBackPower /= max;
+            // If the Right Trigger is pressed set the Values of the motor to 100% power
+            if (gamepad1.right_trigger != 0) {
+                motorFL.setPower(frontLeftPower);
+                motorBL.setPower(backLeftPower);
+                motorFR.setPower(frontRightPower);
+                motorBR.setPower(backRightPower);
             }
 
-
-            // Setting the power for Slow Speed
+            // If the Left Trigger is pressed set the Values of the motor to 30% power
             if (gamepad1.left_trigger != 0) {
-                motorFL.setPower(leftFrontPower * .2);
-                motorBL.setPower(leftBackPower * .2);
-                motorBR.setPower(rightBackPower * .2);
-                motorFR.setPower(rightFrontPower * .2);
-
+                motorFL.setPower(frontLeftPower * .3);
+                motorBL.setPower(backLeftPower * .3);
+                motorFR.setPower(frontRightPower * .3);
+                motorBR.setPower(backRightPower * .3);
             }
 
-            // Setting the power for Fast Speed
-            else if (gamepad1.right_trigger != 0) {
-
-                motorFL.setPower(leftFrontPower);
-                motorBL.setPower(leftBackPower);
-                motorBR.setPower(rightBackPower);
-                motorFR.setPower(rightFrontPower);
-            }
-
-            // Setting the power for Regular Speed
+            // If No Trigger is pressed set the Values of the motor to 70% (Base value for motors)
             else {
-                motorFL.setPower(leftFrontPower * .6);
-                motorBL.setPower(leftBackPower * .6);
-                motorFR.setPower(rightFrontPower * .6);
-                motorBR.setPower(rightBackPower * .6);
+                motorFL.setPower(frontLeftPower * .7);
+                motorBL.setPower(backLeftPower * .7);
+                motorFR.setPower(frontRightPower * .7);
+                motorBR.setPower(backRightPower * .7);
+
             }
+
 
             ////////////////////////////////////////////////////////////////////////
             // Arm Playing Mechanism ///////////////////////////////////////////////                                             /
@@ -164,12 +146,12 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
 
 
-
             // Wrist Joint Servos
             if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
                 WristServoL.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
-                WristServoR.setPosition((WristServoR.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoR.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
             }
+
 
 
 
@@ -193,12 +175,25 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (IntakeToggle) {
-            motorINTAKE.setPower(.65);
+                motorINTAKE.setPower(.65);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-            motorINTAKE.setPower(-.65);
+                motorINTAKE.setPower(-.65);
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -209,8 +204,15 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             telemetry.addData("WRIST SERVO L POS", WristServoR.getPosition());
             telemetry.addData("LEFT ARM POS", FlooppyFloop.getPosition());
             telemetry.addData("RIGHT ARM POS", FlippyFlip.getPosition());
-            telemetry.update();
+            updateTelemetry(telemetry);
+
+
+            // This button choice was made so that it is hard to hit on accident,
+            // it can be freely changed based on preference.
+            // The equivalent button is start on Xbox / PS4 controllers.
+            if (gamepad1.back) {
+                imu.resetYaw();
+            }
         }
     }
 }
-

@@ -25,7 +25,6 @@ public class RESET_SERVOS extends LinearOpMode {
         servo3 = hardwareMap.servo.get("servo3");
         servo4 = hardwareMap.servo.get("servo4");
         servo5 = hardwareMap.servo.get("servo5");
-        servo6 = hardwareMap.servo.get("servo6");
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
 
@@ -38,7 +37,7 @@ public class RESET_SERVOS extends LinearOpMode {
           servo3.setPosition(0);
           servo4.setPosition(0);
           servo5.setPosition(0);
-          servo6.setPosition(0);
+
         }
     }
 
