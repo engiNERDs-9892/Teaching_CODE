@@ -193,11 +193,11 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
 
 
     public void armGround() {
-        target = 0; //adjust TODO
+        target = 0; //adjust
     }
 
     public void armBackBoard() {
-        target = 2700; //adjust TODO
+        target = 2700; //adjust
     }
 
     // Assume we have a hardware class called lift

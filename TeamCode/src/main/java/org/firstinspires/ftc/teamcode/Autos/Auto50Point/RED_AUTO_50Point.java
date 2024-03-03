@@ -182,11 +182,11 @@ public class RED_AUTO_50Point extends LinearOpMode {
         }
     }
     public void armGround() {
-        target = 0; //adjust TODO
+        target = 0; //adjust
     }
 
     public void armBackBoard() {
-        target = 1500; //adjust TODO
+        target = 1500; //adjust
     }
 
     // Assume we have a hardware class called lift

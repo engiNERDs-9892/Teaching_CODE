@@ -44,6 +44,9 @@ public class RESET_EVERYTHING extends LinearOpMode {
             // This button choice was made so that it is hard to hit on accident,
             // it can be freely changed based on preference.
             // The equivalent button is start on Xbox / PS4 controllers.
+
+
+
             if (gamepad1.back) {
                 imu.resetYaw();
             }
