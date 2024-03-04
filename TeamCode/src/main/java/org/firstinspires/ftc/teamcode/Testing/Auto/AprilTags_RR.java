@@ -91,8 +91,6 @@ public class AprilTags_RR extends LinearOpMode {
         double  strafe          = 0;        // Desired strafe power/speed (-1 to +1)
         double  turn            = 0;        // Desired turning power/speed (-1 to +1)
 
-
-
         // Initialize our lift
         Lift lift = new Lift(hardwareMap);
 
