@@ -22,16 +22,25 @@ public class Intake_Test extends LinearOpMode {
             if (gamepad1.left_trigger != 0) {
                 motorINTAKE.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorINTAKE.setPower(.65);
+
+                telemetry.addLine("OUTTAKING PIXELS CURRENTLY");
+                telemetry.update();
             }
 
             if (gamepad1.right_trigger != 0) {
                 motorINTAKE.setDirection(DcMotorSimple.Direction.FORWARD);
                 motorINTAKE.setPower(.65);
+                telemetry.addLine("INTAKING PIXELS CURRENTLY");
+                telemetry.update();
             }
 
             if (gamepad1.back) {
                 motorINTAKE.setPower(0);
+                telemetry.addLine("NOT DOING ANYTHING");
+                telemetry.update();
             }
+
+
         }
     }
 }

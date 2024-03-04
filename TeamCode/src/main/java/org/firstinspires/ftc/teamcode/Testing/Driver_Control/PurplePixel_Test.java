@@ -29,9 +29,15 @@ public class PurplePixel_Test extends LinearOpMode {
         while (opModeIsActive()) {
         if (gamepad1.a){
             PurplePixelServo.setPosition(InitPurplePixel * DegreeTorque);
+            telemetry.addLine("Ready to add Purple Pixel");
+            telemetry.update();
+
         }
         if (gamepad1.b){
             PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+            telemetry.addLine("Dropped Purple Pixel");
+            telemetry.update();
+
         }
 
         }

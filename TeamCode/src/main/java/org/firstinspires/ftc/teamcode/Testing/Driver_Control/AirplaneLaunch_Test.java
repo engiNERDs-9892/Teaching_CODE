@@ -26,9 +26,13 @@ public class AirplaneLaunch_Test extends LinearOpMode {
         while (opModeIsActive()) {
         if (gamepad1.a){
             AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
+            telemetry.addLine("Ready to Launch the Plane");
+            telemetry.update();
         }
         if (gamepad1.b){
             AirplaneLaunchServo.setPosition(LaunchPlane * DegreeTorque);
+            telemetry.addLine("Launched the Plane");
+            telemetry.update();
         }
 
         }

@@ -14,7 +14,6 @@ public class RESET_SERVOS extends LinearOpMode {
     public Servo servo3;
     public Servo servo4;
     public Servo servo5;
-    public Servo servo6;
     @Override
     public void runOpMode() throws InterruptedException {
 
