@@ -36,7 +36,8 @@ public class AprilTags_RR extends LinearOpMode {
 
     final double DESIRED_DISTANCE = 12.0; //  this is how close the camera should get to the target (inches)
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
-    private static final int DESIRED_TAG_ID = 16;     // Choose the tag you want to approach or set to -1 for ANY tag. (AKA CHANGE VALUE IF USING FOR AUTO)
+    private static final int DESIRED_TAG_ID = 3;     // Choose the tag you want to approach or set to -1 for ANY tag. (AKA CHANGE VALUE IF USING FOR AUTO)
+    /* NOTE | LEFT = 1/4 | Middle = 2/5 | RIGHT = 3/6 | */
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
