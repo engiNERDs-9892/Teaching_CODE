@@ -109,7 +109,7 @@ public class AprilTags_RR extends LinearOpMode {
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         TrajectorySequence trajectory2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .turn(Math.toRadians(90))
+                .turn(Math.toRadians(180))
                 .build();
 
         initAprilTag();
@@ -188,11 +188,14 @@ public class AprilTags_RR extends LinearOpMode {
                     }
 
 
-                if (!motorFL.isBusy()){
+                if (!motorFL.isBusy() && !motorBR.isBusy() && !motorFR.isBusy() && motorBL.isBusy()){
                     currentState = State.TRAJECTORY_2;
                     drive.followTrajectorySequenceAsync(trajectory2);
                 }
                         break;
+
+
+
 
                 case TRAJECTORY_2:
                     // Check if the drive class is busy following the trajectory
