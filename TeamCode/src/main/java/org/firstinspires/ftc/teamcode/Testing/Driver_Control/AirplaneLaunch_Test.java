@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Testing.Driver_Control;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPlane;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.LaunchPlane;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -20,12 +20,12 @@ public class AirplaneLaunch_Test extends LinearOpMode {
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
 
-        AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
+        AirplaneLaunchServo.setPosition(init * DegreeTorque);
         waitForStart();
 
         while (opModeIsActive()) {
         if (gamepad1.a){
-            AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
+            AirplaneLaunchServo.setPosition(init * DegreeTorque);
             telemetry.addLine("Ready to Launch the Plane");
             telemetry.update();
         }

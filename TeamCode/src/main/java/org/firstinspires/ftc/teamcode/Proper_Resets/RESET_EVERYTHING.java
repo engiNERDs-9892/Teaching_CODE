@@ -4,9 +4,8 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPlane;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPurplePixel;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -50,8 +49,8 @@ public class RESET_EVERYTHING extends LinearOpMode {
             // The equivalent button is start on Xbox / PS4 controllers.
 
 
-            AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
-            PurplePixelServo.setPosition(InitPurplePixel * DegreeTorque);
+            AirplaneLaunchServo.setPosition(init * DegreeTorque);
+            PurplePixelServo.setPosition(init * DegreeTorque);
 
 
             if (gamepad1.back) {

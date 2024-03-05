@@ -17,9 +17,6 @@ public class Lift_Test extends LinearOpMode {
         motorRiseyRise = hardwareMap.dcMotor.get("motorRiseyRise");
         motorLiftyLift = hardwareMap.dcMotor.get("motorLiftyLift");
 
-        int LiftyLiftPos = motorLiftyLift.getCurrentPosition();
-        int RiseyRisePos = motorRiseyRise.getCurrentPosition();
-
 
         motorRiseyRise.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLiftyLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -1,11 +1,15 @@
 package org.firstinspires.ftc.teamcode.Autos.Auto50Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitArms;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitWrist;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_Auto;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
@@ -23,6 +27,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Autos.Piplines.BluePipline;
@@ -75,16 +80,29 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
         // Set inital pose
         drive.setPoseEstimate(new Pose2d());
 
-        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
-        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
-        WristServoL = hardwareMap.servo.get("WristServoL");
-        WristServoR = hardwareMap.servo.get("WristServoL");
+        PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
+        PixelCoverServo = hardwareMap.servo.get("PixelCoverServo");
+        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
+        WristServoR = hardwareMap.servo.get("WristServoR");
+        WristServoL = hardwareMap.servo.get("WristServoL");
 
-        FlooppyFloop.setPosition(InitArms * Degree5Turn); // Rotates at an angle forwards
-        FlippyFlip.setPosition(InitArms * Degree5Turn); // rotates at an angle forwards
-        WristServoL.setPosition(InitWrist * Degree5Turn); // Rotates into the air
-        WristServoR.setPosition(InitWrist * Degree5Turn);
+        PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
+        PurplePixelServo.setPosition(init * DegreeTorque);
+        AirplaneLaunchServo.setPosition(init * DegreeTorque);
+        FlooppyFloop.setPosition(init * Degree5Turn);
+        FlippyFlip.setPosition(init * Degree5Turn);
+        WristServoR.setPosition(Wrist_Init_Auto * Degree5Turn);
+        WristServoL.setPosition(Wrist_Init_Auto * Degree5Turn);
+
+        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        PixelCoverServo.setDirection(Servo.Direction.FORWARD);
+        FlooppyFloop.setDirection(Servo.Direction.FORWARD);
+        WristServoL.setDirection(Servo.Direction.FORWARD);
+        WristServoR.setDirection(Servo.Direction.REVERSE);
+        AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
+        PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)

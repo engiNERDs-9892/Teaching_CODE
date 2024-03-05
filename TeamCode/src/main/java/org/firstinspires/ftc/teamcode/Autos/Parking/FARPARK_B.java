@@ -1,9 +1,23 @@
 package org.firstinspires.ftc.teamcode.Autos.Parking;
 
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_Auto;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
@@ -17,6 +31,30 @@ public class FARPARK_B extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
+        AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
+        PixelCoverServo = hardwareMap.servo.get("PixelCoverServo");
+        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
+        WristServoR = hardwareMap.servo.get("WristServoR");
+        WristServoL = hardwareMap.servo.get("WristServoL");
+
+        PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
+        PurplePixelServo.setPosition(init * DegreeTorque);
+        AirplaneLaunchServo.setPosition(init * DegreeTorque);
+        FlooppyFloop.setPosition(init * Degree5Turn);
+        FlippyFlip.setPosition(init * Degree5Turn);
+        WristServoR.setPosition(Wrist_Init_Auto * Degree5Turn);
+        WristServoL.setPosition(Wrist_Init_Auto * Degree5Turn);
+
+        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        PixelCoverServo.setDirection(Servo.Direction.FORWARD);
+        FlooppyFloop.setDirection(Servo.Direction.FORWARD);
+        WristServoL.setDirection(Servo.Direction.FORWARD);
+        WristServoR.setDirection(Servo.Direction.REVERSE);
+        AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
+        PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
         TrajectorySequence tajpark = drive.trajectorySequenceBuilder(new Pose2d())
 

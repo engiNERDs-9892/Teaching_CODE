@@ -1,10 +1,17 @@
 package org.firstinspires.ftc.teamcode.Autos.Auto25Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPlane;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPurplePixel;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_Auto;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
@@ -72,12 +79,27 @@ public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
 
         PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
+        PixelCoverServo = hardwareMap.servo.get("PixelCoverServo");
+        FlooppyFloop = hardwareMap.servo.get("FlooppyFloop");
+        FlippyFlip = hardwareMap.servo.get("FlippyFlip");
+        WristServoR = hardwareMap.servo.get("WristServoR");
+        WristServoL = hardwareMap.servo.get("WristServoL");
 
-        AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
-        PurplePixelServo.setPosition(InitPurplePixel * DegreeTorque);
+        PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
+        PurplePixelServo.setPosition(init * DegreeTorque);
+        AirplaneLaunchServo.setPosition(init * DegreeTorque);
+        FlooppyFloop.setPosition(init * Degree5Turn);
+        FlippyFlip.setPosition(init * Degree5Turn);
+        WristServoR.setPosition(Wrist_Init_Auto * Degree5Turn);
+        WristServoL.setPosition(Wrist_Init_Auto * Degree5Turn);
 
-        PurplePixelServo.setDirection(Servo.Direction.REVERSE);
+        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        PixelCoverServo.setDirection(Servo.Direction.FORWARD);
+        FlooppyFloop.setDirection(Servo.Direction.FORWARD);
+        WristServoL.setDirection(Servo.Direction.FORWARD);
+        WristServoR.setDirection(Servo.Direction.REVERSE);
         AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
+        PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)

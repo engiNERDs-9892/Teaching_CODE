@@ -2,9 +2,8 @@ package org.firstinspires.ftc.teamcode.Testing.Auto.PurplePixelMovement;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPlane;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.InitPurplePixel;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
@@ -72,8 +71,8 @@ public class LongR_Auto extends LinearOpMode {
         PurplePixelServo.setDirection(Servo.Direction.REVERSE);
         AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
 
-        PurplePixelServo.setPosition(InitPurplePixel * DegreeTorque);
-        AirplaneLaunchServo.setPosition(InitPlane * DegreeTorque);
+        PurplePixelServo.setPosition(init * DegreeTorque);
+        AirplaneLaunchServo.setPosition(init * DegreeTorque);
 
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
