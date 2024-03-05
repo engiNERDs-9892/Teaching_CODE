@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.teamcode.DriveCode.Old_Code;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardDriverArms;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundDriverArms;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.LaunchPlane;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.SlightlyAboveGroundDriverArms;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorFL;
@@ -18,6 +24,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables;
@@ -49,13 +56,15 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         new EngiNERDs_Variables(hardwareMap);
 
-        boolean IntakeToggle = false;
+        boolean PixelCover_Toggle = false;
 
+        AirplaneLaunchServo.setPosition(init * DegreeTorque);
+        FlooppyFloop.setPosition(init * Degree5Turn);
+        FlippyFlip.setPosition(init * Degree5Turn);
+        WristServoL.setPosition(init * Degree5Turn);
+        WristServoR.setPosition(init * Degree5Turn);
 
         waitForStart();
-
-        FlooppyFloop.setPosition(1791 * Degree5Turn);
-        FlippyFlip.setPosition(18 * Degree5Turn);
 
         while (opModeIsActive()) {
 
@@ -159,21 +168,11 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
                 motorLiftyLift.setPower(RaiseandLower * 1);
             }
 
-
-
-
-
-
-
             // Wrist Joint Servos
             if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
                 WristServoL.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
                 WristServoR.setPosition((WristServoR.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
             }
-
-
-
-
 
 
             // Airplane Launch Servo
@@ -182,23 +181,57 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
 
 
+            // Intake Motor
+            if (gamepad2.right_trigger != 0) {
+                motorINTAKE.setDirection(DcMotorSimple.Direction.FORWARD);
+                motorINTAKE.setPower(.65);
+            }
+            else if (gamepad2.left_trigger !=0) {
+                motorINTAKE.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorINTAKE.setPower(.65);
+            }
+            else {
+                motorINTAKE.setPower(0);
+            }
+
+            if (gamepad2.a) {
+                FlippyFlip.setPosition(BackboardDriverArms * Degree5Turn);
+                FlooppyFloop.setPosition(BackboardDriverArms * Degree5Turn);
+            }
+
+            if (gamepad2.y || gamepad1.dpad_down) {
+                FlippyFlip.setPosition(GroundDriverArms * Degree5Turn);
+                FlooppyFloop.setPosition(GroundDriverArms * Degree5Turn);
+            }
+
+            if (gamepad1.dpad_up) {
+                FlippyFlip.setPosition(SlightlyAboveGroundDriverArms * Degree5Turn);
+                FlooppyFloop.setPosition(SlightlyAboveGroundDriverArms * Degree5Turn);
+            }
 
 
 
 
-            // Toggle / Raise and Lower for the Arms
+            // Toggle / Close & Open for the Right claw
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
-                IntakeToggle = !IntakeToggle;
+                // This will set intakeToggle to true if it was previously false
+                // and intakeToggle to false if it was previously true,
+                // providing a toggling behavior.
+                PixelCover_Toggle = !PixelCover_Toggle;
             }
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
-            if (IntakeToggle) {
-            motorINTAKE.setPower(.65);
+            if (PixelCover_Toggle) {
+                PixelCoverServo.setPosition(init * DegreeTorque);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-            motorINTAKE.setPower(-.65);
+                PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
             }
+
+
+
+
 
 
 
