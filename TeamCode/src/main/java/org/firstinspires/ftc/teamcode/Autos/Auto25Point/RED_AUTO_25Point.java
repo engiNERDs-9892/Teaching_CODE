@@ -50,20 +50,16 @@ public class RED_AUTO_25Point extends LinearOpMode {
 
 
     private PIDController controller;
-    private PIDController controller2;
 
-    // Variables For the left side calculations
-    public static double Pl = 0.021, Il = 0, Dl = 0.0004;
-
-    // Variables For the right side calculations
-    public static double Pr = 0.021, Ir = 0, Dr = 0.0004;
+    // Variables for the LS motors
+    public static double P = 0.021, I = 0, D = 0.0004;
 
     // Feedforward Component of the linear slides
     public static double f = 0;
 
     private double target;
 
-    public final double ticks_in_degrees = 1993.6 / 180;
+    public final double ticks_in_degrees = 751.8  / 180;
 
 
     @Override
@@ -195,8 +191,7 @@ public class RED_AUTO_25Point extends LinearOpMode {
             // Beep boop this is the the constructor for the lift
             // Assume this sets up the lift hardware
 
-            controller = new PIDController(Pr, Ir,Dr);
-            controller2 = new PIDController(Pl, Il,Dl);
+            controller = new PIDController(P, I,D);
             telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
             motorLiftyLift = hardwareMap.get(DcMotor.class,"motorLiftyLift");
@@ -210,20 +205,17 @@ public class RED_AUTO_25Point extends LinearOpMode {
             // Beep boop this is the lift update function
             // Assume this runs some PID controller for the lift
 
-            controller.setPID(Pr, Ir,Dr);
-            controller2.setPID(Pl, Il,Dl);
+            controller.setPID(P, I,D);
             int LinearSlide_Pos1 = motorRiseyRise.getCurrentPosition();
             int LinearSlide_Pos2 = motorLiftyLift.getCurrentPosition();
 
-            double pidR = controller.calculate(LinearSlide_Pos1,target);
-            double pidL = controller2.calculate(LinearSlide_Pos2, target);
+            double pid = controller.calculate(LinearSlide_Pos1,target);
             double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
 
-            double powerR = pidR + ff;
-            double powerL = pidL + ff;
+            double power = pid + ff;
 
-            motorRiseyRise.setPower(powerR);
-            motorLiftyLift.setPower(powerL);
+            motorRiseyRise.setPower(power);
+            motorLiftyLift.setPower(power);
 
             telemetry.addData("Risey Rise Pos", LinearSlide_Pos1);
             telemetry.addData("LiftyLift Pos", LinearSlide_Pos2);
