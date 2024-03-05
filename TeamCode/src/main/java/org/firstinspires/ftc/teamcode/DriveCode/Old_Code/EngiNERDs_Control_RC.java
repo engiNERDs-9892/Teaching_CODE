@@ -185,13 +185,17 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             if (gamepad2.right_trigger != 0) {
                 motorINTAKE.setDirection(DcMotorSimple.Direction.FORWARD);
                 motorINTAKE.setPower(.65);
+                telemetry.addLine("Currently In-taking");
             }
             else if (gamepad2.left_trigger !=0) {
                 motorINTAKE.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorINTAKE.setPower(.65);
+                telemetry.addLine("Currently Out-taking");
             }
             else {
                 motorINTAKE.setPower(0);
+                telemetry.addLine("Currently Not Moving");
+
             }
 
             if (gamepad2.a) {
@@ -230,18 +234,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
 
 
-
-
-
-
-
-            // Telemetry
-            telemetry.addData("LEFT LS POS", motorLiftyLift.getCurrentPosition());
-            telemetry.addData("RIGHT LS POS", motorRiseyRise.getCurrentPosition());
             telemetry.addData("WRIST SERVO R POS", WristServoR.getPosition());
             telemetry.addData("WRIST SERVO L POS", WristServoR.getPosition());
-            telemetry.addData("LEFT ARM POS", FlooppyFloop.getPosition());
-            telemetry.addData("RIGHT ARM POS", FlippyFlip.getPosition());
             telemetry.update();
         }
     }

@@ -145,15 +145,21 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
             if (gamepad2.right_trigger != 0) {
                 motorINTAKE.setDirection(DcMotorSimple.Direction.FORWARD);
                 motorINTAKE.setPower(.65);
+                telemetry.addLine("Currently In-taking");
             }
             else if (gamepad2.left_trigger !=0) {
                 motorINTAKE.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorINTAKE.setPower(.65);
+                telemetry.addLine("Currently Out-taking");
             }
             else {
                 motorINTAKE.setPower(0);
+                telemetry.addLine("Currently Not Moving");
+
             }
 
+
+            // Arms Movement
             if (gamepad2.a) {
                 FlippyFlip.setPosition(BackboardDriverArms * Degree5Turn);
                 FlooppyFloop.setPosition(BackboardDriverArms * Degree5Turn);
@@ -172,7 +178,8 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
 
 
-            // Toggle / Close & Open for the Right claw
+            // Toggle / Close & Open for the Pixel Cover
+
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
                 // This will set intakeToggle to true if it was previously false
                 // and intakeToggle to false if it was previously true,
@@ -203,12 +210,8 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
 
             // Telemetry
-            telemetry.addData("LEFT LS POS", motorLiftyLift.getCurrentPosition());
-            telemetry.addData("RIGHT LS POS", motorRiseyRise.getCurrentPosition());
             telemetry.addData("WRIST SERVO R POS", WristServoR.getPosition());
             telemetry.addData("WRIST SERVO L POS", WristServoR.getPosition());
-            telemetry.addData("LEFT ARM POS", FlooppyFloop.getPosition());
-            telemetry.addData("RIGHT ARM POS", FlippyFlip.getPosition());
             telemetry.update();
         }
     }
