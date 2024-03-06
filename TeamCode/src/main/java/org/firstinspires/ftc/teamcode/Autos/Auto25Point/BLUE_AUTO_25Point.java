@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DropPurplePixel;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
@@ -137,12 +138,44 @@ public class BLUE_AUTO_25Point extends LinearOpMode {
 
         // Let's define our trajectories
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
+
+
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+
                 .build();
 
         TrajectorySequence POSITIONR = drive.trajectorySequenceBuilder(new Pose2d())
+
+
+
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+
                 .build();
 
         TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
+
+
+
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+
                 .build();
 
         TrajectorySequence POSITIONUNKNOWN = drive.trajectorySequenceBuilder(new Pose2d())
