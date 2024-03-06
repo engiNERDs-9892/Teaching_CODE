@@ -1,21 +1,16 @@
-package org.firstinspires.ftc.teamcode.Autos.Parking;
+package org.firstinspires.ftc.teamcode.Testing.Auto;
 
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_Auto;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DropPurplePixel;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initFlip;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -27,10 +22,20 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
  */
 @Autonomous(group = "drive", preselectTeleOp = "EngiNERDs_Control_RC_V2")
 //@Disabled
-public class FARPARK_B extends LinearOpMode {
+public class PurplePixelAction extends LinearOpMode {
+
+    public Servo PurplePixelServo;
+    public Servo AirplaneLaunchServo;
+    public Servo PixelCoverServo;
+    public Servo FlooppyFloop;
+    public Servo FlippyFlip;
+    public Servo WristServoR;
+    public Servo WristServoL;
+
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
 
         PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
@@ -44,11 +49,11 @@ public class FARPARK_B extends LinearOpMode {
         PurplePixelServo.setPosition(init * DegreeTorque);
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
         FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(init * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_Auto * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_Auto * Degree5Turn);
+        FlippyFlip.setPosition(initFlip * Degree5Turn);
+        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
+        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
 
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
         FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         WristServoL.setDirection(Servo.Direction.FORWARD);
@@ -56,12 +61,17 @@ public class FARPARK_B extends LinearOpMode {
         AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
         PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
+
         TrajectorySequence tajpark = drive.trajectorySequenceBuilder(new Pose2d())
 
-                .lineToLinearHeading(new Pose2d(54,0,Math.toRadians(90)))
-                .forward(80)
-
+                .back(30)
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+                .forward(20)
                 .build();
+
 
         waitForStart();
 

@@ -11,12 +11,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class Linearslides_PIDF extends OpMode {
-
 
     private PIDController controller;
 
@@ -26,7 +26,7 @@ public class Linearslides_PIDF extends OpMode {
     // Feedforward Component of the linear slides
     public static double f = 0;
 
-    private double target;
+    public static int target = 0;
 
     public final double ticks_in_degrees = 751.8  / 180;
 
@@ -37,6 +37,8 @@ public class Linearslides_PIDF extends OpMode {
 
             motorLiftyLift = hardwareMap.get(DcMotor.class,"motorLiftyLift");
             motorRiseyRise = hardwareMap.get(DcMotor.class,"motorRiseyRise");
+
+            motorLiftyLift.setDirection(DcMotorSimple.Direction.REVERSE);
 
             target = 0;
 }

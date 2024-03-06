@@ -12,6 +12,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
+@Disabled
 public class AprilTags_RR extends LinearOpMode {
 
     final double DESIRED_DISTANCE = 12.0; //  this is how close the camera should get to the target (inches)

@@ -36,18 +36,25 @@ public class EngiNERDs_Variables {
     // INIT ROTATION VARIABLES  ///////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
     public static double init = 0;
-    public static double Wrist_Init_Auto = 175;
+    public static double initFlip = 1800;
+    public static double Wrist_Init_AutoL = 175;
+    public static double Wrist_Init_AutoR = 175;
 
     ///////////////////////////////////////////////////////////////////////////////////////
     // ACTION ROTATION VARIABLES //////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
-    public static double DropPurplePixel = 94.5;
+    public static double DropPurplePixel = 180;
     public static double LaunchPlane = 67.5;
-    public static double BackboardAutoWrist; // TODO
+
     public static double ClosePixelCover = 95;
-    public static double BackboardDriverArms = 205;
-    public static double GroundDriverArms = 0;
-    public static double SlightlyAboveGroundDriverArms = 20;
+    public static double BackboardDriverArmsFloop = 235;
+    public static double BackboardDriverArmsFlip = 1590;
+    public static double GroundArmsFloop = 0;
+    public static double GroundArmsFlip = 1800;
+    public static double SlightlyAboveGroundDriverArmsFloop = 35;
+    public static double SlightlyAboveGroundDriverArmsFlip = 1790;
+    public static double FirstSetlineBackboardDriverArmsFloop = 175;
+    public static double FirstSetlineBackboardDriverArmsFlip = 1645;
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -56,6 +63,14 @@ public class EngiNERDs_Variables {
 
     public static double DegreeTorque = 0.00333333333;  // 1/300 (Torque Servo)
     public static double Degree5Turn = 0.000555555556; // 1/1800 (5 Turn Servo)
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // AUTO VARIABLES /////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    public static double BackboardAutoWrist = 100;
+    public static double BackboardAutoArmsFloop = 195;
+    public static double BackboardAutoArmsFlip = 1650;
 
 
 
@@ -99,7 +114,7 @@ public class EngiNERDs_Variables {
         motorINTAKE.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // this sets the servos in the proper direction
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
         FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         WristServoL.setDirection(Servo.Direction.FORWARD);

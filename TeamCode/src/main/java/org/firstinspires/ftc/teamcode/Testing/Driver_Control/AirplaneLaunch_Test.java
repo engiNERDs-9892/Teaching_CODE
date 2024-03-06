@@ -5,11 +5,13 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
 @Autonomous(group = "advanced")
+@Disabled
 public class AirplaneLaunch_Test extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

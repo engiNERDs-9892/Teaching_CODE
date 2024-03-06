@@ -24,7 +24,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  * is recommended that you use the FollowerPIDTuner opmode for further fine tuning.
  */
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class BackAndForth extends LinearOpMode {
 

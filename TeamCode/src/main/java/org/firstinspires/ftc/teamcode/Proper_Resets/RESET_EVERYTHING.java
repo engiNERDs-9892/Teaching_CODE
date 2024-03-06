@@ -2,9 +2,15 @@ package org.firstinspires.ftc.teamcode.Proper_Resets;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 
 
@@ -48,9 +54,13 @@ public class RESET_EVERYTHING extends LinearOpMode {
             // it can be freely changed based on preference.
             // The equivalent button is start on Xbox / PS4 controllers.
 
-
-            AirplaneLaunchServo.setPosition(init * DegreeTorque);
+            PixelCoverServo.setPosition(init * DegreeTorque);
             PurplePixelServo.setPosition(init * DegreeTorque);
+            AirplaneLaunchServo.setPosition(init * DegreeTorque);
+            FlooppyFloop.setPosition(init * Degree5Turn);
+            FlippyFlip.setPosition(init * Degree5Turn);
+            WristServoR.setPosition(init * Degree5Turn);
+            WristServoL.setPosition(init * Degree5Turn);
 
 
             if (gamepad1.back) {

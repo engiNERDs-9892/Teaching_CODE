@@ -1,19 +1,25 @@
 package org.firstinspires.ftc.teamcode.DriveCode.Old_Code;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardDriverArms;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardDriverArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardDriverArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FirstSetlineBackboardDriverArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FirstSetlineBackboardDriverArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundDriverArms;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.LaunchPlane;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.SlightlyAboveGroundDriverArms;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.SlightlyAboveGroundDriverArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.SlightlyAboveGroundDriverArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorFL;
@@ -22,6 +28,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -38,7 +45,7 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
 @TeleOp(group = "drive")
-//@Disabled
+@Disabled
 public class EngiNERDs_Control_RC extends LinearOpMode {
 
     @Override
@@ -60,7 +67,7 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
         FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(init * Degree5Turn);
+        FlippyFlip.setPosition(initFlip * Degree5Turn);
         WristServoL.setPosition(init * Degree5Turn);
         WristServoR.setPosition(init * Degree5Turn);
 
@@ -170,8 +177,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             // Wrist Joint Servos
             if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
-                WristServoL.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
-                WristServoR.setPosition((WristServoR.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoL.setPosition((WristServoL.getPosition() + 0.001 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoR.setPosition((WristServoR.getPosition() + 0.001 * Math.signum(-gamepad2.right_stick_y)));
             }
 
 
@@ -198,19 +205,25 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             }
 
+            // Arms Movement
             if (gamepad2.a) {
-                FlippyFlip.setPosition(BackboardDriverArms * Degree5Turn);
-                FlooppyFloop.setPosition(BackboardDriverArms * Degree5Turn);
+                FlippyFlip.setPosition(BackboardDriverArmsFlip * Degree5Turn);
+                FlooppyFloop.setPosition(BackboardDriverArmsFloop * Degree5Turn);
+            }
+
+            if (gamepad2.dpad_up) {
+                FlippyFlip.setPosition(FirstSetlineBackboardDriverArmsFlip * Degree5Turn);
+                FlooppyFloop.setPosition(FirstSetlineBackboardDriverArmsFloop * Degree5Turn);
             }
 
             if (gamepad2.y || gamepad1.dpad_down) {
-                FlippyFlip.setPosition(GroundDriverArms * Degree5Turn);
-                FlooppyFloop.setPosition(GroundDriverArms * Degree5Turn);
+                FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
+                FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
             }
 
             if (gamepad1.dpad_up) {
-                FlippyFlip.setPosition(SlightlyAboveGroundDriverArms * Degree5Turn);
-                FlooppyFloop.setPosition(SlightlyAboveGroundDriverArms * Degree5Turn);
+                FlippyFlip.setPosition(SlightlyAboveGroundDriverArmsFlip * Degree5Turn);
+                FlooppyFloop.setPosition(SlightlyAboveGroundDriverArmsFloop * Degree5Turn);
             }
 
 

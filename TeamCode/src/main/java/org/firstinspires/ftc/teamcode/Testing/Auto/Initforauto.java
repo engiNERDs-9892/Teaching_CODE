@@ -10,11 +10,13 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_Auto;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,7 +24,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables;
 
 @TeleOp(name="InitForAuto", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class Initforauto extends LinearOpMode {
     @Override
     public void runOpMode() {
@@ -34,8 +36,8 @@ public class Initforauto extends LinearOpMode {
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
         FlooppyFloop.setPosition(init * Degree5Turn);
         FlippyFlip.setPosition(init * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_Auto * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_Auto * Degree5Turn);
+        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
+        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
 
 
         waitForStart();

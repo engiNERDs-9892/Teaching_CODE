@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
 @TeleOp(group = "drive")
-@Disabled
+//@Disabled
 public class LocalizationTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

@@ -1,14 +1,21 @@
 package org.firstinspires.ftc.teamcode.Autos.Auto50Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoWrist;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DropPurplePixel;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_Auto;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
@@ -89,8 +96,8 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
         FlooppyFloop.setPosition(init * Degree5Turn);
         FlippyFlip.setPosition(init * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_Auto * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_Auto * Degree5Turn);
+        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
+        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
 
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
@@ -138,34 +145,153 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
 
         // Let's define our trajectories
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
-                .lineToLinearHeading(new Pose2d(20,-5,Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(18,20,Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(18,21,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(18,34,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(18,18,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(-2,18,Math.toRadians(-92)))
-                .lineToLinearHeading(new Pose2d(-2,38,Math.toRadians(-92)))
+
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+
+                //////////////////////////////
+                // Placing the Orange Pixel //
+                //////////////////////////////
+
+                .waitSeconds(4)
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    FlooppyFloop.setPosition(BackboardAutoArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
+                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    PixelCoverServo.setPosition(init *DegreeTorque);
+                })
+
+
+                //////////////////////////////
+                // RESET FOR DRIVER CONTROL //
+                //////////////////////////////
+
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    WristServoR.setPosition(init * Degree5Turn);
+                    WristServoL.setPosition(init * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
+                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
+                })
+
+                .waitSeconds(50)
+
+
                 .build();
 
         TrajectorySequence POSITIONR = drive.trajectorySequenceBuilder(new Pose2d())
-                .splineTo(new Vector2d(24,-7.5),Math.toRadians(-90))
-                .lineToLinearHeading(new Pose2d(22,10,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(22,11,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(22,24,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(22,20,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(-2,20,Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(-2,30,Math.toRadians(-90)))
+
+
+
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+
+                //////////////////////////////
+                // Placing the Orange Pixel //
+                //////////////////////////////
+
+                .waitSeconds(4)
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    FlooppyFloop.setPosition(BackboardAutoArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
+                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    PixelCoverServo.setPosition(init *DegreeTorque);
+                })
+
+
+
+
+
+
+                //////////////////////////////
+                // RESET FOR DRIVER CONTROL //
+                //////////////////////////////
+
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    WristServoR.setPosition(init * Degree5Turn);
+                    WristServoL.setPosition(init * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
+                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
+                })
+
+                .waitSeconds(50)
+
                 .build();
 
 
         TrajectorySequence POSITIONL = drive.trajectorySequenceBuilder(new Pose2d())
-                    .lineToLinearHeading(new Pose2d(28.5, 12, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d(15, 20, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d(15, 21, Math.toRadians(85)))
-                    .lineToLinearHeading(new Pose2d(15, 31, Math.toRadians(85)))
-                    .lineToLinearHeading(new Pose2d(15, 18, Math.toRadians(90)))
-                    .lineToLinearHeading(new Pose2d(4, 18, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d(4, 35, Math.toRadians(-90)))
+
+
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
+                })
+
+                //////////////////////////////
+                // Placing the Orange Pixel //
+                //////////////////////////////
+
+                .waitSeconds(4)
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    FlooppyFloop.setPosition(BackboardAutoArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
+                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                    PixelCoverServo.setPosition(init *DegreeTorque);
+                })
+
+
+
+
+
+
+                //////////////////////////////
+                // RESET FOR DRIVER CONTROL //
+                //////////////////////////////
+
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    WristServoR.setPosition(init * Degree5Turn);
+                    WristServoL.setPosition(init * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
+                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
+                })
+
+                .waitSeconds(50)
                 .build();
 
 
