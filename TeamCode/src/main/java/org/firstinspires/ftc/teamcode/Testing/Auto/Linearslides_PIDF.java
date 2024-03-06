@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Config
-//@Disabled
+@Disabled
 @Autonomous(group = "drive")
 public class Linearslides_PIDF extends OpMode {
 

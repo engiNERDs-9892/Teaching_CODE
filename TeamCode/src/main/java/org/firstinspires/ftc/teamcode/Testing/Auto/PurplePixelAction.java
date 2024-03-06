@@ -11,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -21,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
  * This is an example of a more complex path to really test the tuning.
  */
 @Autonomous(group = "drive", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-//@Disabled
+@Disabled
 public class PurplePixelAction extends LinearOpMode {
 
     public Servo PurplePixelServo;
