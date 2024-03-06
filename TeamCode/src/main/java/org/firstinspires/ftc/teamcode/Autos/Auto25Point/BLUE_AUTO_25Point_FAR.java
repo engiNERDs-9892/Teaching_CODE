@@ -25,6 +25,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -231,6 +232,9 @@ public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
 
             motorLiftyLift = hardwareMap.get(DcMotor.class,"motorLiftyLift");
             motorRiseyRise = hardwareMap.get(DcMotor.class,"motorRiseyRise");
+
+            motorLiftyLift.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
             target = 0;
         }
