@@ -1,8 +1,18 @@
 package org.firstinspires.ftc.teamcode.Autos.Parking;
 
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AutoWristGround;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ParkAutoArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ParkAutoArmsFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
@@ -34,7 +44,7 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
  * is recommended that you use the FollowerPIDTuner opmode for further fine tuning.
  */
 @Config
-@Disabled
+//@Disabled
 @Autonomous(group = "drive")
 public class FAR_PARK_BLUE extends LinearOpMode {
 
@@ -60,10 +70,6 @@ public class FAR_PARK_BLUE extends LinearOpMode {
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
-        FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(init * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
 
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
@@ -74,6 +80,31 @@ public class FAR_PARK_BLUE extends LinearOpMode {
         PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
         TrajectorySequence Park = drive.trajectorySequenceBuilder(new Pose2d())
+                .lineToLinearHeading(new Pose2d(-50, 2, Math.toRadians(79)))
+                .lineToLinearHeading(new Pose2d(-56, -70, Math.toRadians(79)))
+                .waitSeconds(4)
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    FlooppyFloop.setPosition(ParkAutoArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(ParkAutoArmsFlip * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                    WristServoR.setPosition(AutoWristGround * Degree5Turn);
+                    WristServoL.setPosition(AutoWristGround * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                    PixelCoverServo.setPosition(init * DegreeTorque);
+                })
+                .waitSeconds(10)
+                .back(1)
+                .UNSTABLE_addTemporalMarkerOffset(-8, () -> {
+                    WristServoR.setPosition(init * Degree5Turn);
+                    WristServoL.setPosition(init * Degree5Turn);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(-7, () -> {
+                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
+                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
+                })
+
                 .build();
 
 

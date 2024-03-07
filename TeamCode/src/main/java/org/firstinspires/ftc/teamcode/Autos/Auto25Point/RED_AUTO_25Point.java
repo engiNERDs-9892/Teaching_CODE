@@ -143,10 +143,14 @@ public class RED_AUTO_25Point extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+
+                .lineToLinearHeading(new Pose2d(-26, 2, Math.toRadians(0)))
                 .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
+                .lineToLinearHeading(new Pose2d(-22, 2, Math.toRadians(0)))
+                .turn(-90)
 
                 .build();
 

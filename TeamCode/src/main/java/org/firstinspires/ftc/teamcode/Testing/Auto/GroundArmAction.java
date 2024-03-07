@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode.Autos.Parking;
+package org.firstinspires.ftc.teamcode.Testing.Auto;
 
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AutoWristGround;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
@@ -9,10 +8,8 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ParkAutoArmsFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ParkAutoArmsFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -27,8 +24,8 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
  * This is an example of a more complex path to really test the tuning.
  */
 @Autonomous(group = "drive", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-@Disabled
-public class SHORT_PARKING extends LinearOpMode {
+//@Disabled
+public class GroundArmAction extends LinearOpMode {
 
     public Servo PurplePixelServo;
     public Servo AirplaneLaunchServo;
@@ -53,11 +50,8 @@ public class SHORT_PARKING extends LinearOpMode {
 
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
-        AirplaneLaunchServo.setPosition(init * DegreeTorque);
-        FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(initFlip * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
+        AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
+
 
         FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
@@ -68,10 +62,9 @@ public class SHORT_PARKING extends LinearOpMode {
         PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
 
+        TrajectorySequence OrangePixel = drive.trajectorySequenceBuilder(new Pose2d())
 
-        TrajectorySequence tajpark = drive.trajectorySequenceBuilder(new Pose2d())
-
-                .back(40)
+                .back(2)
                 .waitSeconds(4)
                 .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
                     FlooppyFloop.setPosition(ParkAutoArmsFloop * Degree5Turn);
@@ -81,19 +74,20 @@ public class SHORT_PARKING extends LinearOpMode {
                     WristServoR.setPosition(AutoWristGround * Degree5Turn);
                     WristServoL.setPosition(AutoWristGround * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-0.01, () -> {
                     PixelCoverServo.setPosition(init * DegreeTorque);
                 })
-                .waitSeconds(10)
                 .back(1)
-                .UNSTABLE_addTemporalMarkerOffset(-8, () -> {
+                .waitSeconds(10)
+                .UNSTABLE_addTemporalMarkerOffset(-10, () -> {
                     WristServoR.setPosition(init * Degree5Turn);
                     WristServoL.setPosition(init * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-7, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-9, () -> {
                     FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
                 })
+
                 .build();
 
         waitForStart();
@@ -101,7 +95,7 @@ public class SHORT_PARKING extends LinearOpMode {
         if (isStopRequested()) return;
 
 
-        drive.followTrajectorySequence(tajpark);
+        drive.followTrajectorySequence(OrangePixel);
 
         sleep(20000);
     }

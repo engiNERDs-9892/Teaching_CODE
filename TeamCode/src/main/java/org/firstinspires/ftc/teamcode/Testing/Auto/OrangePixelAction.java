@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Testing.Auto;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoWrist;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoWristBack;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
  * This is an example of a more complex path to really test the tuning.
  */
 @Autonomous(group = "drive", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-@Disabled
+//@Disabled
 public class OrangePixelAction extends LinearOpMode {
 
     public Servo PurplePixelServo;
@@ -53,10 +53,7 @@ public class OrangePixelAction extends LinearOpMode {
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
-        FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(initFlip * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
+
 
         FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
@@ -76,8 +73,8 @@ public class OrangePixelAction extends LinearOpMode {
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1.65, () -> {
-                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
-                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
                 .back(2)
                 .waitSeconds(20)

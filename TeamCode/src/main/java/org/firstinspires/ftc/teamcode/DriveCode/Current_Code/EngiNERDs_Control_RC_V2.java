@@ -200,11 +200,12 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
             // Opens the claws after the 1st press of the bumper and alternates once pressed again
             if (PixelCover_Toggle) {
-                PixelCoverServo.setPosition(init * DegreeTorque);
+                PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
             }
             // Closes the claws on the 2nd press of the bumper and alternates once pressed again
             else {
-                PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
+
+                PixelCoverServo.setPosition(init * DegreeTorque);
             }
 
 

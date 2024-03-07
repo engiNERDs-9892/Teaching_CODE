@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Autos.Auto50Point;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoWrist;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoWristBack;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
@@ -149,6 +149,9 @@ public class RED_AUTO_50Point extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+                //////////////////////////////
+                // Placing the Purple Pixel //
+                //////////////////////////////
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
@@ -164,8 +167,8 @@ public class RED_AUTO_50Point extends LinearOpMode {
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
-                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
-                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     PixelCoverServo.setPosition(init *DegreeTorque);
@@ -213,8 +216,8 @@ public class RED_AUTO_50Point extends LinearOpMode {
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
-                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
-                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     PixelCoverServo.setPosition(init *DegreeTorque);
@@ -261,8 +264,8 @@ public class RED_AUTO_50Point extends LinearOpMode {
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
-                    WristServoR.setPosition(BackboardAutoWrist * Degree5Turn);
-                    WristServoL.setPosition(BackboardAutoWrist * Degree5Turn);
+                    WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
+                    WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
                     PixelCoverServo.setPosition(init *DegreeTorque);

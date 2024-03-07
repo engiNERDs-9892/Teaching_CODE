@@ -39,6 +39,7 @@ public class EngiNERDs_Variables {
     public static double initFlip = 1800;
     public static double Wrist_Init_AutoL = 175;
     public static double Wrist_Init_AutoR = 175;
+    public static double initPlane = 300;
 
     ///////////////////////////////////////////////////////////////////////////////////////
     // ACTION ROTATION VARIABLES //////////////////////////////////////////////////////////
@@ -53,8 +54,8 @@ public class EngiNERDs_Variables {
     public static double GroundArmsFlip = 1800;
     public static double SlightlyAboveGroundDriverArmsFloop = 35;
     public static double SlightlyAboveGroundDriverArmsFlip = 1790;
-    public static double FirstSetlineBackboardDriverArmsFloop = 175;
-    public static double FirstSetlineBackboardDriverArmsFlip = 1645;
+    public static double FirstSetlineBackboardDriverArmsFloop = 200;
+    public static double FirstSetlineBackboardDriverArmsFlip = 1630;
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -68,10 +69,14 @@ public class EngiNERDs_Variables {
     // AUTO VARIABLES /////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    public static double BackboardAutoWrist = 100;
+    public static double BackboardAutoWristBack = 100;
+    public static double AutoWristGround = 60;
     public static double BackboardAutoArmsFloop = 195;
     public static double BackboardAutoArmsFlip = 1650;
 
+
+    public static double ParkAutoArmsFloop = 235;
+    public static double ParkAutoArmsFlip = 1600;
 
 
 
