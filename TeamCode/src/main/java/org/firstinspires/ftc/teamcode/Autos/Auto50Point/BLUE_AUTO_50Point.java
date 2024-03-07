@@ -17,6 +17,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
@@ -94,11 +95,8 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
 
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
-        AirplaneLaunchServo.setPosition(init * DegreeTorque);
-        FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(init * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
+        AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
+
 
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
@@ -107,7 +105,6 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
         WristServoR.setDirection(Servo.Direction.REVERSE);
         AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
         PurplePixelServo.setDirection(Servo.Direction.REVERSE);
-
 
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

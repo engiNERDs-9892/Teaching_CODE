@@ -20,6 +20,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
@@ -92,11 +93,8 @@ public class RED_AUTO_50Point_Far extends LinearOpMode {
 
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
-        AirplaneLaunchServo.setPosition(init * DegreeTorque);
-        FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(init * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
+        AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
+
 
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);

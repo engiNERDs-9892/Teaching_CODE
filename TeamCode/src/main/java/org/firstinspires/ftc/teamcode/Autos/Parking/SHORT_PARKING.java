@@ -13,6 +13,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -53,11 +54,7 @@ public class SHORT_PARKING extends LinearOpMode {
 
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
-        AirplaneLaunchServo.setPosition(init * DegreeTorque);
-        FlooppyFloop.setPosition(init * Degree5Turn);
-        FlippyFlip.setPosition(initFlip * Degree5Turn);
-        WristServoR.setPosition(Wrist_Init_AutoR * Degree5Turn);
-        WristServoL.setPosition(Wrist_Init_AutoL * Degree5Turn);
+        AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
 
         FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);

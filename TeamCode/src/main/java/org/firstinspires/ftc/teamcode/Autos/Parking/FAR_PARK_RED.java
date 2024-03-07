@@ -16,6 +16,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -77,7 +78,8 @@ public class FAR_PARK_RED extends LinearOpMode {
 
         PixelCoverServo.setPosition(ClosePixelCover * DegreeTorque);
         PurplePixelServo.setPosition(init * DegreeTorque);
-        AirplaneLaunchServo.setPosition(init * DegreeTorque);
+        AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
+
 
         FlippyFlip.setDirection(Servo.Direction.REVERSE);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
