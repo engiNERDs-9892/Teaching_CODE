@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos.Auto25Point;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Auto25Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
@@ -31,7 +31,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Autos.Piplines.BluePipline;
+import org.firstinspires.ftc.teamcode.Autos.Useful.Piplines.RedPipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
@@ -43,13 +43,15 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Disabled
 @Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-public class RED_AUTO_25Point_FAR extends LinearOpMode {
+public class RED_AUTO_25Point extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
     // Calls the proper pipline in order to detect the correct color (in this case its red)
-    BluePipline.bluePipline pipeline;
+    RedPipline.redPipline pipeline;
     // This just is determining the default position of the camera detection (this is right due to where our camera is placed)
-    BluePipline.bluePipline.Detection_Positions snapshotAnalysis = BluePipline.bluePipline.Detection_Positions.RIGHT; // default
+    RedPipline.redPipline.Detection_Positions snapshotAnalysis = RedPipline.redPipline.Detection_Positions.RIGHT; // default
+
+
 
     private PIDController controller;
 
@@ -100,7 +102,7 @@ public class RED_AUTO_25Point_FAR extends LinearOpMode {
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new BluePipline.bluePipline();
+        pipeline = new RedPipline.redPipline();
         webcam.setPipeline(pipeline);
 
         // This is so we can view what the camera is seeing
@@ -139,10 +141,14 @@ public class RED_AUTO_25Point_FAR extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+
+                .lineToLinearHeading(new Pose2d(-26, 2, Math.toRadians(0)))
                 .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
+                .lineToLinearHeading(new Pose2d(-22, 2, Math.toRadians(0)))
+                .turn(-90)
 
                 .build();
 
@@ -176,7 +182,6 @@ public class RED_AUTO_25Point_FAR extends LinearOpMode {
 
         TrajectorySequence POSITIONUNKNOWN = drive.trajectorySequenceBuilder(new Pose2d())
                 .build();
-
 
         waitForStart();
 

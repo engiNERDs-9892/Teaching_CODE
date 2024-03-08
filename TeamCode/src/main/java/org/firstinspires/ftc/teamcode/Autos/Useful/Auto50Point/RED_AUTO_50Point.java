@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos.Auto50Point;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Auto50Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFlip;
@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Autos.Piplines.RedPipline;
+import org.firstinspires.ftc.teamcode.Autos.Useful.Piplines.RedPipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos.Auto50Point;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Auto50Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFlip;
@@ -14,16 +14,14 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
-
-
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -39,7 +37,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Autos.Piplines.BluePipline;
+import org.firstinspires.ftc.teamcode.Autos.Useful.Piplines.BluePipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
@@ -48,10 +46,9 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-
 @Disabled
-@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-public class BLUE_AUTO_50Point extends LinearOpMode {
+@Autonomous(group = "advanced", preselectTeleOp = "RESET_HARDWARE")
+public class BLUE_AUTO_50Point_Far extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
     // Calls the proper pipline in order to detect the correct color (in this case its red)
@@ -106,6 +103,9 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
         AirplaneLaunchServo.setDirection(Servo.Direction.REVERSE);
         PurplePixelServo.setDirection(Servo.Direction.REVERSE);
 
+
+
+
         // this initializes the camera (Not going into it tooo much but it initalizes the camera + hw map, and the pipline as well)
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -129,6 +129,7 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
 
         while (!isStarted() && !isStopRequested()) {
             telemetry.addData("Realtime analysis", pipeline.getAnalysis());
+            telemetry.addData("Floop", FlooppyFloop.getPosition());
             telemetry.update();
 
             // Don't burn CPU cycles busy-looping in this sample
@@ -139,14 +140,15 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
 
 
         telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
+
         telemetry.update();
 
-        // Let's define our trajectories
+
+
+
+
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
 
-                //////////////////////////////
-                // Placing the Purple Pixel //
-                //////////////////////////////
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
@@ -288,20 +290,15 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
                 .waitSeconds(50)
                 .build();
 
-
         waitForStart();
 
         if (isStopRequested()) return;
 
-        // Set the current state to TRAJECTORY_1, our first step
-        // Then have it follow that trajectory
-        // Make sure you use the async version of the commands
-        // Otherwise it will be blocking and pause the program here until the trajectory finishes
-
-
-        drive.followTrajectorySequenceAsync(POSITIONL);
+        drive.followTrajectorySequenceAsync(POSITIONM);
 
         while (opModeIsActive() && !isStopRequested()) {
+
+
 
             // We update drive continuously in the background, regardless of state
             drive.update();
@@ -316,12 +313,15 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
             PoseStorage.currentPose = poseEstimate;
         }
     }
+
+
+
     public void armGround() {
         target = 0; //adjust
     }
 
     public void armBackBoard() {
-        target = 1500; //adjust
+        target = 2700; //adjust
     }
 
     // Assume we have a hardware class called lift
@@ -340,7 +340,6 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
             motorRiseyRise = hardwareMap.get(DcMotor.class,"motorRiseyRise");
 
             motorLiftyLift.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
             target = 0;
         }
@@ -368,5 +367,6 @@ public class BLUE_AUTO_50Point extends LinearOpMode {
             telemetry.update();
 
         }
+
     }
 }

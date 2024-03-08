@@ -1,22 +1,13 @@
-package org.firstinspires.ftc.teamcode.Autos.Parking;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Parking;
 
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AutoWristGround;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ParkAutoArmsFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ParkAutoArmsFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 
@@ -87,6 +78,8 @@ public class FAR_PARK_BLUE extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-50, 2, Math.toRadians(79)))
                 .lineToLinearHeading(new Pose2d(-56, -70, Math.toRadians(79)))
                 .waitSeconds(4)
+
+                /*
                 .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
                     FlooppyFloop.setPosition(ParkAutoArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(ParkAutoArmsFlip * Degree5Turn);
@@ -108,7 +101,7 @@ public class FAR_PARK_BLUE extends LinearOpMode {
                     FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
                 })
-
+                    */
                 .build();
 
 

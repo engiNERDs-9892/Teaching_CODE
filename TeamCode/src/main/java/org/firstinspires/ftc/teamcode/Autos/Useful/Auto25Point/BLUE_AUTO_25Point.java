@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos.Auto25Point;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Auto25Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
@@ -21,6 +21,7 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -31,7 +32,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Autos.Piplines.BluePipline;
+import org.firstinspires.ftc.teamcode.Autos.Useful.Piplines.BluePipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
@@ -43,7 +44,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Disabled
 @Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
-public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
+public class BLUE_AUTO_25Point extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
     // Calls the proper pipline in order to detect the correct color (in this case its red)
@@ -64,7 +65,6 @@ public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
     private double target;
 
     public final double ticks_in_degrees = 751.8  / 180;
-
 
 
     @Override
@@ -142,6 +142,7 @@ public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+                .lineToLinearHeading(new Pose2d(-26, -2, Math.toRadians(0)))
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
@@ -178,6 +179,7 @@ public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
                 .build();
 
         TrajectorySequence POSITIONUNKNOWN = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(54)
                 .build();
 
 
@@ -232,7 +234,6 @@ public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
             motorRiseyRise = hardwareMap.get(DcMotor.class,"motorRiseyRise");
 
             motorLiftyLift.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
             target = 0;
         }

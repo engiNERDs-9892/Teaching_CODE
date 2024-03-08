@@ -94,6 +94,8 @@ public class FAR_PARK_RED extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-50, -2, Math.toRadians(-79)))
                 .lineToLinearHeading(new Pose2d(-56, 70, Math.toRadians(-79)))
                 .waitSeconds(4)
+
+                /*
                 .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
                     FlooppyFloop.setPosition(ParkAutoArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(ParkAutoArmsFlip * Degree5Turn);
@@ -115,7 +117,7 @@ public class FAR_PARK_RED extends LinearOpMode {
                     FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
                 })
-
+                */
                 .build();
 
 

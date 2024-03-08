@@ -136,8 +136,8 @@ public class EngiNERDs_Control_RC_V2 extends LinearOpMode {
 
             // Wrist Joint Servos
             if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
-                WristServoL.setPosition((WristServoL.getPosition() + 0.001 * Math.signum(-gamepad2.right_stick_y)));
-                WristServoR.setPosition((WristServoR.getPosition() + 0.001 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoL.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoR.setPosition((WristServoR.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
             }
 
 

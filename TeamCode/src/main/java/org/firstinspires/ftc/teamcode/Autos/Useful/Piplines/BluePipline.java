@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos.Piplines;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Piplines;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -23,7 +23,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 @Disabled
 @TeleOp
-public class RedPipline extends LinearOpMode
+public class BluePipline extends LinearOpMode
 {
 
    // This is how we identify our webcam
@@ -31,7 +31,7 @@ public class RedPipline extends LinearOpMode
 
 
     // Creating a pipeline to use later
-    redPipline pipeline;
+    bluePipline pipeline;
 
 
     @Override
@@ -46,7 +46,7 @@ public class RedPipline extends LinearOpMode
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
         // Creating a pipeline to use in a separate code
-        pipeline = new redPipline();
+        pipeline = new bluePipline();
 
         // Even More Pipeline Shenanigans
         webcam.setPipeline(pipeline);
@@ -87,7 +87,7 @@ public class RedPipline extends LinearOpMode
         }
     }
 
-    public static class redPipline extends OpenCvPipeline
+    public static class bluePipline extends OpenCvPipeline
     {
         // Enum to call a variable -- Has no actual value and can be used throughout any code
         public enum Detection_Positions
@@ -109,6 +109,7 @@ public class RedPipline extends LinearOpMode
         static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(600,200);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(1075,200);
         static final int REGION_WIDTH = 200;
+
         static final int REGION_WIDTH2 = 200;
         static final int REGION_HEIGHT = 200;
 
@@ -154,12 +155,12 @@ public class RedPipline extends LinearOpMode
 
 
         // Variables created in a Matrix
-        Mat region1_Cr, region2_Cr, region3_Cr;
+        Mat region1_Cb, region2_Cb, region3_Cb;
 
         // Creating a Matrix to store variables --> Variables = Colors
         // Y = Luminance   Cr = Chroma: Red     Cb = Chroma: Blue
         Mat YCrCb = new Mat();
-        Mat Cr = new Mat();
+        Mat Cb = new Mat();
 
         // Variables created to use later
         int avg1, avg2, avg3;
@@ -174,7 +175,7 @@ public class RedPipline extends LinearOpMode
         void inputToCb(Mat input)
         {
             Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-            Core.extractChannel(YCrCb, Cr, 1);
+            Core.extractChannel(YCrCb, Cb, 2);
         }
 
 
@@ -193,9 +194,9 @@ public class RedPipline extends LinearOpMode
             inputToCb(firstFrame);
 
             // Sub matrix to convert the rectangle
-            region1_Cr = Cr.submat(new Rect(region1_pointA, region1_pointB));
-            region2_Cr = Cr.submat(new Rect(region2_pointA, region2_pointB));
-            region3_Cr = Cr.submat(new Rect(region3_pointA, region3_pointB));
+            region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
+            region2_Cb = Cb.submat(new Rect(region2_pointA, region2_pointB));
+            region3_Cb = Cb.submat(new Rect(region3_pointA, region3_pointB));
         }
 
         @Override
@@ -235,9 +236,9 @@ public class RedPipline extends LinearOpMode
              // at index 2 here.
 
 
-            avg1 = (int) Core.mean(region1_Cr).val[0];
-            avg2 = (int) Core.mean(region2_Cr).val[0];
-            avg3 = (int) Core.mean(region3_Cr).val[0];
+            avg1 = (int) Core.mean(region1_Cb).val[0];
+            avg2 = (int) Core.mean(region2_Cb).val[0];
+            avg3 = (int) Core.mean(region3_Cb).val[0];
 
 
              // Draw a rectangle showing sample region 1 on the screen.
