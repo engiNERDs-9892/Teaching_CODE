@@ -69,10 +69,10 @@ public class EngiNERDs_Variables {
     // AUTO VARIABLES /////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    public static double BackboardAutoWristBack = 100;
+    public static double BackboardAutoWristBack = 135;
     public static double AutoWristGround = 60;
     public static double BackboardAutoArmsFloop = 195;
-    public static double BackboardAutoArmsFlip = 1650;
+    public static double BackboardAutoArmsFlip = 1625;
 
 
     public static double ParkAutoArmsFloop = 235;
@@ -112,7 +112,7 @@ public class EngiNERDs_Variables {
         // Setting the motor Direction, so the motors rotate correctly (Default Direction = Forward)
         motorFL.setDirection(DcMotor.Direction.FORWARD);
         motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.REVERSE);
+        motorBR.setDirection(DcMotor.Direction.FORWARD);
         motorBL.setDirection(DcMotor.Direction.FORWARD);
         motorRiseyRise.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLiftyLift.setDirection(DcMotorSimple.Direction.REVERSE);

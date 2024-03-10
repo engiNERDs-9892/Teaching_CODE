@@ -63,7 +63,7 @@ public class OrangePixelAction extends LinearOpMode {
         AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
 
 
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
         FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         WristServoL.setDirection(Servo.Direction.FORWARD);

@@ -1,4 +1,5 @@
-package org.firstinspires.ftc.teamcode.DriveCode.Old_Code;
+
+package org.firstinspires.ftc.teamcode.DriveCode.Current_Code.TestingColor;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardDriverArmsFlip;
@@ -20,35 +21,22 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorBR;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorFL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorFR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorINTAKE;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorRiseyRise;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 
 /**
- *                   / ______ \
- *    ------------.-'   _  '-..+
- *              /   _  ( Y )  _  \
- *             |  ( X )  _  ( B ) |
- *        ___  '.      ( A )     /|
- *      .'    '.    '-._____.-'  .'
- *     |       |                 |
- *      '.___.' '.               |
- *               '.             /
- *                \.          .'
- *                  \________/
  *
  * Button Mappings:
  *
@@ -64,15 +52,32 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
  *   Dpad Up -   Raised Above Ground Arms                   Dpad Up - N/A
  *   Dpad Down - Reset Arms                                 Dpad Down - N/A
  *   Dpad Left - N/A                                        Dpad Left - N/A
- *   Dpad Right - N/A                                       Dpad Right - N/A
+ *   Dpad Right - Arm Flips to setline 1                    Dpad Right - N/A
  */
 
 
+
+
+
 @TeleOp(group = "drive")
-@Disabled
-public class EngiNERDs_Control_RC extends LinearOpMode {
+//@Disabled
+public class EngiNERDs_Control_RC_V2_RED extends LinearOpMode {
+
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
+
+    Deadline ledCycleDeadline;
+    Deadline gamepadRateLimit;
+    protected enum DisplayKind {
+        MANUAL,
+        AUTO
+    }
+
+    DisplayKind displayKind;
+
 
     @Override
+
     public void runOpMode() throws InterruptedException {
 
         // A way to store values that the gamepad enters
@@ -89,97 +94,74 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
         boolean PixelCover_Toggle = false;
 
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.DARK_BLUE;
+        blinkinLedDriver.setPattern(pattern);
+
+
+
+        waitForStart();
+
+
+        /////////////////////////////////
+        // INITIZALIZATION Phase   //////
+        /////////////////////////////////
+
         AirplaneLaunchServo.setPosition(init * DegreeTorque);
         FlooppyFloop.setPosition(init * Degree5Turn);
         FlippyFlip.setPosition(initFlip * Degree5Turn);
         WristServoL.setPosition(init * Degree5Turn);
         WristServoR.setPosition(init * Degree5Turn);
 
-        waitForStart();
-
         while (opModeIsActive()) {
+
+            if (displayKind == DisplayKind.AUTO) {
+                doAutoDisplay();
+            }
 
             // Stored values of the gamepad inputs
             previousGamepad1.copy(currentGamepad1);
             previousGamepad2.copy(currentGamepad2);
 
+            double RaiseandLower = -gamepad2.left_stick_y;
 
             // Stored values of the gamepad inputs
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
 
 
-            // Variable used for Regular speed (To find the direction that the stick needs to be in) (Controller 1)
-            double max;
-
-            // The code below talks about the Y-axis (Up and Down / Forward and Backwards)
-
-            double axial = gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-
-            // The code below talks about the X-axis (Left and Right) (Controller 1)
-
-            double lateral = -gamepad1.left_stick_x; // The bottom two are inverted because motor direction is changed (Controller 1)
-
-            // The code below talks about Z-Axis (Spinning around) (Controller 1)
-
-            double yaw = -gamepad1.right_stick_x;
-
-            // The code to raise and lower the Linerslides (Controller 2)
-
-            double RaiseandLower = -gamepad2.left_stick_y;
+            ////////////////////////////////////////////////////
+            // Movement Code ///////////////////////////////////
+            ////////////////////////////////////////////////////
 
 
-            // Combine the joystick requests for each axis-motion to determine each wheel's power
-            // And direction for Regular speed
-            double leftFrontPower = (axial + lateral + yaw);
-            double rightFrontPower = (axial - lateral - yaw);
-            double leftBackPower = (axial - lateral + yaw);
-            double rightBackPower = (axial + lateral - yaw);
-
-
-            ////////////////////////////////////////////////////////////////////////////////////////////
-            // use LEFT joystick to go Forward/Backwards & left/Right, and RIGHT joystick to Rotate.///
-            //////////////////////////////////////////////////////////////////////////////////////////
-
-
-            // This calculates the direction & power for Regular Speed
-            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
-
-            // sets the wheels to do whatever the calculation above tells it to do for Regular Speed
-            if (max > 1.0) {
-                leftFrontPower /= max;
-                rightFrontPower /= max;
-                leftBackPower /= max;
-                rightBackPower /= max;
+            if (gamepad1.right_trigger != 0) {
+                drive.setWeightedDrivePower(
+                        new Pose2d(
+                                gamepad1.left_stick_y,
+                                gamepad1.left_stick_x,
+                                gamepad1.right_stick_x
+                        )
+                );
             }
 
 
-            // Setting the power for Slow Speed
             if (gamepad1.left_trigger != 0) {
-                motorFL.setPower(leftFrontPower * .2);
-                motorBL.setPower(leftBackPower * .2);
-                motorBR.setPower(rightBackPower * .2);
-                motorFR.setPower(rightFrontPower * .2);
-
-            }
-
-            // Setting the power for Fast Speed
-            else if (gamepad1.right_trigger != 0) {
-
-                motorFL.setPower(leftFrontPower);
-                motorBL.setPower(leftBackPower);
-                motorBR.setPower(rightBackPower);
-                motorFR.setPower(rightFrontPower);
-            }
-
-            // Setting the power for Regular Speed
-            else {
-                motorFL.setPower(leftFrontPower * .6);
-                motorBL.setPower(leftBackPower * .6);
-                motorFR.setPower(rightFrontPower * .6);
-                motorBR.setPower(rightBackPower * .6);
+                drive.setWeightedDrivePower(
+                        new Pose2d(
+                                gamepad1.left_stick_y * .2,
+                                gamepad1.left_stick_x * .2,
+                                gamepad1.right_stick_x * .2
+                        )
+                );
+            } else {
+                drive.setWeightedDrivePower(
+                        new Pose2d(
+                                gamepad1.left_stick_y * .7,
+                                gamepad1.left_stick_x * .7,
+                                gamepad1.right_stick_x * .7
+                        )
+                );
             }
 
             ////////////////////////////////////////////////////////////////////////
@@ -201,10 +183,15 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             // Wrist Joint Servos
             if (Math.abs(gamepad2.right_stick_y) >= 0.5) {
-                WristServoL.setPosition((WristServoL.getPosition() + 0.001 * Math.signum(-gamepad2.right_stick_y)));
-                WristServoR.setPosition((WristServoR.getPosition() + 0.001 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoL.setPosition((WristServoL.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
+                WristServoR.setPosition((WristServoR.getPosition() + 0.0005 * Math.signum(-gamepad2.right_stick_y)));
             }
 
+            if (gamepad2.left_bumper || gamepad1.dpad_left) {
+                WristServoR.setPosition(0);
+                WristServoL.setPosition(0);
+
+            }
 
             // Airplane Launch Servo
             if (gamepad1.right_bumper) {
@@ -229,13 +216,14 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
             }
 
+
             // Arms Movement
             if (gamepad2.a) {
                 FlippyFlip.setPosition(BackboardDriverArmsFlip * Degree5Turn);
                 FlooppyFloop.setPosition(BackboardDriverArmsFloop * Degree5Turn);
             }
 
-            if (gamepad2.x) {
+            if (gamepad2.dpad_up) {
                 FlippyFlip.setPosition(FirstSetlineBackboardDriverArmsFlip * Degree5Turn);
                 FlooppyFloop.setPosition(FirstSetlineBackboardDriverArmsFloop * Degree5Turn);
             }
@@ -253,7 +241,8 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
 
 
 
-            // Toggle / Close & Open for the Right claw
+            // Toggle / Close & Open for the Pixel Cover
+
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
                 // This will set intakeToggle to true if it was previously false
                 // and intakeToggle to false if it was previously true,
@@ -272,10 +261,36 @@ public class EngiNERDs_Control_RC extends LinearOpMode {
             }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+            // Telemetry
             telemetry.addData("WRIST SERVO R POS", WristServoR.getPosition());
             telemetry.addData("WRIST SERVO L POS", WristServoR.getPosition());
             telemetry.update();
         }
+
+    }
+    protected void doAutoDisplay()
+    {
+        if (ledCycleDeadline.hasExpired()) {
+            pattern = pattern.next();
+            displayPattern();
+            ledCycleDeadline.reset();
+        }
+    }
+    protected void displayPattern()
+    {
+        blinkinLedDriver.setPattern(pattern);
     }
 }
 

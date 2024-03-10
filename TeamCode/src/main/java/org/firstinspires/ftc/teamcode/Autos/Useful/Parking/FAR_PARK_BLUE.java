@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
  */
 @Config
 //@Disabled
-@Autonomous(group = "drive")
+@Autonomous(group = "drive", preselectTeleOp = "EngiNERDs_Control_RC_V2_BLUE")
 public class FAR_PARK_BLUE extends LinearOpMode {
 
     public Servo PurplePixelServo;

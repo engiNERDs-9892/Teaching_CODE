@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos.Parking;
+package org.firstinspires.ftc.teamcode.Autos.Useful.Parking;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AutoWristGround;
@@ -31,7 +31,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Autos.Piplines.BluePipline;
+import org.firstinspires.ftc.teamcode.Autos.Useful.Piplines.BluePipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.TrajectorySequence;
@@ -42,7 +42,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 //@Disabled
-@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
+@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2_RED")
 public class FAR_PARK_RED extends LinearOpMode {
 
     private PIDController controller;

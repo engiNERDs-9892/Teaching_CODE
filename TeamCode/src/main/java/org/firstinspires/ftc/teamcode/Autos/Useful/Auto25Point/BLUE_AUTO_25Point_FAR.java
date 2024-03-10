@@ -42,7 +42,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 @Disabled
-@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
+@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2_BLUE")
 public class BLUE_AUTO_25Point_FAR extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;

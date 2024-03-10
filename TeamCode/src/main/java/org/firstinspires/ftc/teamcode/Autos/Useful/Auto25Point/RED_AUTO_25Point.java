@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autos.Useful.Auto25Point;
 
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.AirplaneLaunchServo;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFlip;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoArmsFloop;
+import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.BackboardAutoWristBack;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.ClosePixelCover;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Degree5Turn;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DegreeTorque;
@@ -41,8 +44,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Disabled
-@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
+//@Disabled
+@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2_RED")
 public class RED_AUTO_25Point extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
@@ -142,13 +145,14 @@ public class RED_AUTO_25Point extends LinearOpMode {
                 // Placing the Purple Pixel //
                 //////////////////////////////
 
-                .lineToLinearHeading(new Pose2d(-26, 2, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-31, -4, Math.toRadians(0)))
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
-                .lineToLinearHeading(new Pose2d(-22, 2, Math.toRadians(0)))
-                .turn(-90)
+                .lineToLinearHeading(new Pose2d(-20, 0, Math.toRadians(90)))
+
+
 
                 .build();
 
@@ -159,10 +163,13 @@ public class RED_AUTO_25Point extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+                .lineToLinearHeading(new Pose2d(-30, 10, Math.toRadians(74)))
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
+                .lineToLinearHeading(new Pose2d(-34, 22, Math.toRadians(74)))
+                .lineToLinearHeading(new Pose2d(-14, 22, Math.toRadians(80)))
 
                 .build();
 
@@ -173,15 +180,16 @@ public class RED_AUTO_25Point extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+                .lineToLinearHeading(new Pose2d(-26, 2, Math.toRadians(75)))
+                .lineToLinearHeading(new Pose2d(-26, -11, Math.toRadians(75)))
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
+                .lineToLinearHeading(new Pose2d(-26, 20, Math.toRadians(80)))
 
                 .build();
 
-        TrajectorySequence POSITIONUNKNOWN = drive.trajectorySequenceBuilder(new Pose2d())
-                .build();
 
         waitForStart();
 
@@ -193,7 +201,7 @@ public class RED_AUTO_25Point extends LinearOpMode {
         // Otherwise it will be blocking and pause the program here until the trajectory finishes
 
 
-        drive.followTrajectorySequenceAsync(POSITIONUNKNOWN);
+        drive.followTrajectorySequenceAsync(POSITIONL);
 
         while (opModeIsActive() && !isStopRequested()) {
 

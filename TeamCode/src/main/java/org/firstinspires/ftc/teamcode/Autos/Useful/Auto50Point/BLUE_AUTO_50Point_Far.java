@@ -47,7 +47,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Disabled
-@Autonomous(group = "advanced", preselectTeleOp = "RESET_HARDWARE")
+@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2_BLUE")
 public class BLUE_AUTO_50Point_Far extends LinearOpMode {
     // Calls the Variable webcam
     OpenCvWebcam webcam;
@@ -95,7 +95,7 @@ public class BLUE_AUTO_50Point_Far extends LinearOpMode {
         AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
 
 
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
         FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         WristServoL.setDirection(Servo.Direction.FORWARD);

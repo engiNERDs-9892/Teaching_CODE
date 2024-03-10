@@ -10,14 +10,10 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.DropPurplePixel;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlippyFlip;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.FlooppyFloop;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFlip;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.GroundArmsFloop;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PixelCoverServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.PurplePixelServo;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoL;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.WristServoR;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoL;
-import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.Wrist_Init_AutoR;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.init;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.initPlane;
 import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variables.motorLiftyLift;
@@ -26,10 +22,9 @@ import static org.firstinspires.ftc.teamcode.Tuning_Variables.EngiNERDs_Variable
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -37,6 +32,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.Autos.Useful.Piplines.RedPipline;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.PoseStorage;
 import org.firstinspires.ftc.teamcode.Tuning_Variables.SampleMecanumDrive;
@@ -46,9 +42,22 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Disabled
-@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2")
+//@Disabled
+@Autonomous(group = "advanced", preselectTeleOp = "EngiNERDs_Control_RC_V2_RED")
 public class RED_AUTO_50Point extends LinearOpMode {
+
+
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
+    Deadline ledCycleDeadline;
+    protected enum DisplayKind {
+        MANUAL,
+        AUTO
+    }
+    DisplayKind displayKind;
+
+
+
     // Calls the Variable webcam
     OpenCvWebcam webcam;
     // Calls the proper pipline in order to detect the correct color (in this case its red)
@@ -81,6 +90,10 @@ public class RED_AUTO_50Point extends LinearOpMode {
         // Set inital pose
         drive.setPoseEstimate(new Pose2d());
 
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.RED;
+        blinkinLedDriver.setPattern(pattern);
+
         PurplePixelServo = hardwareMap.servo.get("PurplePixelServo");
         AirplaneLaunchServo = hardwareMap.servo.get("AirplaneLaunchServo");
         PixelCoverServo = hardwareMap.servo.get("PixelCoverServo");
@@ -94,7 +107,7 @@ public class RED_AUTO_50Point extends LinearOpMode {
         AirplaneLaunchServo.setPosition(initPlane * DegreeTorque);
 
 
-        FlippyFlip.setDirection(Servo.Direction.REVERSE);
+        FlippyFlip.setDirection(Servo.Direction.FORWARD);
         PixelCoverServo.setDirection(Servo.Direction.FORWARD);
         FlooppyFloop.setDirection(Servo.Direction.FORWARD);
         WristServoL.setDirection(Servo.Direction.FORWARD);
@@ -144,49 +157,27 @@ public class RED_AUTO_50Point extends LinearOpMode {
 
         TrajectorySequence POSITIONM = drive.trajectorySequenceBuilder(new Pose2d())
 
-                //////////////////////////////
-                // Placing the Purple Pixel //
-                //////////////////////////////
-                //////////////////////////////
-                // Placing the Purple Pixel //
-                //////////////////////////////
+                .lineToLinearHeading(new Pose2d(-29, -6, Math.toRadians(0)))
                 .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
-
-                //////////////////////////////
-                // Placing the Orange Pixel //
-                //////////////////////////////
-
-                .waitSeconds(4)
-                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                .lineToLinearHeading(new Pose2d(-20, -3, Math.toRadians(0)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     FlooppyFloop.setPosition(BackboardAutoArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-1.65, () -> {
                     WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
                     WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                .lineToLinearHeading(new Pose2d(-23, 22, Math.toRadians(-86)))
+                .lineToLinearHeading(new Pose2d(-23, 33, Math.toRadians(-86)))
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-0.20, () -> {
                     PixelCoverServo.setPosition(init *DegreeTorque);
                 })
-
-
-                //////////////////////////////
-                // RESET FOR DRIVER CONTROL //
-                //////////////////////////////
-
-                .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    WristServoR.setPosition(init * Degree5Turn);
-                    WristServoL.setPosition(init * Degree5Turn);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
-                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
-                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
-                })
-
                 .waitSeconds(50)
 
 
@@ -195,47 +186,27 @@ public class RED_AUTO_50Point extends LinearOpMode {
         TrajectorySequence POSITIONR = drive.trajectorySequenceBuilder(new Pose2d())
 
 
-
-                //////////////////////////////
-                // Placing the Purple Pixel //
-                //////////////////////////////
+                .lineToLinearHeading(new Pose2d(-30, 8, Math.toRadians(74)))
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
-
-                //////////////////////////////
-                // Placing the Orange Pixel //
-                //////////////////////////////
-
-                .waitSeconds(4)
-                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                .lineToLinearHeading(new Pose2d(-34, 22, Math.toRadians(74)))
+                .lineToLinearHeading(new Pose2d(-24, 22, Math.toRadians(-84)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     FlooppyFloop.setPosition(BackboardAutoArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-1.65, () -> {
                     WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
                     WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                .lineToLinearHeading(new Pose2d(-25, 30, Math.toRadians(-84)))
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-0.20, () -> {
                     PixelCoverServo.setPosition(init *DegreeTorque);
                 })
-
-
-                //////////////////////////////
-                // RESET FOR DRIVER CONTROL //
-                //////////////////////////////
-
-                .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    WristServoR.setPosition(init * Degree5Turn);
-                    WristServoL.setPosition(init * Degree5Turn);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
-                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
-                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
-                })
-
                 .waitSeconds(50)
 
                 .build();
@@ -247,50 +218,38 @@ public class RED_AUTO_50Point extends LinearOpMode {
                 //////////////////////////////
                 // Placing the Purple Pixel //
                 //////////////////////////////
+                .lineToLinearHeading(new Pose2d(-26, 2, Math.toRadians(75)))
+                .lineToLinearHeading(new Pose2d(-26, -10, Math.toRadians(75)))
                 .waitSeconds(1)
                 .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
                     PurplePixelServo.setPosition(DropPurplePixel * DegreeTorque);
                 })
-
-                //////////////////////////////
-                // Placing the Orange Pixel //
-                //////////////////////////////
-
-                .waitSeconds(4)
-                .UNSTABLE_addTemporalMarkerOffset(-4, () -> {
+                .lineToLinearHeading(new Pose2d(-27.5, 20, Math.toRadians(80)))
+                .lineToLinearHeading(new Pose2d(-27.5, 21, Math.toRadians(-97)))
+                .waitSeconds(2)
+                .UNSTABLE_addTemporalMarkerOffset(-2, () -> {
                     FlooppyFloop.setPosition(BackboardAutoArmsFloop * Degree5Turn);
                     FlippyFlip.setPosition(BackboardAutoArmsFlip * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-3.65, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(-1.65, () -> {
                     WristServoR.setPosition(BackboardAutoWristBack * Degree5Turn);
                     WristServoL.setPosition(BackboardAutoWristBack * Degree5Turn);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> {
+                .lineToLinearHeading(new Pose2d(-28, 32.50, Math.toRadians(-97)))
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(-0.20, () -> {
                     PixelCoverServo.setPosition(init *DegreeTorque);
                 })
 
-
-
-                //////////////////////////////
-                // RESET FOR DRIVER CONTROL //
-                //////////////////////////////
-
-                .waitSeconds(1)
-                .UNSTABLE_addTemporalMarkerOffset(-1, () -> {
-                    WristServoR.setPosition(init * Degree5Turn);
-                    WristServoL.setPosition(init * Degree5Turn);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(-.5, () -> {
-                    FlooppyFloop.setPosition(GroundArmsFloop * Degree5Turn);
-                    FlippyFlip.setPosition(GroundArmsFlip * Degree5Turn);
-                })
-
-                .waitSeconds(50)
                 .build();
 
         waitForStart();
 
         if (isStopRequested()) return;
+
+        if (displayKind == DisplayKind.AUTO) {
+            doAutoDisplay();
+        }
 
         // Set the current state to TRAJECTORY_1, our first step
         // Then have it follow that trajectory
@@ -366,5 +325,17 @@ public class RED_AUTO_50Point extends LinearOpMode {
 
         }
 
+    }
+    protected void doAutoDisplay()
+    {
+        if (ledCycleDeadline.hasExpired()) {
+            pattern = pattern.next();
+            displayPattern();
+            ledCycleDeadline.reset();
+        }
+    }
+    protected void displayPattern()
+    {
+        blinkinLedDriver.setPattern(pattern);
     }
 }
