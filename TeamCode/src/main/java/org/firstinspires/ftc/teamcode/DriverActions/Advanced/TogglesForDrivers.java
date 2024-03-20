@@ -15,6 +15,15 @@ public class TogglesForDrivers extends LinearOpMode {
     @Override
 
     public void runOpMode() throws InterruptedException {
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // This is the 1st part of the initialization phase where you would be able to set the variable  //
+        // name and the boolean statement for the toggles while also adding in the hardware maps         //
+        // that are necessary                                                                            //
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
         Servoname = hardwareMap.servo.get("Servoname");
 
@@ -29,10 +38,23 @@ public class TogglesForDrivers extends LinearOpMode {
 
         boolean Example_Toggle = false;             // A true or false statement that tells the
 
+
+
+
         waitForStart();
+
+        ///////////////////////////////////////////////////////
+        // This is the 2nd part of the initialization phase //
+        //////////////////////////////////////////////////////
+
 
 
         while (opModeIsActive()) {
+
+        /////////////////////////////////////
+        // This is when the Op-mode starts //
+        /////////////////////////////////////
+
 
             // Stored values of the gamepad inputs
             currentGamepad1.copy(gamepad1);         // This stores the last values that were pressed from gamepad 1
@@ -57,7 +79,8 @@ public class TogglesForDrivers extends LinearOpMode {
 
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
 
-
+                // Basically this is saying that when the _______ is pressed, change the value from
+                // false to true and vice versa
                 Example_Toggle = !Example_Toggle;
 
 
@@ -65,13 +88,14 @@ public class TogglesForDrivers extends LinearOpMode {
 
 
             if (Example_Toggle) {
+                // This will trigger after the 1st time the _______ is pressed on Gamepad 2
                 Servoname.setPosition(0);
             }
 
 
 
             else {
-                // This will trigger after the 2nd time the right bumper is pressed on Gamepad 2
+                // This will trigger after the 2nd time the ________ is pressed on Gamepad 2
                 Servoname.setPosition(.5);
             }
 
