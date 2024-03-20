@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Cosmetic_ExampleCode;
+package org.firstinspires.ftc.teamcode.Misc_ExampleCode;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

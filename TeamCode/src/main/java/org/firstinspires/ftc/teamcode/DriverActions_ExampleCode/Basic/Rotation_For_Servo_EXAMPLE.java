@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.DriverActions.Basic;
+package org.firstinspires.ftc.teamcode.DriverActions_ExampleCode.Basic;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
