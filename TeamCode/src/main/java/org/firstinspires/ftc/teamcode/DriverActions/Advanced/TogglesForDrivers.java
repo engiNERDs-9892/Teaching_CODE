@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class TogglesForDrivers extends LinearOpMode {
 
     // This is how to call the Servo variable name
-    public static Servo Servoname;
+    public static Servo ServoName;
 
     @Override
 
@@ -25,7 +25,7 @@ public class TogglesForDrivers extends LinearOpMode {
 
 
         // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
-        Servoname = hardwareMap.servo.get("Servoname");
+        ServoName = hardwareMap.servo.get("ServoName");
 
         // Variable names that are used to determine what the current game pad input is (For both game pad 1 & 2)
         Gamepad currentGamepad1 = new Gamepad();
@@ -89,14 +89,14 @@ public class TogglesForDrivers extends LinearOpMode {
 
             if (Example_Toggle) {
                 // This will trigger after the 1st time the _______ is pressed on Gamepad 2
-                Servoname.setPosition(0);
+                ServoName.setPosition(0);
             }
 
 
 
             else {
                 // This will trigger after the 2nd time the ________ is pressed on Gamepad 2
-                Servoname.setPosition(.5);
+                ServoName.setPosition(.5);
             }
 
 
