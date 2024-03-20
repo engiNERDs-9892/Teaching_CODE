@@ -62,9 +62,9 @@ public class Blinkin_LED_Controller_Example extends LinearOpMode {
             /**
              * NOTE:
              *  You can change the color of the LED's in the same way as you do in driver control for the
-             *  Automomus Period. You would need an if statement along with either the sensor that is pressed / is true,
-             *  or you would need to do a FSM (Finite State Machine) and tell it that depending on the state, change the
-             *  color of the LED's
+             *  Autonomous Period. You would need an if statement along with either the sensor that is pressed / is true,
+             *  or you would need to do a FSM (Finite State Machine) and tell the LED's to change depending on the state
+             *  or phase that the Autonomous is
              */
         }
     }
