@@ -17,6 +17,6 @@ public class Preselect_Opmode_Example extends LinearOpMode {
 
 /**
  *  NOTE:
- *  The preselectTelop, only works if the code above is written in @Autonomous
+ *  The preselectTelop, only works if the code above is written in @Autonomous (MAIN BIT OF CODE IS IN THE () ABOVE)
  */
 
