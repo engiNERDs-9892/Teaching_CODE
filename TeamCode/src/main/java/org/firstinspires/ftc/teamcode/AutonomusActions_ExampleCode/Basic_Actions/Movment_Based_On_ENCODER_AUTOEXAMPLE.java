@@ -10,11 +10,18 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //@Disabled
 public class Movment_Based_On_ENCODER_AUTOEXAMPLE extends LinearOpMode {
 
+    ////////////////////////////////////////////////////////////
+    // Creating the Variables for the robot to use            //
+    // such as motors, servos, led controller, variables ETC. //
+    ////////////////////////////////////////////////////////////
+
+    // Variables used in order to control the motors
     DcMotor motorFL;
     DcMotor motorFR;
     DcMotor motorBL;
     DcMotor motorBR;
 
+    // Variable used to make the wanted distance calculated in inches
     int in = 45;
     @Override
 
@@ -32,7 +39,7 @@ public class Movment_Based_On_ENCODER_AUTOEXAMPLE extends LinearOpMode {
         motorBL.setDirection(DcMotor.Direction.FORWARD);
 
 
-        // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
+        // This is how the Control Hub can read and use the motors (AKA: HARDWARE MAP = Needed for in order to use)
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorBL = hardwareMap.dcMotor.get("motorBL");
@@ -79,15 +86,20 @@ public class Movment_Based_On_ENCODER_AUTOEXAMPLE extends LinearOpMode {
                 // While loop keeps the code running until motors reach the desired position
                 while (opModeIsActive() && ((motorFL.isBusy() || motorFR.isBusy()))) {
                 }
+
+                // This just ends the entire movement once the position has been reached, and Resets the Encoders
                 motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
             }
-
         }
 
+
+    /**
+     * NOTE:
+     * We have to add another STOP AND RESET ENCODER in order to start a second movement of the robot (Otherwise it won't move)
+     */
     }
 
 

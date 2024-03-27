@@ -28,13 +28,6 @@ public class Movement_For_Motors_FC_EXAMPLE extends LinearOpMode {
         // maps that are necessary and add Motor Directions                                                //
         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Setting the motor Direction, so the motors rotate correctly (Default Direction = Forward)
-        motorFL.setDirection(DcMotor.Direction.FORWARD);
-        motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.FORWARD);
-        motorBL.setDirection(DcMotor.Direction.FORWARD);
-
-
         // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
@@ -42,12 +35,18 @@ public class Movement_For_Motors_FC_EXAMPLE extends LinearOpMode {
         motorBR = hardwareMap.dcMotor.get("motorBR");
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
+        // Setting the motor Direction, so the motors rotate correctly (Default Direction = Forward)
+        motorFL.setDirection(DcMotor.Direction.FORWARD);
+        motorFR.setDirection(DcMotor.Direction.REVERSE);
+        motorBR.setDirection(DcMotor.Direction.FORWARD);
+        motorBL.setDirection(DcMotor.Direction.FORWARD);
+
         // Adjust the orientation parameters to match your robot
         // This helps the robot know the proper orientation, rather than adjust the orientation of the robot manually
         // by resetting the heading
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);

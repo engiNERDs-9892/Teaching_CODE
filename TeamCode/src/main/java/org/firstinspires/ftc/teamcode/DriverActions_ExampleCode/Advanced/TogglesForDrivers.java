@@ -36,7 +36,7 @@ public class TogglesForDrivers extends LinearOpMode {
         Gamepad previousGamepad2 = new Gamepad();
 
 
-        boolean Example_Toggle = false;             // A true or false statement that tells the
+        boolean Example_Toggle = false;             // A true or false statement that tells the Toggle what state it is in
 
 
 
@@ -66,10 +66,6 @@ public class TogglesForDrivers extends LinearOpMode {
 
 
 
-
-
-
-
             ///////////////////////////////////////////////////////////////////////////////////////
             //                                      EXAMPLE                                      //
             //                                        FOR                                        //
@@ -85,15 +81,10 @@ public class TogglesForDrivers extends LinearOpMode {
 
 
             }
-
-
             if (Example_Toggle) {
                 // This will trigger after the 1st time the _______ is pressed on Gamepad 2
                 ServoName.setPosition(0);
             }
-
-
-
             else {
                 // This will trigger after the 2nd time the ________ is pressed on Gamepad 2
                 ServoName.setPosition(.5);

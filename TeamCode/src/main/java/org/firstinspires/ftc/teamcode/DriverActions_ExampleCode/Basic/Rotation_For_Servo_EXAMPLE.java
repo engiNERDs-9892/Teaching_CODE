@@ -47,17 +47,34 @@ public class Rotation_For_Servo_EXAMPLE extends LinearOpMode {
             //                                      ROTATION                                     //
             ///////////////////////////////////////////////////////////////////////////////////////
 
+            /**
+             * Note:
+             * A 5 turn servos from Gobilda have a full rotation that is = 1500 Degrees
+             * A Regular Gobilda servo's rotation is = 300 Degrees
+             * The max Axon Servo Rotation is (150 - 355 Degrees depending on servo programmer)
+             * If you set either servo to CR mode, in order to stop the CR servo from moving set the Position to (0.5)
+             * If you set either servo to CR mode, in order to rotate to make it spin clockwise, set the Position to (0.51 - 0.99)
+             * If you set either servo to CR mode, in order to rotate to make it spin counter clockwise, set the Position from (0 - 0.49)
+             */
 
+
+            // This will happen when you press the A button
             if (gamepad1.a) {
-                // This will trigger after some presses A
+
+                // This rotates the servo to 0% of its rotation (0 degrees for all servos)
                 ServoName.setPosition(0);
             }
 
-
+            // When you press the right trigger on gamepad 1
 
             if (gamepad1.right_trigger != 0){
-                // This will trigger when the right trigger is pushed down
+                // This rotates the servo to 50% of its rotation (150 Degrees for regular and a 5 turn = 750)
                 ServoName.setPosition(.5);
+            }
+
+            // When you move the gamepad 1's right stick on the y-axis
+            if (Math.abs(gamepad1.right_stick_y) >= 0.5) {
+                ServoName.setPosition((ServoName.getPosition() + 0.0005 * Math.signum(-gamepad1.right_stick_y)));
             }
         }
     }
