@@ -65,15 +65,21 @@ public class Rotation_For_Servo_EXAMPLE extends LinearOpMode {
                 ServoName.setPosition(0);
             }
 
-            // When you press the right trigger on gamepad 1
 
+            // When you press the right trigger on gamepad 1
             if (gamepad1.right_trigger != 0){
+
                 // This rotates the servo to 50% of its rotation (150 Degrees for regular and a 5 turn = 750)
                 ServoName.setPosition(.5);
             }
 
+
+
             // When you move the gamepad 1's right stick on the y-axis
             if (Math.abs(gamepad1.right_stick_y) >= 0.5) {
+
+                // This rotates the servo incrementally, (by 0.0005 * Value of joystick (0-1)) While the joystick
+                // is pushed up / pushed down
                 ServoName.setPosition((ServoName.getPosition() + 0.0005 * Math.signum(-gamepad1.right_stick_y)));
             }
         }
