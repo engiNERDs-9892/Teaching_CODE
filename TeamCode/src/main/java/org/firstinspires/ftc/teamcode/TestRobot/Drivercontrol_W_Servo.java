@@ -142,7 +142,7 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
 
 
 
-            if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
+            if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper) {
 
                 // Basically this is saying that when the _______ is pressed, change the value from
                 // false to true and vice versa
