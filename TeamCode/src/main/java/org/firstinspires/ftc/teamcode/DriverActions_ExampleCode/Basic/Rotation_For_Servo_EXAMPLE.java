@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.DriverActions_ExampleCode.Basic;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp(group = "drive")
-//@Disabled
+@Disabled
 public class Rotation_For_Servo_EXAMPLE extends LinearOpMode {
 
     // This is how to call the Servo variable name

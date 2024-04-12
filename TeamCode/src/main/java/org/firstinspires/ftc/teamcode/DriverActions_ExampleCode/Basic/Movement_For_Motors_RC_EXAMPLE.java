@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.DriverActions_ExampleCode.Basic;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 @TeleOp(group = "drive")
-//@Disabled
+@Disabled
 public class Movement_For_Motors_RC_EXAMPLE extends LinearOpMode {
 
     // This is how to call the Motor variable name

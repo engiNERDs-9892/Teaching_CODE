@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.DriverActions_ExampleCode.Basic;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 
 @TeleOp(group = "drive")
-//@Disabled
+@Disabled
 public class Movement_For_Motors_FC_EXAMPLE extends LinearOpMode {
 
     // This is how to call the Motor variable name

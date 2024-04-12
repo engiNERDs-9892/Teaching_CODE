@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriverActions_ExampleCode.Advanced.Roadrunner;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Tuning_Variables_ROADRUNNER.Useful.SampleM
 import org.firstinspires.ftc.teamcode.Tuning_Variables_ROADRUNNER.Useless.PoseStorage;
 
 @TeleOp(group = "advanced")
+@Disabled
 public class RRMovement_For_Motors_RC_EXAMPLE extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TestRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -28,11 +29,6 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
         // maps that are necessary and add Motor Directions                                                //
         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Setting the motor Direction, so the motors rotate correctly (Default Direction = Forward)
-        motorFL.setDirection(DcMotor.Direction.FORWARD);
-        motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.FORWARD);
-        motorBL.setDirection(DcMotor.Direction.FORWARD);
 
 
         // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
@@ -42,6 +38,14 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
         motorBR = hardwareMap.dcMotor.get("motorBR");
 
         TestServoL = hardwareMap.servo.get("TestServoL");
+
+        // Setting the motor Direction, so the motors rotate correctly (Default Direction = Forward)
+        motorFL.setDirection(DcMotor.Direction.FORWARD);
+        motorFR.setDirection(DcMotor.Direction.REVERSE);
+        motorBR.setDirection(DcMotor.Direction.REVERSE);
+        motorBL.setDirection(DcMotor.Direction.FORWARD);
+
+
 
 
 
