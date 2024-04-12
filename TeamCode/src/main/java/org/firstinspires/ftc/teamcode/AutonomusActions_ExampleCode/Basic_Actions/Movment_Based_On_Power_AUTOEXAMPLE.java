@@ -78,7 +78,7 @@ public class Movment_Based_On_Power_AUTOEXAMPLE extends LinearOpMode {
         /**
          * NOTE:
          * We can change the direction of the robot after the power is set to 0 and repeat the same actions using the set
-         * motor Direction up above, but it is recommendeed that you first change the direction of the motors,
+         * motor Direction up above, but it is recommended that you first change the direction of the motors,
          * add a sleep command, THEN add the motor power after the sleep command. Otherwise, if you put it before the
          * change of directions, the motors will go the same direction as the previous step with the new power added
          * to the motors.
