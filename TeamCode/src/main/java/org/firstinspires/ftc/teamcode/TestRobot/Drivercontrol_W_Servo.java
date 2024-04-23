@@ -1,17 +1,15 @@
 package org.firstinspires.ftc.teamcode.TestRobot;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
-
 
 @TeleOp(group = "drive")
 //@Disabled
 public class Drivercontrol_W_Servo extends LinearOpMode {
 
-    // This is how to call the Motor variable name
 
     DcMotor motorFL;
     DcMotor motorFR;
@@ -20,15 +18,9 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
 
     Servo TestServoL;
 
+
     @Override
-
     public void runOpMode() throws InterruptedException {
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
-        // This is the 1st part of the initialization phase where you would be able to add in the hardware //
-        // maps that are necessary and add Motor Directions                                                //
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
         // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
@@ -46,56 +38,27 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
         motorBL.setDirection(DcMotor.Direction.FORWARD);
 
 
-
-
-
-
-
-        // Variable names that are used to determine what the current game pad input is (For both game pad 1 & 2)
+        // A way to store values that the gamepad enters
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad currentGamepad2 = new Gamepad();
 
-        // Variable names that are used to determine what the current game pad input is (For both game pad 1 & 2)
+        // A way to store values that gamepad enters
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
 
-
-        boolean Example_Toggle = false;             // A true or false statement that tells the Toggle what state it is in
+        boolean TestingServo_Toggle = false;
 
         waitForStart();
 
-        ///////////////////////////////////////////////////////
-        // This is the 2nd part of the initialization phase //
-        //////////////////////////////////////////////////////
-
-
-
         while (opModeIsActive()) {
 
-
-
-            ///////////////////////////////////////////////////////////////////////////////////////
-            //                                      EXAMPLE                                      //
-            //                                        FOR                                        //
-            //                                        THE                                        //
-            //                                       MOTOR                                       //
-            //                                      MOVEMENT                                     //
-            //                                    ROBOT CENTRIC                                  //
-            //                                        W/O                                        //
-            //                                     ROADRUNNER                                    //
-            ///////////////////////////////////////////////////////////////////////////////////////
-
+            // Stored values of the gamepad inputs
+            previousGamepad1.copy(currentGamepad1);
+            previousGamepad2.copy(currentGamepad2);
 
             // Stored values of the gamepad inputs
-            currentGamepad1.copy(gamepad1);         // This stores the last values that were pressed from gamepad 1
-            currentGamepad2.copy(gamepad2);         // This stores the last values that were pressed from gamepad 2
-
-            // Used values of the gamepad inputs
-            previousGamepad1.copy(currentGamepad1); // This checks and make sures that it has the proper position stored
-            previousGamepad2.copy(currentGamepad2); // This checks and make sures that it has the proper position stored
-
-
-
+            currentGamepad1.copy(gamepad1);
+            currentGamepad2.copy(gamepad2);
 
             // Variable used for Regular speed (To find the direction that the stick needs to be in) (Controller 1)
             double max;
@@ -137,32 +100,29 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
             }
 
 
-                // Setting the power for Regular Speed
-                motorFL.setPower(leftFrontPower * .7);
-                motorBL.setPower(leftBackPower * .7);
-                motorFR.setPower(rightFrontPower * .7);
-                motorBR.setPower(rightBackPower * .7);
+            // Setting the power for Regular Speed
+            motorFL.setPower(leftFrontPower * .7);
+            motorBL.setPower(leftBackPower * .7);
+            motorFR.setPower(rightFrontPower * .7);
+            motorBR.setPower(rightBackPower * .7);
 
 
-
-
-            if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper) {
-
-                // Basically this is saying that when the _______ is pressed, change the value from
-                // false to true and vice versa
-                Example_Toggle = !Example_Toggle;
-
-
+            // Toggle / Close & Open for the Left claw
+            if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) {
+                // This will set intakeToggle to true if it was previously false
+                // and intakeToggle to false if it was previously true,
+                // providing a toggling behavior.
+                TestingServo_Toggle = !TestingServo_Toggle;
             }
-            if (Example_Toggle) {
-                // This will trigger after the 1st time the _______ is pressed on Gamepad 2
-                TestServoL.setPosition(0);
-            }
-            else {
-                // This will trigger after the 2nd time the ________ is pressed on Gamepad 2
+
+            // Opens the claws after the 1st press of the bumper and alternates once pressed again
+            if (TestingServo_Toggle) {
                 TestServoL.setPosition(.99);
             }
-
+            // Closes the claws on the 2nd press of the bumper and alternates once pressed again
+            else {
+                TestServoL.setPosition(0.01);
+            }
         }
     }
 }
