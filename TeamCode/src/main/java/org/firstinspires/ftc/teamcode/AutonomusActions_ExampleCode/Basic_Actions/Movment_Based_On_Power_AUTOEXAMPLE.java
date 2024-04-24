@@ -30,21 +30,19 @@ public class Movment_Based_On_Power_AUTOEXAMPLE extends LinearOpMode {
         // maps that are necessary and add Motor Directions                                                //
         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Setting the motor Direction, so the motors rotate correctly (Default Direction of a motor = Forward)
-        motorFL.setDirection(DcMotor.Direction.FORWARD);
-        motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.FORWARD);
-        motorBL.setDirection(DcMotor.Direction.FORWARD);
-
-
         // This is how the Control Hub can read and use the motors (AKA: HARDWARE MAP = Needed for in order to use)
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorBL = hardwareMap.dcMotor.get("motorBL");
         motorBR = hardwareMap.dcMotor.get("motorBR");
 
+        // Setting the motor Direction, so the motors rotate correctly (Default Direction of a motor = Forward)
+        motorFL.setDirection(DcMotor.Direction.FORWARD);
+        motorFR.setDirection(DcMotor.Direction.REVERSE);
+        motorBR.setDirection(DcMotor.Direction.FORWARD);
+        motorBL.setDirection(DcMotor.Direction.FORWARD);
+
         waitForStart();
-        while (opModeIsActive()) {
 
 
             ///////////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +79,6 @@ public class Movment_Based_On_Power_AUTOEXAMPLE extends LinearOpMode {
          * to the motors.
          */
     }
-}
+
 
 

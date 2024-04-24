@@ -22,6 +22,10 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        // This is the 1st part of the initialization phase where you would be able to add in the hardware //
+        // maps that are necessary and add Motor & Servo Directions                                        //
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // This is how the Control Hub can read and use the servo (AKA: HARDWARE MAP = Needed for in order to use)
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -51,6 +55,16 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            ///////////////////////////////////////////////////////////////////////////////////////
+            //                                      EXAMPLE                                      //
+            //                                        FOR                                        //
+            //                                        THE                                        //
+            //                                       MOTOR                                       //
+            //                                      MOVEMENT                                     //
+            //                                    ROBOT CENTRIC                                  //
+            //                                        WITH                                       //
+            //                                 SERVO & NO ROADRUNNER                             //
+            ///////////////////////////////////////////////////////////////////////////////////////
 
             // Stored values of the gamepad inputs
             previousGamepad1.copy(currentGamepad1);
@@ -59,6 +73,13 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
             // Stored values of the gamepad inputs
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
+
+
+            /** Driver Control example is found in the Teaching_Code Repository under
+             *  TeamCode -> org.firstinspires.ftc.teamcode -> DriverActions_ExampleCode ->
+             *  Basic -> Movement_For_Motors_FC_Example / Movement_For_Motors_RC_Example
+             */
+
 
             // Variable used for Regular speed (To find the direction that the stick needs to be in) (Controller 1)
             double max;
@@ -107,6 +128,12 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
             motorBR.setPower(rightBackPower * .7);
 
 
+
+            /** Toggle example is found in the Teaching_Code Repository under
+             *  TeamCode -> org.firstinspires.ftc.teamcode -> DriverActions_ExampleCode -> Advanced -> TogglesForDriver.java
+             */
+
+
             // Toggle / Close & Open for the Left claw
             if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) {
                 // This will set intakeToggle to true if it was previously false
@@ -123,6 +150,17 @@ public class Drivercontrol_W_Servo extends LinearOpMode {
             else {
                 TestServoL.setPosition(0.01);
             }
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }

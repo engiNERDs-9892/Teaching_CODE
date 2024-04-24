@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Misc_ExampleCode;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,10 +7,13 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 
 @TeleOp(group = "drive")
-@Disabled
+//@Disabled
 public class Blinkin_LED_Controller_Example extends LinearOpMode {
     public static RevBlinkinLedDriver blinkinLedDriver; // Variable name of the Brains of the LED's
     public static RevBlinkinLedDriver.BlinkinPattern pattern; // Variable name of how to change th color
+    Deadline ledCycleDeadline;
+
+
 
     @Override
 
